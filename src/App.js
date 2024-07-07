@@ -5,7 +5,7 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 
 const App = () => {
-  const [timeLeft, setTimeLeft] = useState(2592000); // 30 days in seconds
+  const [timeLeft, setTimeLeft] = useState(2592000); 
 
   useEffect(() => {
     if (timeLeft <= 0) return;
@@ -102,7 +102,7 @@ const App = () => {
         </Grid>
       </Grid>
       <Typography variant="body2" color="textSecondary" sx={{ position: 'absolute', bottom: '10px', left: '50%', transform: 'translateX(-50%)' }}>
-        &copy; {new Date().getFullYear()} by TagZy LLP. All rights reserved.
+        &copy; {new Date().getFullYear()} by TagZy. All rights reserved.
       </Typography>
     </Container>
   );
