@@ -89,7 +89,7 @@ const NotifyMe = () => {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button type="submit" onClick={handleClose}>Subscribe</Button>
+            <Button type="submit">Subscribe</Button>
           </DialogActions>
         </form>
       </Dialog>
