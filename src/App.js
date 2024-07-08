@@ -7,13 +7,20 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 import NotifyMe from './Component/Notifyme/NotifyMe';
 
 const App = () => {
-  const [timeLeft, setTimeLeft] = useState(2592000);
+  const calculateTimeLeft = () => {
+    const targetDate = new Date('2024-08-31T00:00:00'); // Target date: 31th August 2024
+    const now = new Date();
+    const difference = targetDate - now;
+    return Math.max(Math.floor(difference / 1000), 0); // Convert difference to seconds
+  };
+
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
   useEffect(() => {
     if (timeLeft <= 0) return;
 
     const timer = setInterval(() => {
-      setTimeLeft(timeLeft - 1);
+      setTimeLeft(prevTimeLeft => prevTimeLeft - 1);
     }, 1000);
 
     return () => clearInterval(timer);
