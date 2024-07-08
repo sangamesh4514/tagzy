@@ -54,10 +54,10 @@ const App = () => {
       <Grid container spacing={4} justifyContent="center" className='container'>
         <Grid item xs={3}>
           <Box display="flex" flexDirection="column" alignItems="center">
-            <Typography sx={{ fontSize: '5rem', color: 'black', fontWeight: 'bold' }}>
+            <Typography className='number' sx={{ fontSize: '5rem', color: 'black', fontWeight: 'bold' }}>
               {days}
             </Typography>
-            <Typography sx={{ fontSize: '1.5rem', color: 'black', fontWeight: 'bold', marginTop: '10px' }}>
+            <Typography className='text' sx={{ fontSize: '1.5rem', color: 'black', fontWeight: 'bold', marginTop: '10px' }}>
               DAYS
             </Typography>
           </Box>

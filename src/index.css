@@ -14,9 +14,9 @@ code {
 }
 
 .container div div{
-  p:first-child{
+  p:nth-child(1){
     @media only screen and (max-width: 600px) {
-      font-size: 4rem;
+      font-size: 3.5rem;
     }
   }
   p:nth-child(2){
