@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Typography, Grid, Box,Link } from '@mui/material';
+import { Container, Typography, Grid, Box, Link } from '@mui/material';
+
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import YouTubeIcon from '@mui/icons-material/YouTube';
+import NotifyMe from './Component/Notifyme/NotifyMe';
 
 const App = () => {
-  const [timeLeft, setTimeLeft] = useState(2592000); 
+  const [timeLeft, setTimeLeft] = useState(2592000);
 
   useEffect(() => {
     if (timeLeft <= 0) return;
@@ -39,7 +41,7 @@ const App = () => {
         textAlign: 'center',
       }}
     >
-       <Typography variant="h2" component="h1" gutterBottom sx={{ color: 'black', fontWeight: 'bold', fontSize: '4rem' }}>
+      <Typography variant="h2" component="h1" gutterBottom sx={{ color: 'black', fontWeight: 'bold', fontSize: '4rem' }}>
         Coming Soon
       </Typography>
       <Grid container spacing={4} justifyContent="center">
@@ -84,7 +86,10 @@ const App = () => {
           </Box>
         </Grid>
       </Grid>
-      <Grid container justifyContent="center"  sx={{ position: 'absolute', bottom: '30px', left: '50%', transform: 'translateX(-50%)' }}>
+      <Grid>
+        <NotifyMe/>
+      </Grid>
+      <Grid container justifyContent="center" sx={{ position: 'absolute', bottom: '30px', left: '50%', transform: 'translateX(-50%)', padding:'25px'}}>
         <Grid item>
           <Link href="https://www.instagram.com/tagzy.in/" target="_blank" rel="noopener noreferrer" color="inherit" underline="none">
             <InstagramIcon sx={{ fontSize: '3rem', color: '#C13584', marginRight: '20px' }} />
@@ -101,7 +106,7 @@ const App = () => {
           </Link>
         </Grid>
       </Grid>
-      <Typography variant="body2" color="textSecondary" sx={{ position: 'absolute', bottom: '10px', left: '50%', transform: 'translateX(-50%)' }}>
+      <Typography variant="body2" color="textSecondary" sx={{ position: 'absolute', bottom: '0', left: '50%', transform: 'translateX(-50%)', whiteSpace: 'nowrap', padding:'25px'}}>
         &copy; {new Date().getFullYear()} by TagZy. All rights reserved.
       </Typography>
     </Container>
