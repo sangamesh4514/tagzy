@@ -51,7 +51,7 @@ const App = () => {
       <Typography variant="h2" component="h1" gutterBottom sx={{ color: 'black', fontWeight: 'bold', fontSize: '4rem' }}>
         Coming Soon
       </Typography>
-      <Grid container spacing={4} justifyContent="center">
+      <Grid container spacing={4} justifyContent="center" className='container'>
         <Grid item xs={3}>
           <Box display="flex" flexDirection="column" alignItems="center">
             <Typography sx={{ fontSize: '5rem', color: 'black', fontWeight: 'bold' }}>
