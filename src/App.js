@@ -40,7 +40,7 @@ const App = () => {
       }}
     >
        <Typography variant="h2" component="h1" gutterBottom sx={{ color: 'black', fontWeight: 'bold', fontSize: '4rem' }}>
-        Coming Soon
+        Coming Soon good
       </Typography>
       <Grid container spacing={4} justifyContent="center">
         <Grid item xs={3}>
