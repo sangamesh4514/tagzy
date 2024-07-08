@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Typography, Grid, Box, Link } from '@mui/material';
-
+import { useMediaQuery } from '@mui/material';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import YouTubeIcon from '@mui/icons-material/YouTube';
@@ -35,6 +35,8 @@ const App = () => {
   };
 
   const { days, hours, minutes, secs } = formatTime(timeLeft);
+  const isSmallScreen = useMediaQuery('(max-width:600px)');
+
 
   return (
     <Container
@@ -48,46 +50,46 @@ const App = () => {
         textAlign: 'center',
       }}
     >
-      <Typography variant="h2" component="h1" gutterBottom sx={{ color: 'black', fontWeight: 'bold', fontSize: '4rem' }}>
+      <Typography variant="h2" component="h1" gutterBottom sx={{ color: 'black', fontWeight: 'bold', fontSize: isSmallScreen ? '3rem' : '4rem' }}>
         Coming Soon
       </Typography>
       <Grid container spacing={4} justifyContent="center" className='container'>
         <Grid item xs={3}>
           <Box display="flex" flexDirection="column" alignItems="center">
-            <Typography className='number' sx={{ fontSize: '5rem', color: 'black', fontWeight: 'bold' }}>
+            <Typography sx={{ fontSize: isSmallScreen ? '3.5rem' : '5rem', color: 'black', fontWeight: 'bold' }}>
               {days}
             </Typography>
-            <Typography className='text' sx={{ fontSize: '1.5rem', color: 'black', fontWeight: 'bold', marginTop: '10px' }}>
+            <Typography sx={{ fontSize: isSmallScreen ? '1rem' : '1.5rem', color: 'black', fontWeight: 'bold', marginTop: '10px' }}>
               DAYS
             </Typography>
           </Box>
         </Grid>
         <Grid item xs={3}>
           <Box display="flex" flexDirection="column" alignItems="center">
-            <Typography sx={{ fontSize: '5rem', color: 'black', fontWeight: 'bold' }}>
+            <Typography sx={{ fontSize: isSmallScreen ? '3.5rem' : '5rem', color: 'black', fontWeight: 'bold' }}>
               {hours}
             </Typography>
-            <Typography sx={{ fontSize: '1.5rem', color: 'black', fontWeight: 'bold', marginTop: '10px' }}>
+            <Typography sx={{ fontSize: isSmallScreen ? '1rem' : '1.5rem', color: 'black', fontWeight: 'bold', marginTop: '10px' }}>
               HOURS
             </Typography>
           </Box>
         </Grid>
         <Grid item xs={3}>
           <Box display="flex" flexDirection="column" alignItems="center" paddingRight="10px">
-            <Typography sx={{ fontSize: '5rem', color: 'black', fontWeight: 'bold' }}>
+            <Typography sx={{ fontSize: isSmallScreen ? '3.5rem' : '5rem', color: 'black', fontWeight: 'bold' }}>
               {minutes}
             </Typography>
-            <Typography sx={{ fontSize: '1.5rem', color: 'black', fontWeight: 'bold', marginTop: '10px' }}>
+            <Typography sx={{ fontSize: isSmallScreen ? '1rem' : '1.5rem', color: 'black', fontWeight: 'bold', marginTop: '10px' }}>
               MINUTES
             </Typography>
           </Box>
         </Grid>
         <Grid item xs={3}>
           <Box display="flex" flexDirection="column" alignItems="center">
-            <Typography sx={{ fontSize: '5rem', color: 'black', fontWeight: 'bold' }}>
+            <Typography sx={{ fontSize: isSmallScreen ? '3.5rem' : '5rem', color: 'black', fontWeight: 'bold' }}>
               {secs}
             </Typography>
-            <Typography sx={{ fontSize: '1.5rem', color: 'black', fontWeight: 'bold', marginTop: '10px' }}>
+            <Typography sx={{ fontSize: isSmallScreen ? '1rem' : '1.5rem', color: 'black', fontWeight: 'bold', marginTop: '10px' }}>
               SECONDS
             </Typography>
           </Box>

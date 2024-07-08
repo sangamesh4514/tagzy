@@ -55,7 +55,7 @@ const NotifyMe = () => {
           <DialogTitle>Subscribe</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              To subscribe to this website, please enter your email address and your city here. We will send updates.
+              To subscribe to this website, please enter your name, email address and your city here. We will send updates.
             </DialogContentText>
             <TextField
               autoFocus
