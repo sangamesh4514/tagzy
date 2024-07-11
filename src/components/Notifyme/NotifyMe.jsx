@@ -26,6 +26,7 @@ const NotifyMe = () => {
       )
       .then(
         (result) => {
+          setOpen(false);
           console.log('=== result', result);
         },
         (error) => {
