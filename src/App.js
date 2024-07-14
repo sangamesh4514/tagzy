@@ -1,12 +1,12 @@
 import React from 'react'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
-import Comingsoon from './pages/Comingsoon'
+import Comingsoon2 from './pages/Comingsoon2'
 const App = () => {
   return (
-    <div>
+    <div className=''>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Comingsoon />} />
+          <Route path='/coming' element={<Comingsoon2 />} />
         </Routes>
       </BrowserRouter>
     </div>
