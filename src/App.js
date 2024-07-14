@@ -6,7 +6,7 @@ const App = () => {
     <div className=''>
       <BrowserRouter>
         <Routes>
-          <Route path='/coming' element={<Comingsoon2 />} />
+          <Route path='/' element={<Comingsoon2 />} />
         </Routes>
       </BrowserRouter>
     </div>
