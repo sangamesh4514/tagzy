@@ -43,7 +43,8 @@ const MidSection = () => {
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    textAlign: 'center'
+                    textAlign: 'center',
+                    overflow: 'hidden'
                 }}
             >
                 <Typography variant="h2" component="h1" gutterBottom sx={{ color: 'black', fontWeight: 'bold', fontSize: isSmallScreen ? '3rem' : '4rem' }}>
