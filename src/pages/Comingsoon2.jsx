@@ -34,29 +34,6 @@ const Comingsoon2 = () => {
     };
 
     const { days, hours, minutes, secs } = formatTime(timeLeft);
-
-    // let duration = 1000; // duration for the confetti animation
-    // let defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
-
-    // function randomInRange(min, max) {
-    // return Math.random() * (max - min) + min;
-    // }
-
-    // function startConfetti() {
-    // let animationEnd = Date.now() + duration;
-    // let interval = setInterval(function() {
-    //     let timeLeft = animationEnd - Date.now();
-
-    //     if (timeLeft <= 0) {
-    //     return clearInterval(interval);
-    //     }
-
-    //     let particleCount = 50 * (timeLeft / duration);
-    //     // since particles fall down, start a bit higher than random
-    //         confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
-    //         confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
-    //     }, 250);
-    // }
     
     return (
         <>
@@ -75,44 +52,44 @@ const Comingsoon2 = () => {
 
                 {/* Main section */}
                 <div className='flex-grow flex flex-col justify-center items-center'>
-                    <div className='text-3xl font-bold text-white pt-2 md:text-5xl text-center'>
-                        We are coming soon
+                    <div className='text-4xl font-bold text-white pt-2 md:text-7xl text-center'>
+                        Coming soon
                     </div>
-                    <div className='flex justify-center mt-4 space-x-2 md:space-x-4'>
+                    <div className='flex justify-center mt-10 space-x-4 md:space-x-14'>
                         <div className='flex flex-col items-center'>
-                            <div className='text-3xl font-bold text-white md:text-6xl'>
+                            <div className='text-4xl font-bold text-white md:text-7xl'>
                                 {days}
                             </div>
-                            <div className='text-xl font-bold text-white md:text-2xl pt-2'>
+                            <div className='text-2xl font-bold text-white md:text-3xl pt-2'>
                                 Days
                             </div>
                         </div>
                         <div className='flex flex-col items-center'>
-                            <div className='text-3xl font-bold text-white md:text-6xl'>
+                            <div className='text-4xl font-bold text-white md:text-7xl'>
                                 {hours}
                             </div>
-                            <div className='text-xl font-bold text-white md:text-2xl pt-2'>
+                            <div className='text-2xl font-bold text-white md:text-3xl pt-2'>
                                 Hours
                             </div>
                         </div>
                         <div className='flex flex-col items-center'>
-                            <div className='text-3xl font-bold text-white md:text-6xl'>
+                            <div className='text-4xl font-bold text-white md:text-7xl'>
                                 {minutes}
                             </div>
-                            <div className='text-xl font-bold text-white md:text-2xl pt-2'>
+                            <div className='text-2xl font-bold text-white md:text-3xl pt-2'>
                                 Minutes
                             </div>
                         </div>
                         <div className='flex flex-col items-center'>
-                            <div className='text-3xl font-bold text-white md:text-6xl'>
+                            <div className='text-4xl font-bold text-white md:text-7xl'>
                                 {secs}
                             </div>
-                            <div className='text-xl font-bold text-white md:text-2xl pt-2'>
+                            <div className='text-2xl font-bold text-white md:text-3xl pt-2'>
                                 Seconds
                             </div>
                         </div>
                     </div>
-                    <div className='mt-6'>
+                    <div className='mt-8'>
                         <ToggleModal />
                     </div>
                 </div>
