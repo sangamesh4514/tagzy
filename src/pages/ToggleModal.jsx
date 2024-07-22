@@ -3,9 +3,6 @@ import emailjs from '@emailjs/browser';
 
 const ToggleModal = () => {
     const [isOpen, setIsOpen] = useState(false)
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [city, setCity] = useState('')
     const formRef = useRef()
 
     const toggleOpen = () => {
@@ -29,7 +26,7 @@ const ToggleModal = () => {
                 (error) => {
                 console.log('=== error', error);
                 }
-            );
+            )
     }
 
     return (
@@ -55,7 +52,7 @@ const ToggleModal = () => {
             {/* NoifyMe Card */}
             {isOpen && (
                 <div 
-                    className="fixed inset-0 z-50 flex justify-center items-center w-full h-[calc(100%-1rem)] max-h-full overflow-y-auto overflow-x-hidden bg-gradient-to-r from-sky-500 to-indigo-500"
+                    className="fixed inset-0 z-50 flex justify-center items-center w-full h-[calc(100%-1rem)] max-h-full overflow-y-auto overflow-x-hidden"
                 >
                     <div className="relative p-4 w-full max-w-md max-h-full">
                     {/* Modal content */}
@@ -71,7 +68,7 @@ const ToggleModal = () => {
                             </div>
                             {/* Modal body */}
                             <div className="p-4 md:p-5">
-                                <form className="space-y-4" action="#" ref={formRef}>
+                                <form className="space-y-4" action="#" ref={formRef} onSubmit={emailSender}>
                                     <div>
                                         <label
                                             htmlFor="name"
@@ -80,12 +77,11 @@ const ToggleModal = () => {
                                             Your Name
                                         </label>
                                         <input
+                                            required
                                             type="text"
                                             name="name"
                                             id="name"
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                                            value={name}
-                                            onChange={(e) => setName(e.target.value)}
                                         />
                                     </div>
                                     <div>
@@ -96,12 +92,11 @@ const ToggleModal = () => {
                                             Your Email
                                         </label>
                                         <input
-                                            type="text"
+                                            required
+                                            type="email"
                                             name="email"
                                             id="email"
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
                                         />
                                     </div>
                                     <div>
@@ -112,12 +107,11 @@ const ToggleModal = () => {
                                             Your City
                                         </label>
                                         <input
+                                            required
                                             type="text"
                                             name="city"
                                             id="city"
                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                                            value={city}
-                                            onChange={(e) => setCity(e.target.value)}
                                         />
                                     </div>
                                     <div className='flex flex-row'>
@@ -131,7 +125,6 @@ const ToggleModal = () => {
                                         <button
                                             type="submit"
                                             className="w-full text-white bg-gray-700 hover:bg-gray-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                                            onClick={emailSender}
                                         >
                                             Subscribe
                                         </button>
