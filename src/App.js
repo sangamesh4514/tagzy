@@ -5,7 +5,7 @@ import NewPage from './components/NewPage'
 import Greet from './pages/Greet'
 const App = () => {
   return (
-    <div className=''>
+    <div>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Comingsoon2 />} />
