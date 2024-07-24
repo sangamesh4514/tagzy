@@ -1,0 +1,36 @@
+.SecondWrapper {
+    display: flex;
+    justify-content: space-between;
+    background: white;
+    /* height: 650px; */
+    /* padding: 60px 0 0 0; */
+
+    .image {
+        width: 600px;
+        height: 650px;
+    }
+    .text{
+        width: 50%;
+        padding-right: 60px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 50px;
+
+        .text1 {
+            font-weight: bold;
+            color: #0b5257;
+            text-align: left;
+            font-size: 55px;
+            line-height: 62px;
+        }
+        .text2{
+            color: var(--midnight-blue);
+            margin-bottom: 0;
+            font-family: Plusjakartadisplay, sans-serif;
+            font-size: 18px;
+            line-height: 32px;
+        }
+    }
+}
