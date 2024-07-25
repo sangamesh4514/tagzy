@@ -7,7 +7,7 @@ const SecondConatiner = () => {
     return (
         <div className="SecondWrapper">
             <div className="image">
-                <img src="/home.jpeg" alt="tree" />
+                <img className='mainImage' src="/home.jpeg" alt="tree" />
             </div>
             <div className="text">
                 <p className="text1">

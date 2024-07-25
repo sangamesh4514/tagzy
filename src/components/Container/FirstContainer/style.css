@@ -1,16 +1,14 @@
 .wrapper {
     display: flex;
     background: white;
-    /* height: calc(100vh - 108px); */
     justify-content: space-between;
+    padding: 0 60px;
 
     .text {
         width: 50%;
-        padding-left: 60px;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
         gap: 50px;
 
         .text1 {
@@ -32,5 +30,9 @@
     .image {
         width: 600px;
         height: 650px;
+        .mainImage{
+            border-top-left-radius: 40px;
+            border-top-right-radius: 40px;
+        }
     }
 }

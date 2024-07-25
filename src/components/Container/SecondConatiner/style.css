@@ -2,20 +2,22 @@
     display: flex;
     justify-content: space-between;
     background: white;
-    /* height: 650px; */
-    /* padding: 60px 0 0 0; */
+    padding: 0 60px;
 
     .image {
         width: 600px;
         height: 650px;
+
+        .mainImage{
+            border-top-left-radius: 40px;
+            border-top-right-radius: 40px;
+        }
     }
     .text{
         width: 50%;
-        padding-right: 60px;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
         gap: 50px;
 
         .text1 {
