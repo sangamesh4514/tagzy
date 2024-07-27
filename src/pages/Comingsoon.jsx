@@ -5,7 +5,7 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 import ToggleModal from './ToggleModal';
 import { Helmet } from 'react-helmet';
 
-const Comingsoon2 = () => {
+const Comingsoon = () => {
     const calculateTimeLeft = () => {
         const targetDate = new Date('2024-08-31T00:00:00'); // Target date: 31th August 2024
         const now = new Date();
@@ -38,7 +38,7 @@ const Comingsoon2 = () => {
     return (
         <>
             <Helmet>
-                <title>TagZy - Coming soon</title>
+                <title>TagZy - Coming Soon</title>
                 <meta
                     name='description'
                     content='Tagzy is coming soon. Stay tuned for updates on our web app to hire professionals.'
@@ -53,7 +53,7 @@ const Comingsoon2 = () => {
                 {/* Main section */}
                 <div className='flex-grow flex flex-col justify-center items-center'>
                     <div className='text-4xl font-bold text-white pt-2 md:text-7xl text-center'>
-                        Coming soon
+                        Coming Soon
                     </div>
                     <div className='flex justify-center mt-10 space-x-4 md:space-x-14'>
                         <div className='flex flex-col items-center'>
@@ -117,4 +117,4 @@ const Comingsoon2 = () => {
     )
 }
 
-export default Comingsoon2
+export default Comingsoon
