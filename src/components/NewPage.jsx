@@ -1,8 +1,9 @@
 import React from 'react'
+import Header from './Header'
 
 const NewPage = () => {
   return (
-    <div>NewPage</div>
+    <div>new page</div>
   )
 }
 
