@@ -1,7 +1,6 @@
 import React from 'react'
 import Header from './Header'
 import MainContainer from './MainContainer'
-import Footer from './Footer';
 
 const NewPage = () => {
   const text1 = 'Marketplace For local Services';
@@ -13,7 +12,6 @@ const NewPage = () => {
       <Header />
       <MainContainer text={text1} subText={subText1} img={'/tree.png'}/>
       <MainContainer text={text2} subText={subText2} img={'/home.jpeg'} reverse={true}/>
-      <Footer/>
     </>
   )
 }
