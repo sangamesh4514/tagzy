@@ -10,13 +10,8 @@ const NewPage = () => {
    return (
     <>
       <Header />
-<<<<<<< HEAD
       <MainContainer text={text1} subText={subText1} img={'https://tagzybucket.s3.ap-south-1.amazonaws.com/tree.png'}/>
       <MainContainer text={text2} subText={subText2} img={'https://tagzybucket.s3.ap-south-1.amazonaws.com/home.jpeg'} reverse={true}/>
-=======
-      <MainContainer text={text1} subText={subText1} img={'/tree.png'}/>
-      <MainContainer text={text2} subText={subText2} img={'/home.jpeg'} reverse={true}/>
->>>>>>> 1ff8dae (remove-footer)
     </>
   )
 }
