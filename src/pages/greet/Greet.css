@@ -1,0 +1,35 @@
+@keyframes drawLine {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 100%;
+    }
+}
+  
+.line-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+  
+.line-animation {
+    height: 4px;
+    background-color: #ffffff; /* You can change the color as needed */
+    width: 0;
+    animation: drawLine 3s ease-out forwards;
+}
+
+.fade-out {
+    animation: fadeOut 1s forwards;
+}
+  
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+  
