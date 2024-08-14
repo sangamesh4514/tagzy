@@ -1,8 +1,8 @@
 import React from 'react'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Comingsoon from './pages/Comingsoon'
-import NewPage from './components/NewPage'
 import Greet from './pages/greet/Greet'
+import NewPage from './pages/NewPage'
 const App = () => {
   return (
     <div>
