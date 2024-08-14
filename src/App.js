@@ -1,6 +1,6 @@
 import React from 'react'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
-import Comingsoon2 from './pages/Comingsoon2'
+import Comingsoon from './pages/Comingsoon'
 import NewPage from './components/NewPage'
 import Greet from './pages/Greet'
 const App = () => {
@@ -8,8 +8,8 @@ const App = () => {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Comingsoon2 />} />
-          <Route path='/newpage' element={<NewPage />} />
+          <Route path='/' element={<Comingsoon />} />
+          <Route path='/new' element={<NewPage />} />
           <Route path='/greet' element={<Greet />} />
         </Routes>
       </BrowserRouter>
