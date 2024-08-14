@@ -2,7 +2,7 @@ import React from 'react'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Comingsoon from './pages/Comingsoon'
 import NewPage from './components/NewPage'
-import Greet from './pages/Greet'
+import Greet from './pages/greet/Greet'
 const App = () => {
   return (
     <div>

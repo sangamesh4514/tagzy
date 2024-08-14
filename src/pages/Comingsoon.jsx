@@ -38,7 +38,7 @@ const Comingsoon = () => {
     return (
         <>
             <Helmet>
-                <title>TagZy - Coming soon</title>
+                <title>TagZy - Coming Soon</title>
                 <meta
                     name='description'
                     content='Tagzy is coming soon. Stay tuned for updates on our web app to hire professionals.'
@@ -53,7 +53,7 @@ const Comingsoon = () => {
                 {/* Main section */}
                 <div className='flex-grow flex flex-col justify-center items-center'>
                     <div className='text-4xl font-bold text-white pt-2 md:text-7xl text-center'>
-                        Coming soon
+                        Coming Soon
                     </div>
                     <div className='flex justify-center mt-10 space-x-4 md:space-x-14'>
                         <div className='flex flex-col items-center'>
