@@ -11,8 +11,8 @@ const Header = () => {
         <span className="name">TagZy</span>
       </div>
       <div className="navbarItem">
-        <a href="#">About</a>
-        <a href="#">Contact Us</a>
+        <a href="/">About</a>
+        <a href="/">Contact Us</a>
       </div>
     </div>
   );

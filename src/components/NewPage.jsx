@@ -1,14 +1,19 @@
 import React from 'react'
 import Header from './Header'
-import FirstConatiner from './Container/FirstContainer'
-import SecondConatiner from './Container/SecondConatiner'
+import MainContainer from './MainContainer'
+import Footer from './Footer';
 
 const NewPage = () => {
-  return (
+  const text1 = 'Marketplace For local Services';
+  const text2 = 'Make your community turnkey.';
+  const subText1 = 'At Assembly HOA Management, we combine Los Angeles best managers with modern transparent software to make your HOA experience seamless and stress-free.';
+  const subText2 = 'At Assembly, we actively enhance and preserve your property value through strategic maintenance, improvements, and community engagement. Our industry expertise ensures your investment is protected and your property remains appealing for all homeowners.';
+   return (
     <>
       <Header />
-      <FirstConatiner />
-      <SecondConatiner />
+      <MainContainer text={text1} subText={subText1} img={'/tree.png'}/>
+      <MainContainer text={text2} subText={subText2} img={'/home.jpeg'} reverse={true}/>
+      <Footer/>
     </>
   )
 }

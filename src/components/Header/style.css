@@ -20,6 +20,8 @@
         }
 
         .name {
+            letter-spacing: 4px;
+            font-family: serif;
             font-weight: bold;
             font-size: 45px;
             color: #15616d;
@@ -32,6 +34,7 @@
 
         a {
             font-size: 22px;
+            font-family: math;
             font-weight: bold;
             text-decoration: none;
             color: #204a4c;
