@@ -7,7 +7,7 @@ import { Helmet } from 'react-helmet';
 
 const Comingsoon = () => {
     const calculateTimeLeft = () => {
-        const targetDate = new Date('2024-08-31T00:00:00'); // Target date: 31th August 2024
+        const targetDate = new Date('2024-11-30T00:00:00'); // Target date: 31th August 2024
         const now = new Date();
         const difference = targetDate - now;
         return Math.max(Math.floor(difference / 1000), 0); // Convert difference to seconds
