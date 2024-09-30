@@ -1,9 +1,10 @@
 import React from 'react'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Comingsoon from './pages/Comingsoon'
-import Greet from './pages/greet/Greet'
 import NewPage from './pages/NewPage'
 import PrivacyPolicy from './pages/utils/privacyPolicy'
+import AdminAuth from './components/AdminAuth'
+
 const App = () => {
   return (
     <div>
@@ -11,8 +12,8 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Comingsoon />} />
           <Route path='/new' element={<NewPage />} />
-          <Route path='/greet' element={<Greet />} />
           <Route path='/privacyPolicy' element={<PrivacyPolicy />} />
+          <Route path='/admin' element={<AdminAuth />} />
         </Routes>
       </BrowserRouter>
     </div>
