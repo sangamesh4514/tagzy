@@ -18,7 +18,10 @@ export const adminLogin = createAsyncThunk(
                 }
             }
             const { data } = await axios.post(`${backendUrl}/admin/login`, 
-                { userId, password }, 
+                {
+                    "phoneNumber": userId,
+                    "password": password
+                }, 
                 config
             )
 
