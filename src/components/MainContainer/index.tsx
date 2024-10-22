@@ -1,12 +1,16 @@
 
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import './style.css';
 
-const MainContainer = (props) => {
+const MainContainer = (props: { text: any; subText: any; img: any; reverse?: false | true; }) => {
     const { text, subText, img, reverse = false } = props
+    let direction = {
+        display: "flex",
+        flexDirection: `${reverse ? 'row-reverse' : ''}`
+    }
 
     return (
-        <div className="parent" style={{ flexDirection: reverse ? 'row-reverse' : '' }}>
+        <div className="parent" style={ direction as CSSProperties}>
             <div className="child1">
                 <p className="text">
                     {text}

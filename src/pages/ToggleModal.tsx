@@ -1,23 +1,28 @@
-import React, { useRef, useState } from 'react';
+import React, { FormEvent, useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
 import Greet from './greet/Greet';
 
 const ToggleModal = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showGreet, setShowGreet] = useState(false);
-  const formRef = useRef();
+  const formRef = useRef<HTMLFormElement>(null);
 
   const toggleOpen = () => {
     setIsOpen(!isOpen);
   };
 
-  const emailSender = (e) => {
+  const emailSender = (e: FormEvent) => {
     e.preventDefault();
+    const currentForm = formRef.current
+    // this prevents sending emails if there is no form.
+    // in case currentForm cannot possibly ever be null,
+    // you could alert the user or throw an Error, here
+    if(currentForm === null) return
     emailjs
       .sendForm(
         'service_5wa3w5j',
         'template_90dytdq',
-        formRef.current,
+        currentForm,
         'xZiE81yyC9gBEedO8'
       )
       .then(

@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import ToggleModal from './ToggleModal';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet'
 
 const Comingsoon = () => {
     const calculateTimeLeft = () => {
-        const targetDate = new Date('2024-11-30T00:00:00'); // Target date: 31th August 2024
-        const now = new Date();
-        const difference = targetDate - now;
+        const targetDate: Date = new Date('2024-11-30T00:00:00'); // Target date: 31th August 2024
+        const now: Date = new Date();
+        const difference: number = targetDate.getTime() - now.getTime();
         return Math.max(Math.floor(difference / 1000), 0); // Convert difference to seconds
     };
 
@@ -25,7 +25,7 @@ const Comingsoon = () => {
         return () => clearInterval(timer);
     }, [timeLeft]);
 
-    const formatTime = (seconds) => {
+    const formatTime = (seconds: number) => {
         const days = Math.floor(seconds / (3600 * 24));
         const hours = Math.floor((seconds % (3600 * 24)) / 3600);
         const minutes = Math.floor((seconds % 3600) / 60);
