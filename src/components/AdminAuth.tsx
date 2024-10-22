@@ -1,29 +1,42 @@
-import React, { useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
 import Navbar from './Navbar'
 import { Eye } from 'lucide-react';
 import { EyeOff } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { adminLogin } from '../features/auth/adminActions';
 
 const AdminAuth = () => {
   const [adminId, setAdminId] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
+  const { userInfo }: any = useSelector((state: any) => state.user || {})
+  const dispatch = useDispatch<any>()
+  const navigate = useNavigate()
+  
+  useEffect(() => {
+    if(userInfo) {
+      navigate('/dashboard')
+    }
+  }, [userInfo, navigate])
 
   // admin id input handler
-  const idInputHandler = (e) => {
+  const idInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
     setAdminId(e.target.value)
   }
 
   // password input handler
-  const passInputHanlder = (e) => {
+  const passInputHanlder = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setPassword(e.target.value)
   }
 
   // click handler for checking admin id
   const clickHandler = () => {
-    
+    dispatch(adminLogin( { userId: adminId, password: password }))
   }
+
 
   const togglePassword = () => {
     (!showPassword ? setShowPassword(true) : setShowPassword(false))
