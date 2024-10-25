@@ -15,10 +15,12 @@ const AdminAuth = () => {
   const navigate = useNavigate()
   
   useEffect(() => {
-    if(userInfo) {
-      navigate('/dashboard')
+    let userId =localStorage.getItem("userId")
+
+    if(userId){
+      navigate("/dashboard");
     }
-  }, [userInfo, navigate])
+  }, [])
 
   // admin id input handler
   const idInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
