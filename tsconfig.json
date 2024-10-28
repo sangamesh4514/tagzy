@@ -5,7 +5,7 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
-            "@/*": ["./src/*"],            // General alias for all src-level imports
+            "@/*": ["src/*"],           // General alias for all src-level imports
             "@/lib/*": ["./src/lib/*"]      // Specific alias for src/lib directory
         },
         "lib": [
