@@ -1,12 +1,15 @@
 import { Button } from "../ui/button";
 import BoxReveal from "../magicui/box-reveal";
+import IntroducingBadge from "./IntroducingBadge";
 
 export default async function BoxRevealDemo() {
   return (
     <div className="flex flex-col size-full max-w-lg items-start justify-center overflow-hidden pt-8">
+      <IntroducingBadge />
       <BoxReveal boxColor={"#096c6c"} duration={0.75}>
         <p className="text-[3.5rem] font-semibold">
-          TagZy<span className="text-[#096c6c]">.</span>
+          TagZy
+          {/* <span className="text-[#096c6c]">.</span> */}
         </p>
       </BoxReveal>
 
@@ -20,14 +23,15 @@ export default async function BoxRevealDemo() {
       <BoxReveal boxColor={"#096c6c"} duration={0.75}>
         <div className="mt-6">
           <p>
-            -&gt; 20+ free and open-source animated components built with
-            <span className="font-semibold text-[#096c6c]"> React</span>,
-            <span className="font-semibold text-[#096c6c]"> Typescript</span>,
-            <span className="font-semibold text-[#096c6c]"> Tailwind CSS</span>,
+            -&gt; 30+ services with multiple type of categories like
+            <span className="font-semibold text-[#096c6c]"> Parlour & Spa</span>,
+            <span className="font-semibold text-[#096c6c]"> Task Master</span>,
+            <span className="font-semibold text-[#096c6c]"> Health & Wellness</span>,
+            <span className="font-semibold text-[#096c6c]"> Food & Drink</span>,
             and
-            <span className="font-semibold text-[#096c6c]"> Framer Motion</span>
+            <span className="font-semibold text-[#096c6c]"> Soo On...</span>
             . <br />
-            -&gt; 100% open-source, and customizable. <br />
+            -&gt; Eazy to book, Eazy to use <br />
           </p>
         </div>
       </BoxReveal>
