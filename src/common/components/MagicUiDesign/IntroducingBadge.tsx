@@ -5,10 +5,12 @@ export default function IntroducingBadge() {
     return (
         <Badge
             variant="secondary"
-            className="text-base bg-customTeal text-white px-3 py-1 rounded-full mb-4"
+            className="text-base bg-teal-100 text-teal-700 px-3 py-1 rounded-full mb-4"
         >
             <Compass className="stroke-white-500 mr-2" size={16} />
             <span className="font-bold">Introducing</span>
         </Badge>
     )
 }
+
+{/* <Badge variant="secondary" className="bg-teal-100 text-teal-700 mb-4"> */}

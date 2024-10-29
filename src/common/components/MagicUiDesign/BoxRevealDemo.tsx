@@ -17,6 +17,7 @@ export default async function BoxRevealDemo() {
         <h2 className="mt-[.5rem] text-[2rem]">
           Marketplace for{" "}
           <span className="text-[#096c6c]">Local Services</span>
+          {/* <span className="text-teal-600">Local Services</span> */}
         </h2>
       </BoxReveal>
 
@@ -37,7 +38,8 @@ export default async function BoxRevealDemo() {
       </BoxReveal>
 
       <BoxReveal boxColor={"#096c6c"} duration={0.75}>
-        <Button className="mt-[1.6rem] bg-[#096c6c]">Explore</Button>
+        {/* <Button className="mt-[1.6rem] bg-[#096c6c]">Explore</Button> */}
+        <Button className="bg-teal-600 text-white hover:bg-teal-600 text-white rounded-full">Explore</Button>
       </BoxReveal>
     </div>
   );
