@@ -70,8 +70,9 @@ export function GridPattern({
     if (dimensions.width && dimensions.height) {
       setSquares(generateSquares(numSquares));
     }
+    // eslint-disable-next-line
   }, [dimensions, numSquares]);
-
+  
   // Resize observer to update container dimensions
   useEffect(() => {
     const resizeObserver = new ResizeObserver((entries) => {
@@ -82,17 +83,21 @@ export function GridPattern({
         });
       }
     });
-
-    if (containerRef.current) {
-      resizeObserver.observe(containerRef.current);
+  
+    // Capture container reference in a variable
+    const containerElement = containerRef.current;
+  
+    if (containerElement) {
+      resizeObserver.observe(containerElement);
     }
-
+  
     return () => {
-      if (containerRef.current) {
-        resizeObserver.unobserve(containerRef.current);
+      if (containerElement) {
+        resizeObserver.unobserve(containerElement);
       }
     };
-  }, [containerRef]);
+  }, []); // No dependencies unless `containerRef` changes dynamically
+  
 
   return (
     <svg

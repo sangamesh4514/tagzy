@@ -12,5 +12,3 @@ export default function IntroducingBadge() {
         </Badge>
     )
 }
-
-{/* <Badge variant="secondary" className="bg-teal-100 text-teal-700 mb-4"> */}
