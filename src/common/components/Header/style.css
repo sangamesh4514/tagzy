@@ -1,44 +1,78 @@
 .navWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  padding: 0 40px;
+
+  .logoAndText {
     display: flex;
-    flex-direction: row;
     align-items: center;
-    justify-content: space-between;
-    background: transparent;
-    /* border-top-left-radius: 40px;
-    border-top-right-radius: 40px; */
-    padding: 10px 60px;
-    margin-top: 8px;
+    gap: 25px;
+
+    .logo {
+      height: 100px;
+      width: 80px;
+    }
+
+    .name {
+      letter-spacing: 4px;
+      font-family: serif;
+      color: #15616d;
+    }
+  }
+
+  .navbarItem {
+    display: flex;
+    gap: 25px;
+
+    a {
+      font-size: 20px;
+      font-weight: bold;
+      text-decoration: none;
+      color: #204a4c;
+      cursor: pointer;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    padding-left: 15px;
+    padding-right: 15px;
 
     .logoAndText {
-        display: flex;
-        align-items: center;
-        gap: 25px;
+      gap: 10px;
 
-        .logo {
-            height: 80px;
-            width: 80px;
-        }
-
-        .name {
-            letter-spacing: 4px;
-            font-family: serif;
-            font-weight: bold;
-            font-size: 45px;
-            color: #15616d;
-        }
+      .logo {
+        height: 70px;
+        width: 60px;
+      }
+      .name {
+        font-size: 2.5rem;
+      }
     }
-
     .navbarItem {
-        display: flex;
-        gap: 25px;
-
-        a {
-            font-size: 22px;
-            font-family: math;
-            font-weight: bold;
-            text-decoration: none;
-            color: #204a4c;
-            cursor: pointer;
-        }
+      gap: 5px;
     }
+  }
+  @media screen and (max-width: 424px) {
+    padding-left: 0;
+    padding-right: 4px;
+    .logoAndText {
+      gap: 5px;
+      .logo {
+        height: 60px;
+        width: 50px;
+      }
+      .name {
+        font-size: 2rem;
+      }
+    }
+    .navbarItem {
+      gap: 5px;
+      a {
+        font-size: 14px;
+      }
+    }
+  }
 }

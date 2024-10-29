@@ -8,7 +8,7 @@ const Header = () => {
     <div className="navWrapper">
       <div className="logoAndText">
         <img className="logo" src="/logo1.png" alt="logo" />
-        <span className="name">TagZy</span>
+        <span className="name text-[3.5rem] font-semibold">TagZy</span>
       </div>
       <div className="navbarItem">
         <a href="/">About</a>

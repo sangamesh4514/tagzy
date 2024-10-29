@@ -7,12 +7,11 @@ export default async function BoxRevealDemo() {
     document.getElementById("nawodit")?.scrollIntoView({ behavior: "smooth" });
   };
   return (
-    <div className="flex flex-col size-full max-w-lg items-start justify-center overflow-hidden pt-8">
+    <div className="flex flex-col size-full max-w-lg items-start justify-center overflow-hidden">
       <IntroducingBadge />
       <BoxReveal boxColor={"#096c6c"} duration={0.75}>
-        <p className="text-[3.5rem] font-semibold">
+        <p className="text-[3.5rem] font-semibold font-serif tracking-1">
           TagZy
-          {/* <span className="text-[#096c6c]">.</span> */}
         </p>
       </BoxReveal>
 
@@ -20,13 +19,12 @@ export default async function BoxRevealDemo() {
         <h2 className="mt-[.5rem] text-[2rem]">
           Marketplace for{" "}
           <span className="text-[#096c6c]">Local Services</span>
-          {/* <span className="text-teal-600">Local Services</span> */}
         </h2>
       </BoxReveal>
 
       <BoxReveal boxColor={"#096c6c"} duration={0.75}>
         <div className="mt-6">
-          <p>
+          <p className="text-base">
             -&gt; 30+ services with multiple type of categories like
             <span className="font-semibold text-[#096c6c]"> Parlour & Spa</span>,
             <span className="font-semibold text-[#096c6c]"> Task Master</span>,

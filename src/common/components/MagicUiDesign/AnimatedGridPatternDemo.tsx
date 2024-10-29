@@ -1,7 +1,7 @@
 import Iphone15Pro from "src/magicUi/ui/iphone-15-pro";
 import { cn } from "src/lib/utils";
 import AnimatedGridPattern from "src/magicUi/ui/animated-grid-pattern";
-import BoxRevealWrapper from "../Test";
+import BoxRevealWrapper from "../AsyncComponent";
 import { MarqueeDemo } from "./MarqueeDemo";
 import FeatureShowcase from "./FeatureShowcase";
 

@@ -1,3 +1,8 @@
+/* In App.css or global.css */
+* {
+  font-family: monospace;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

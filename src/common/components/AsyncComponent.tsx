@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect, useState } from 'react';
-import BoxRevealDemo from '../MagicUiDesign/BoxRevealDemo';
+import BoxRevealDemo from './MagicUiDesign/BoxRevealDemo';
 
 const AsyncComponent: React.FC<{ loader: () => Promise<React.ReactElement> }> = ({ loader }) => {
   const [Component, setComponent] = useState<React.ReactElement | null>(null);
