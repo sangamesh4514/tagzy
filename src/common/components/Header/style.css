@@ -3,9 +3,9 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    background: white;
-    border-top-left-radius: 40px;
-    border-top-right-radius: 40px;
+    background: transparent;
+    /* border-top-left-radius: 40px;
+    border-top-right-radius: 40px; */
     padding: 10px 60px;
     margin-top: 8px;
 

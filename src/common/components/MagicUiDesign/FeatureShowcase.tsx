@@ -30,7 +30,7 @@ export default function FeatureShowcase() {
 
   return (
     <div className="relative z-10 flex flex-col items-center space-y-8 p-6 rounded-lg shadow-lg">
-      <h3 className="text-2xl font-bold text-teal-800">Why Choose TagZy?</h3>
+      <h2 className="text-3xl font-bold text-teal-800 m-0">Why Choose TagZy?</h2>
       <div className="grid grid-cols-2 gap-4">
         {features.map((feature, index) => (
           <motion.div
