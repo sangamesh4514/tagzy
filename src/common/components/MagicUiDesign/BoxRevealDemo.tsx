@@ -3,6 +3,9 @@ import BoxReveal from "../magicui/box-reveal";
 import IntroducingBadge from "./IntroducingBadge";
 
 export default async function BoxRevealDemo() {
+  const handleClick = () => {
+    document.getElementById("nawodit")?.scrollIntoView({ behavior: "smooth" });
+  };
   return (
     <div className="flex flex-col size-full max-w-lg items-start justify-center overflow-hidden pt-8">
       <IntroducingBadge />
@@ -38,8 +41,7 @@ export default async function BoxRevealDemo() {
       </BoxReveal>
 
       <BoxReveal boxColor={"#096c6c"} duration={0.75}>
-        {/* <Button className="mt-[1.6rem] bg-[#096c6c]">Explore</Button> */}
-        <Button className="bg-teal-600 text-white hover:bg-teal-600 text-white rounded-full">Explore</Button>
+        <Button className="bg-teal-600 text-white hover:bg-teal-700 text-white rounded-full" onClick={handleClick}>Explore</Button>
       </BoxReveal>
     </div>
   );

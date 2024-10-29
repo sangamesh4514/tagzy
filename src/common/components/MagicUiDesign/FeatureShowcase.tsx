@@ -29,13 +29,13 @@ export default function FeatureShowcase() {
   const [activeFeature, setActiveFeature] = useState(0)
 
   return (
-    <div className="relative z-10 flex flex-col items-center space-y-8 p-6 bg-teal-50 rounded-lg shadow-lg">
+    <div className="relative z-10 flex flex-col items-center space-y-8 p-6 rounded-lg shadow-lg">
       <h3 className="text-2xl font-bold text-teal-800">Why Choose TagZy?</h3>
       <div className="grid grid-cols-2 gap-4">
         {features.map((feature, index) => (
           <motion.div
             key={index}
-            className={`p-4 rounded-lg cursor-pointer ${
+            className={`p-4 rounded-lg cursor-pointer border-2 ${
               activeFeature === index ? 'bg-teal-600 text-white' : 'bg-white text-teal-800'
             }`}
             whileHover={{ scale: 1.05 }}

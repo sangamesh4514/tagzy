@@ -1,10 +1,10 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import Navbar from './Navbar/Navbar'
+import Navbar from '../../components/Navbar/Navbar'
 import { Eye } from 'lucide-react';
 import { EyeOff } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { adminLogin } from '../../features/auth/adminActions';
+import { adminLogin } from '../../utils/authentication/adminActions';
 
 const AdminAuth = () => {
   const [adminId, setAdminId] = useState('')

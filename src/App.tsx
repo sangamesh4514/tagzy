@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Comingsoon from './common/routes/ComingSoon'
 import PrivacyPolicy from './common/routes/PrivacyPolicy'
-import AdminAuth from './common/components/AdminAuth'
+import AdminAuth from './common/routes/AdminAuth/AdminAuth'
 import NewPage from './common/routes/Home'
 import Dashboard from './common/routes/Dashboard'
 
