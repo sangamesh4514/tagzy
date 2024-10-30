@@ -6,6 +6,7 @@ import Header from "../../components/Header"
 const Dashboard: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState<string | null>(null)
   const [inputNumber, setInputNumber] = useState<string>('')
+  const getNumberFromLocalStorage = localStorage.getItem('userPhoneNumber')
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -30,15 +31,14 @@ const Dashboard: React.FC = () => {
           <button
             type="submit"
             className="p-2 bg-colorA hover:colorB transition"
-            style={{color: "white"}}
-            // disabled={(inputNumber.length === 10)}
+            style={{color: "white", display: 'flex', gap: '10px', alignItems: 'center'}}
           >
-            <Search />
+            Search<Search />
           </button>
         </form>
       </div>
       <div>
-        <UserProfileCard phoneNumber={phoneNumber} />
+        {((phoneNumber?.length === 10) || getNumberFromLocalStorage) && <UserProfileCard phoneNumber={phoneNumber} />}
       </div>
     </div>
   )

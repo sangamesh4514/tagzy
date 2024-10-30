@@ -16,8 +16,8 @@ const UserProfileCard: React.FC<UserCardProps> = ({ phoneNumber }: any) => {
         email: '',
         phoneNumber: '',
         profilePicture: '',
-        isUserPro: false,
-        isUserVerified: false
+        isUserPro: '',
+        isUserVerified: ''
     })
 
     useEffect(() => {
@@ -130,7 +130,7 @@ const UserProfileCard: React.FC<UserCardProps> = ({ phoneNumber }: any) => {
                     <span className="text-gray-700">Professional Status</span>
                     <select
                         name="isUserPro"
-                        value={userInfo?.isUserPro ? 'Yes' : 'No'}
+                        value={userData.isUserPro}
                         onChange={handleInputChange}
                         className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                     >
@@ -142,7 +142,7 @@ const UserProfileCard: React.FC<UserCardProps> = ({ phoneNumber }: any) => {
                     <span className="text-gray-700">Verified Status</span>
                     <select
                         name="isUserVerified"
-                        value={['True', 'False']}
+                        value={userData.isUserVerified}
                         onChange={handleInputChange}
                         className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                     >

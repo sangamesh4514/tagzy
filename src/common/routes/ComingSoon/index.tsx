@@ -47,7 +47,7 @@ const Comingsoon = () => {
             <div className='min-h-svh flex flex-col bg-gradient-to-r from-sky-500 to-indigo-500'>
                 {/* Header */}
                 <header className='text-3xl font-bold text-white pt-4 mx-auto font-mono md:text-5xl'>
-                    TagZy
+                <span style={{fontFamily: 'serif'}}>TagZy</span>
                 </header>
 
                 {/* Main section */}
@@ -108,7 +108,7 @@ const Comingsoon = () => {
                         </a>
                     </div>
                     <div className='text-white mt-2'>
-                        &copy; {new Date().getFullYear()} by TagZy. All rights reserved.
+                        &copy; {new Date().getFullYear()} by <span style={{fontFamily: 'serif'}}>TagZy</span>. All rights reserved.
                     </div>
                 </footer>
             </div>

@@ -51,7 +51,7 @@ const AdminAuth = () => {
         <div className='flex flex-col item-center justify-center bg-white h-fit '>
           <div className='h-fit mx-8 md:mx-auto rounded-lg shadow-lg border-2 border-solid'>
             <div className='px-8 md:px-24 py-4 md:py-6 font-semibold md:font-bold text-2xl md:text-4xl rounded-t-lg text-center'>
-              TagZy Admin Portal
+            <span style={{fontFamily: 'serif'}}>TagZy</span> Admin Portal
             </div>
             <div className='flex-col py-4 px-6'>
               <div>
