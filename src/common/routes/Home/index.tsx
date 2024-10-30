@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>TagZy-New</title>
+        <title>TagZy</title>
         <meta
           name='description'
           content='Your one-stop marketplace for local services. Find trusted professionals for all your needs.'

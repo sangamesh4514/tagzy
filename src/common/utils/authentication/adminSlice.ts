@@ -7,6 +7,7 @@ type LoginState = {
     error: any,
     success: boolean
 }
+
 const initialState: LoginState = {
     loading: false,
     userInfo: null,
