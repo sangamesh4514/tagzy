@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { backendUrl } from "../auth/adminActions";
 import { UserProfile } from "../../types";
+import { backendUrl } from "../../common/utils/authentication/adminActions";
 
 interface UserSearchDataType {
     phoneNumber: string

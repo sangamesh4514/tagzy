@@ -1,22 +1,24 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import Navbar from '../../components/Navbar/Navbar'
+import Header from "../../components/Header"
 import { Eye } from 'lucide-react';
 import { EyeOff } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { adminLogin } from '../../utils/authentication/adminActions';
+import { useAppDispatch, useAppSelector } from '../../../app/hook';
+import { Spinner } from '../../../components/Spinner';
 
 const AdminAuth = () => {
   const [adminId, setAdminId] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
-  const { userInfo }: any = useSelector((state: any) => state.user || {})
-  const dispatch = useDispatch<any>()
+  const { userInfo, loading } = useAppSelector((state) => state.auth)
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
   
   useEffect(() => {
-    if(userInfo) {
-      navigate('/dashboard')
+    if(userInfo || localStorage.getItem("userId")) {
+      navigate('/admin/dashboard')
     }
   }, [userInfo, navigate])
 
@@ -44,11 +46,11 @@ const AdminAuth = () => {
 
   return (
     <div className='mt-2 flex flex-col h-screen bg-white rounded-t-3xl'>
-      <Navbar />
+      <Header />
       <div className='my-auto item-center justify-center'>
         <div className='flex flex-col item-center justify-center bg-white h-fit '>
-          <div className='h-fit mx-8 md:mx-auto rounded-lg shadow-lg border-2 border-solid border-bg-lightGreen'>
-            <div className='px-8 md:px-24 py-4 md:py-6 bg-lightGreen font-semibold md:font-bold text-white text-2xl md:text-4xl rounded-t-lg text-center'>
+          <div className='h-fit mx-8 md:mx-auto rounded-lg shadow-lg border-2 border-solid'>
+            <div className='px-8 md:px-24 py-4 md:py-6 font-semibold md:font-bold text-2xl md:text-4xl rounded-t-lg text-center'>
               TagZy Admin Portal
             </div>
             <div className='flex-col py-4 px-6'>
@@ -81,9 +83,12 @@ const AdminAuth = () => {
               </div>
               <button 
                 type="button" 
-                className={`text-white bg-lightGreen w-full font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 mt-6`}
+                className={`bg-colorA hover:bg-colorB w-full font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 mt-6`}
                 onClick={clickHandler}
-              >Login</button>
+                style={{color: "white"}}
+              >
+                {loading ? <Spinner /> : "Login"}
+              </button>
             </div>
           </div>
         </div>

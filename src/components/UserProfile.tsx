@@ -41,8 +41,12 @@ const UserProfileCard: React.FC<UserCardProps> = ({ phoneNumber }: any) => {
         }
     }, [userInfo])
 
-    const handleEdit  = () => {
-        setIsEditing(true)
+    const toggleEdit  = () => {
+        setIsEditing(!isEditing)
+    }
+
+    const handleSave = () => {
+
     }
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -125,25 +129,25 @@ const UserProfileCard: React.FC<UserCardProps> = ({ phoneNumber }: any) => {
                 <label className="block">
                     <span className="text-gray-700">Professional Status</span>
                     <select
-                        name="proStatus"
-                        value={userData.isUserPro}
+                        name="isUserPro"
+                        value={userInfo?.isUserPro ? 'Yes' : 'No'}
                         onChange={handleInputChange}
                         className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                     >
-                        <option value={`${true}`}>Yes</option>
-                        <option value={`${false}`}>No</option>
+                        <option value='Yes'>Yes</option>
+                        <option value='No'>No</option>
                     </select>
                 </label>
                 <label className="block">
                     <span className="text-gray-700">Verified Status</span>
                     <select
-                        name="verifiedStatus"
-                        value={userData.isUserVerified}
+                        name="isUserVerified"
+                        value={['True', 'False']}
                         onChange={handleInputChange}
                         className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                     >
-                        <option value={`${true}`}>Yes</option>
-                        <option value={`${false}`}>No</option>
+                        <option value='Yes'>Yes</option>
+                        <option value='No'>No</option>
                     </select>
                 </label>
                 </div>
@@ -152,8 +156,8 @@ const UserProfileCard: React.FC<UserCardProps> = ({ phoneNumber }: any) => {
                 <p><strong>Name:</strong> {userData.name}</p>
                 <p><strong>Email:</strong> {userData.email}</p>
                 <p><strong>Phone number:</strong> {userData.phoneNumber}</p>
-                <p><strong>Pro Status:</strong> {userData.isUserPro}</p>
-                <p><strong>Verified Status:</strong> {userData.isUserVerified}</p>
+                <p><strong>Pro Status:</strong> {userData.isUserPro ? 'True' : 'False'}</p>
+                <p><strong>Verified Status:</strong> {userData.isUserVerified ? 'True' : 'False'}</p>
                 </div>
             )}
 
@@ -167,7 +171,7 @@ const UserProfileCard: React.FC<UserCardProps> = ({ phoneNumber }: any) => {
                     Save
                 </button>
                 <button
-                    onClick={handleCancel}
+                    // onClick={handleCancel}
                     className="px-4 py-2 bg-gray-400 text-white rounded-md shadow-md hover:bg-gray-500 transition"
                 >
                     Cancel

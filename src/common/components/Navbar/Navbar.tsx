@@ -1,7 +1,6 @@
-import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from '../app/hook'
-import { logout } from '../features/auth/adminSlice'
+import { useAppDispatch, useAppSelector } from '../../../app/hook'
+import { logout } from '../../../common/utils/authentication/adminSlice'
 
 const Navbar = () => {
     const navigate = useNavigate()
