@@ -1,22 +1,23 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux';
+import { ChangeEvent, useEffect, useState } from 'react'
 import Navbar from './Navbar'
 import { Eye } from 'lucide-react';
 import { EyeOff } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { adminLogin } from '../features/auth/adminActions';
+import { useAppDispatch, useAppSelector } from '../app/hook';
+import { Spinner } from './Spinner';
 
 const AdminAuth = () => {
   const [adminId, setAdminId] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
-  const { userInfo }: any = useSelector((state: any) => state.user || {})
-  const dispatch = useDispatch<any>()
+  const { loading, userInfo } = useAppSelector((state) => state.auth)
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
   
   useEffect(() => {
-    if(userInfo) {
-      navigate('/dashboard')
+    if(userInfo || localStorage.getItem('userId')) {
+      navigate('/admin/dashboard')
     }
   }, [userInfo, navigate])
 
@@ -43,7 +44,7 @@ const AdminAuth = () => {
   }
 
   return (
-    <div className='mt-2 flex flex-col h-screen bg-white rounded-t-3xl'>
+    <div className='flex flex-col h-screen bg-white'>
       <Navbar />
       <div className='my-auto item-center justify-center'>
         <div className='flex flex-col item-center justify-center bg-white h-fit '>
@@ -79,11 +80,13 @@ const AdminAuth = () => {
                   {showPassword ? <EyeOff /> : <Eye />}
                 </button>
               </div>
-              <button 
-                type="button" 
-                className={`text-white bg-lightGreen w-full font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 mt-6`}
+              <button
+                type='button'
+                className='text-white bg-lightGreen hover:bg-darkGreen w-full font-medium rounded-lg text-md px-5 py-2.5 me-2 mb-2 mt-6 tracking-wide'
                 onClick={clickHandler}
-              >Login</button>
+              >
+                {loading ? <Spinner /> : 'Login'}
+              </button>
             </div>
           </div>
         </div>

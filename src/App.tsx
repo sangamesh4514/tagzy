@@ -5,6 +5,8 @@ import PrivacyPolicy from './pages/utils/privacyPolicy'
 import AdminAuth from './components/AdminAuth'
 import NewPage from './pages/NewPage'
 import Dashboard from './pages/Dashboard'
+import { PrivateRoute } from './routes/PrivateRoute'
+// import EditableProfile from './components/UserProfile'
 
 const App = () => {
   return (
@@ -15,7 +17,12 @@ const App = () => {
           <Route path='/newPage' element={<NewPage />} />
           <Route path='/privacyPolicy' element={<PrivacyPolicy />} />
           <Route path='/admin/login' element={<AdminAuth />} />
-          <Route path='/dashboard' element={<Dashboard />} />
+          {/* <Route path='/user' element={<EditableProfile />} /> */}
+
+          {/* Private Route */}
+          <Route path= '/' element={<PrivateRoute />}>
+            <Route path='/admin/dashboard' element={<Dashboard />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </div>
