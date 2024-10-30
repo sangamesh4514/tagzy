@@ -1,37 +1,38 @@
 import { Button } from "../ui/button";
 import BoxReveal from "../magicui/box-reveal";
 import IntroducingBadge from "./IntroducingBadge";
+import "./BoxRevealDemo.css";
 
 export default async function BoxRevealDemo() {
   const handleClick = () => {
-    document.getElementById("nawodit")?.scrollIntoView({ behavior: "smooth" });
+    document.getElementById("marqueeContainer")?.scrollIntoView({ behavior: "smooth" });
   };
   return (
-    <div className="flex flex-col size-full max-w-lg items-start justify-center overflow-hidden">
+    <div className="box-reveal-container">
       <IntroducingBadge />
       <BoxReveal boxColor={"#096c6c"} duration={0.75}>
-        <p className="text-[3.5rem] font-semibold font-serif tracking-1">
+        <p className="main-heading">
           TagZy
         </p>
       </BoxReveal>
 
       <BoxReveal boxColor={"#096c6c"} duration={0.75}>
-        <h2 className="mt-[.5rem] text-[2rem]">
+        <h2 className="sub-heading">
           Marketplace for{" "}
-          <span className="text-[#096c6c]">Local Services</span>
+          <span className="highlight">Local Services</span>
         </h2>
       </BoxReveal>
 
       <BoxReveal boxColor={"#096c6c"} duration={0.75}>
-        <div className="mt-6">
-          <p className="text-base">
+        <div className="info-text">
+          <p>
             -&gt; 30+ services with multiple type of categories like
-            <span className="font-semibold text-[#096c6c]"> Parlour & Spa</span>,
-            <span className="font-semibold text-[#096c6c]"> Task Master</span>,
-            <span className="font-semibold text-[#096c6c]"> Health & Wellness</span>,
-            <span className="font-semibold text-[#096c6c]"> Food & Drink</span>,
+            <span className="highlight"> Parlour & Spa</span>,
+            <span className="highlight"> Task Master</span>,
+            <span className="highlight"> Health & Wellness</span>,
+            <span className="highlight"> Food & Drink</span>,
             and
-            <span className="font-semibold text-[#096c6c]"> Soo On...</span>
+            <span className="highlight"> Soo On...</span>
             . <br />
             -&gt; Eazy to book, Eazy to use <br />
           </p>
@@ -39,7 +40,7 @@ export default async function BoxRevealDemo() {
       </BoxReveal>
 
       <BoxReveal boxColor={"#096c6c"} duration={0.75}>
-        <Button className="bg-teal-600 text-white hover:bg-teal-700 text-white rounded-full" onClick={handleClick}>Explore</Button>
+        <Button className="explore-button" onClick={handleClick}>Explore</Button>
       </BoxReveal>
     </div>
   );

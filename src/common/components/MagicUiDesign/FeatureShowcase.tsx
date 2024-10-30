@@ -30,7 +30,7 @@ export default function FeatureShowcase() {
 
   return (
     <div className="relative z-10 flex flex-col items-center space-y-8 p-6 rounded-lg shadow-lg">
-      <h2 className="text-3xl font-serif  text-teal-800 m-0">Why Choose TagZy ?</h2>
+      <h2 className="text-3xl font-serif  text-teal-800 m-0" style={{whiteSpace: 'nowrap'}}>Why Choose TagZy ?</h2>
       <div className="grid grid-cols-2 gap-4">
         {features.map((feature, index) => (
           <motion.div
@@ -53,7 +53,7 @@ export default function FeatureShowcase() {
         transition={{ duration: 0.3 }}
         className="text-center text-teal-800"
       >
-        <p>{features[activeFeature].description}</p>
+        <p style={{fontSize: '16px'}}>{features[activeFeature].description}</p>
       </motion.div>
     </div>
   )

@@ -80,7 +80,7 @@ const ReviewCard = ({
   return (
     <figure
       className={cn(
-        "relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4",
+        "relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4 reviewCard",
         // light styles
         "border-gray-950/[.1] bg-white",
         // dark styles
@@ -103,14 +103,14 @@ const ReviewCard = ({
 
 export function MarqueeDemo() {
   return (
-    <div className="relative flex w-full flex-col items-center justify-center overflow-hidden" id="nawodit">
-      <h2 className="text-3xl z-10 font-bold text-teal-800 mb-4">Discover Our Service Categories</h2>
-      <Marquee pauseOnHover className="z-10 pb-4 [--duration:30s]">
+    <div className="relative flex w-full flex-col items-center justify-center overflow-hidden" id="marqueeContainer">
+      <h2 className="text-3xl z-10 font-bold text-teal-800 mb-4 heading">Discover Our Service Categories</h2>
+      <Marquee pauseOnHover className="z-10 pb-4 [--duration:40s] marqueeBox">
         {firstRow.map((review) => (
           <ReviewCard key={review.name} {...review} />
         ))}
       </Marquee>
-      <Marquee reverse pauseOnHover className=" z-10 [--duration:30s]">
+      <Marquee reverse pauseOnHover className=" z-10 [--duration:40s] marqueeBox">
         {secondRow.map((review) => (
           <ReviewCard key={review.name} {...review} />
         ))}
