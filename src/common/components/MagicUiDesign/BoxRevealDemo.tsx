@@ -2,7 +2,7 @@ import { Button } from "../ui/button";
 import BoxReveal from "../magicui/box-reveal";
 import IntroducingBadge from "./IntroducingBadge";
 import "./BoxRevealDemo.css";
-import { ArrowBigDownDash, Download, Smartphone } from "lucide-react";
+import { Download } from "lucide-react";
 
 export default async function BoxRevealDemo() {
   const handleClick = () => {
