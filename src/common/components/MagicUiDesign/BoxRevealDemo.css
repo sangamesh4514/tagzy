@@ -1,0 +1,76 @@
+/* BoxRevealDemo.css */
+
+/* Container Styles */
+.box-reveal-container {
+   
+    max-width: 32rem;
+    overflow: hidden;
+    padding-top: 2rem;
+
+  @media screen and (max-width: 767px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  }
+  
+  /* Text and Highlight Styles */
+  .main-heading {
+    font-size: 3.5rem;
+    font-weight: 600;
+  }
+  
+  .sub-heading {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+  }
+  
+  .info-text {
+    margin-top: 1.5rem;
+  }
+  
+  .highlight {
+    color: #096c6c;
+    font-weight: 600;
+  }
+  
+  /* Button Styles */
+  .explore-button {
+    margin-top: 1.6rem;
+    background-color: #096c6c;
+    color: white;
+  }
+  .explore-button:hover{
+    background-color: #096c6c;
+  }
+  
+  /* Small Screen Styles */
+  @media (max-width: 767px) {
+    .box-reveal-container {
+      padding: 1rem;
+    }
+  
+    .main-heading {
+      font-size: 2rem;
+      text-align: center;
+    }
+  
+    .sub-heading {
+      font-size: 0.875rem;
+      text-align: center;
+    }
+  
+    .info-text {
+      font-size: 0.875rem;
+      line-height: 1.4;
+      text-align: center;
+    }
+  
+    .explore-button {
+      width: 100%;
+      font-size: 0.875rem;
+    }
+  }
+  
