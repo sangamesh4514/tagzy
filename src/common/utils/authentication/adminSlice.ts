@@ -23,7 +23,6 @@ const authSlice = createSlice({
         logout: (state) => {
             if(localStorage.getItem('userId')) {
                 localStorage.removeItem('userId')
-                localStorage.removeItem('userPhoneNumber');
                 state.loading = false
                 state.userInfo = null
                 state.error = null

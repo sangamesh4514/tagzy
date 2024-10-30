@@ -1,12 +1,11 @@
 import { Search } from "lucide-react"
-import { ChangeEvent, useState, KeyboardEvent, FormEvent } from "react"
+import { ChangeEvent, useState, FormEvent } from "react"
 import UserProfileCard from "../../../components/UserProfile"
 import Header from "../../components/Header"
 
 const Dashboard: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState<string | null>(null)
   const [inputNumber, setInputNumber] = useState<string>('')
-  const getNumberFromLocalStorage = localStorage.getItem('userPhoneNumber')
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -38,7 +37,7 @@ const Dashboard: React.FC = () => {
         </form>
       </div>
       <div>
-        {((phoneNumber?.length === 10) || getNumberFromLocalStorage) && <UserProfileCard phoneNumber={phoneNumber} />}
+        <UserProfileCard phoneNumber={phoneNumber} />
       </div>
     </div>
   )

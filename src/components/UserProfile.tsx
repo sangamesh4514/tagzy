@@ -68,6 +68,10 @@ const UserProfileCard: React.FC<UserCardProps> = ({ phoneNumber }: any) => {
             [name]: value
         }))
     }
+
+    if (!userInfo?.phoneNumber){
+        return null ;
+    }
     
     return (
         <div className="relative p-6 border border-gray-200 rounded-lg shadow-md">

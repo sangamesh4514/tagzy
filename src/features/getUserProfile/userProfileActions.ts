@@ -25,7 +25,6 @@ export const fetchUserByPhoneNumber = createAsyncThunk(
             if(data) {
                 console.log('User Data', data)
             }
-            localStorage.setItem('userPhoneNumber', data.phoneNumber);
 
             return data
         }
