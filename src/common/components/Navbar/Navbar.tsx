@@ -9,7 +9,7 @@ const Navbar = () => {
             <div className='flex item-center gap-2'>
                 {/* Logo */}
                 <img className='h-12 w-10 md:h-20 md:w-16' src="/logo.png" alt="TagZy Logo" />
-                <span className='invisible md:visible font-serif font-bold text-lg md:text-4xl py-2 md:py-4 text-lightGreen tracking-widest'>TagZy</span>
+                <span className='invisible md:visible font-serif font-bold text-lg md:text-4xl py-2 md:py-4 text-lightGreen tracking-widest'><span style={{fontFamily: 'serif'}}>TagZy</span></span>
             </div>
             <div className='flex item-center gap-2'>
                 <button onClick={() => navigate('/privacyPolicy')} className='text-sm md:text-xl text-lightGreen tracking-ligth md:tracking-wide pr-2 font-serif'>About</button>

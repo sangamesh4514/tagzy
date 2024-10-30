@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900">TagZy</h3>
+            <h3 className="text-lg font-semibold text-gray-900" style={{fontFamily: 'serif', fontSize: '1.2rem'}}>TagZy</h3>
             <p className="text-sm text-gray-600">
               Your one-stop marketplace for local services. Find trusted professionals for all your needs.
             </p>
@@ -118,7 +118,7 @@ export default function Footer() {
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0">
           <div className="text-sm text-gray-600" style={{whiteSpace: 'nowrap'}}>
-            © 2024 by TagZy. All rights reserved.
+            © 2024 by <span style={{fontFamily: 'serif',fontSize: '16px'}}>TagZy</span>. All rights reserved.
           </div>
           {/* <div className="flex space-x-6 text-sm text-gray-600">
             <a href="/sitemap" className="hover:text-teal-600">
