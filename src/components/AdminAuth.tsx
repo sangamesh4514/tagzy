@@ -19,7 +19,7 @@ const AdminAuth = () => {
     if(userInfo || localStorage.getItem('userId')) {
       navigate('/admin/dashboard')
     }
-  }, [userInfo, navigate])
+  }, [])
 
   // admin id input handler
   const idInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
