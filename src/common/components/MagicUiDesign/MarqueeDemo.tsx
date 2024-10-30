@@ -21,7 +21,7 @@ const reviews = [
   {
     name: "Task Master",
     body: "Get help with your daily tasks and errands.",
-    img: "/assets/image 4.png",
+    img: "/assets/image 40.png",
   },
   {
     name: "Food & Drink",
