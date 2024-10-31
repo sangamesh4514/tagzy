@@ -3,7 +3,6 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import ToggleModal from './ToggleModal';
-import { Helmet } from 'react-helmet'
 
 const Comingsoon = () => {
     const calculateTimeLeft = () => {
@@ -37,13 +36,13 @@ const Comingsoon = () => {
     
     return (
         <>
-            <Helmet>
+            {/* <Helmet>
                 <title>TagZy - Coming Soon</title>
                 <meta
                     name='description'
                     content='Tagzy is coming soon. Stay tuned for updates on our web app to hire professionals.'
                 />
-            </Helmet>
+            </Helmet> */}
             <div className='min-h-svh flex flex-col bg-gradient-to-r from-sky-500 to-indigo-500'>
                 {/* Header */}
                 <header className='text-3xl font-bold text-white pt-4 mx-auto font-mono md:text-5xl'>
