@@ -1,15 +1,9 @@
-import { Button } from "../ui/button";
 import BoxReveal from "../magicui/box-reveal";
 import IntroducingBadge from "./IntroducingBadge";
 import "./BoxRevealDemo.css";
-import { Download } from "lucide-react";
 
 export default async function BoxRevealDemo() {
-  const handleClick = () => {
-    document
-      .getElementById("marqueeContainer")
-      ?.scrollIntoView({ behavior: "smooth" });
-  };
+  
   return (
     <div className="box-reveal-container">
       <IntroducingBadge />
