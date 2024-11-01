@@ -20,29 +20,28 @@ const AdminAuth = () => {
     if(userInfo || localStorage.getItem("userId")) {
       navigate('/admin/dashboard')
     }
-  }, [userInfo, navigate])
+  }, [userInfo, navigate]);
 
   // admin id input handler
   const idInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault()
-    setAdminId(e.target.value)
-  }
+    e.preventDefault();
+    setAdminId(e.target.value);
+  };
 
   // password input handler
   const passInputHanlder = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    setPassword(e.target.value)
-  }
+    setPassword(e.target.value);
+  };
 
   // click handler for checking admin id
   const clickHandler = () => {
-    dispatch(adminLogin( { userId: adminId, password: password }))
-  }
-
+    dispatch(adminLogin({ userId: adminId, password: password }));
+  };
 
   const togglePassword = () => {
-    (!showPassword ? setShowPassword(true) : setShowPassword(false))
-  }
+    !showPassword ? setShowPassword(true) : setShowPassword(false);
+  };
 
   return (
     <div className='mt-2 flex flex-col h-screen bg-white rounded-t-3xl'>
@@ -93,8 +92,8 @@ const AdminAuth = () => {
           </div>
         </div>
       </div>
-    </div>
-  )
-}
+    </>
+  );
+};
 
-export default AdminAuth
+export default AdminAuth;

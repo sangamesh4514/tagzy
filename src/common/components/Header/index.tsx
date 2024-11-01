@@ -18,8 +18,8 @@ const Header = () => {
   return (
     <div className="navWrapper">
       <div className="logoAndText">
-        <img className="logo" src="/logo1.png" alt="logo" />
-        <span className="name text-[3.5rem] font-semibold">TagZy</span>
+        <img className="logo" src="/logo.png" alt="logo" />
+        {/* <span className="name text-[3.5rem] font-semibold">TagZy</span> */}
       </div>
       {userInfo || userId ? (
         <div>
