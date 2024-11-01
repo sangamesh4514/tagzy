@@ -92,7 +92,7 @@ const AdminAuth = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
