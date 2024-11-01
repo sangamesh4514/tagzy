@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <div className="navWrapper">
       <div className="logoAndText">
-        <img className="logo" src="/logo2.jpeg" alt="logo" />
+        <img className="logo" src="/logo.png" alt="logo" />
         {/* <span className="name text-[3.5rem] font-semibold">TagZy</span> */}
       </div>
       <div className="navbarItem">
