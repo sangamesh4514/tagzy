@@ -16,10 +16,15 @@ const UserProfileCard: React.FC<UserCardProps> = ({ phoneNumber }: any) => {
         email: '',
         phoneNumber: '',
         profilePicture: '',
+<<<<<<< HEAD
         dob: '',
         gender: '',
         isUserPro: false,
         isUserVerified: false
+=======
+        isUserPro: '',
+        isUserVerified: ''
+>>>>>>> 1d2dc37f749e7c97be5abfc712dcdf2e55b49976
     })
 
     useEffect(() => {
@@ -71,6 +76,10 @@ const UserProfileCard: React.FC<UserCardProps> = ({ phoneNumber }: any) => {
             ...prevState,
             [name]: value
         }))
+    }
+
+    if (!userInfo?.phoneNumber){
+        return null ;
     }
     
     return (
@@ -157,7 +166,7 @@ const UserProfileCard: React.FC<UserCardProps> = ({ phoneNumber }: any) => {
                     <span className="text-gray-700">Professional Status</span>
                     <select
                         name="isUserPro"
-                        value={userInfo?.isUserPro ? 'Yes' : 'No'}
+                        value={userData.isUserPro}
                         onChange={handleInputChange}
                         className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                     >
@@ -169,7 +178,11 @@ const UserProfileCard: React.FC<UserCardProps> = ({ phoneNumber }: any) => {
                     <span className="text-gray-700">Verified Status</span>
                     <select
                         name="isUserVerified"
+<<<<<<< HEAD
                         value={userInfo?.isUserVerified ? 'Yes' : 'No'}
+=======
+                        value={userData.isUserVerified}
+>>>>>>> 1d2dc37f749e7c97be5abfc712dcdf2e55b49976
                         onChange={handleInputChange}
                         className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                     >

@@ -1,5 +1,5 @@
 import { Search } from "lucide-react"
-import { ChangeEvent, useState, KeyboardEvent, FormEvent } from "react"
+import { ChangeEvent, useState, FormEvent } from "react"
 import UserProfileCard from "../../../components/UserProfile"
 import Header from "../../components/Header"
 
@@ -30,10 +30,9 @@ const Dashboard: React.FC = () => {
           <button
             type="submit"
             className="p-2 bg-colorA hover:colorB transition"
-            style={{color: "white"}}
-            // disabled={(inputNumber.length === 10)}
+            style={{color: "white", display: 'flex', gap: '10px', alignItems: 'center'}}
           >
-            <Search />
+            Search<Search />
           </button>
         </form>
       </div>
