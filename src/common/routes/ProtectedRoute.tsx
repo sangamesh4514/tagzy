@@ -8,7 +8,7 @@ const ProtectedRoute = () => {
   return (
     <div>
         {(userId || userInfo) ? 
-            <Outlet /> : <Navigate to='/admin/login' />
+          <Outlet /> : <Navigate to='/admin/login' />
         }
     </div>
   )

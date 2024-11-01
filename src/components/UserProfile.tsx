@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../app/hook";
-import { fetchUserByPhoneNumber } from "../features/getUserProfile/userProfileActions";
+import { fetchUserByPhoneNumber, updateUserProfile } from "../features/getUserProfile/userProfileActions";
 import { UserProfile } from "../types";
 
 interface UserCardProps {
@@ -16,6 +16,8 @@ const UserProfileCard: React.FC<UserCardProps> = ({ phoneNumber }: any) => {
         email: '',
         phoneNumber: '',
         profilePicture: '',
+        dob: '',
+        gender: '',
         isUserPro: false,
         isUserVerified: false
     })
@@ -46,7 +48,10 @@ const UserProfileCard: React.FC<UserCardProps> = ({ phoneNumber }: any) => {
     }
 
     const handleSave = () => {
-
+        if(userInfo) {
+            console.log(userInfo)
+            dispatch(updateUserProfile(userData)).then(() => setIsEditing(false))
+        }
     }
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,7 +63,6 @@ const UserProfileCard: React.FC<UserCardProps> = ({ phoneNumber }: any) => {
               profileImage: URL.createObjectURL(files[0]),
             }));
         }
-      
     };
     
     const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -97,11 +101,11 @@ const UserProfileCard: React.FC<UserCardProps> = ({ phoneNumber }: any) => {
                 <label className="block">
                     <span className="text-gray-700">Name</span>
                     <input
-                    type="text"
-                    name="name"
-                    value={userData.name}
-                    onChange={handleInputChange}
-                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                        type="text"
+                        name="name"
+                        value={userData.name}
+                        onChange={handleInputChange}
+                        className="mt-1 mb-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                     />
                 </label>
                 <label className="block">
@@ -124,8 +128,31 @@ const UserProfileCard: React.FC<UserCardProps> = ({ phoneNumber }: any) => {
                         className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                     />
                 </label>
+                <label className="block">
+                    <span className="text-gray-700">Date of Birth</span>
+                    <input
+                    type="date"
+                    name="dob"
+                    value={userInfo?.dob}
+                    onChange={handleInputChange}
+                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                    />
+                </label>
 
                 {/* Dropdown Fields */}
+                <label className="block">
+                    <span className="text-gray-700">Date of birth</span>
+                    <select
+                        name="dob"
+                        value={userInfo?.dob}
+                        onChange={handleInputChange}
+                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                    >
+                        <option value='Male'>Male</option>
+                        <option value='Female'>Female</option>
+                        <option value='Other'>Other</option>
+                    </select>
+                </label>
                 <label className="block">
                     <span className="text-gray-700">Professional Status</span>
                     <select
@@ -142,7 +169,7 @@ const UserProfileCard: React.FC<UserCardProps> = ({ phoneNumber }: any) => {
                     <span className="text-gray-700">Verified Status</span>
                     <select
                         name="isUserVerified"
-                        value={['True', 'False']}
+                        value={userInfo?.isUserVerified ? 'Yes' : 'No'}
                         onChange={handleInputChange}
                         className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                     >
@@ -153,11 +180,13 @@ const UserProfileCard: React.FC<UserCardProps> = ({ phoneNumber }: any) => {
                 </div>
             ) : (
                 <div className="space-y-2 text-gray-700">
-                <p><strong>Name:</strong> {userData.name}</p>
-                <p><strong>Email:</strong> {userData.email}</p>
-                <p><strong>Phone number:</strong> {userData.phoneNumber}</p>
-                <p><strong>Pro Status:</strong> {userData.isUserPro ? 'True' : 'False'}</p>
-                <p><strong>Verified Status:</strong> {userData.isUserVerified ? 'True' : 'False'}</p>
+                    <p><strong>Name:</strong> {userData.name}</p>
+                    <p><strong>Email:</strong> {userData.email}</p>
+                    <p><strong>Phone number:</strong> {userData.phoneNumber}</p>
+                    <p><strong>Gender:</strong>{userInfo?.gender}</p>
+                    <p><strong>Date of birth:</strong>{userInfo?.dob}</p>
+                    <p><strong>Pro Status:</strong> {userData.isUserPro ? 'True' : 'False'}</p>
+                    <p><strong>Verified Status:</strong> {userData.isUserVerified ? 'True' : 'False'}</p>
                 </div>
             )}
 

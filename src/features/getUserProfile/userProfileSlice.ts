@@ -41,7 +41,7 @@ const userProfileSLice = createSlice({
             .addCase(updateUserProfile.pending, (state) => {
                 state.loading = true;
             })
-            .addCase(updateUserProfile.fulfilled, (state, action: PayloadAction<UserProfile>) => {
+            .addCase(updateUserProfile.fulfilled, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.userInfo = action.payload;
             })

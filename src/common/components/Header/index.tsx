@@ -1,4 +1,3 @@
-import React from "react";
 import "./style.css";
 import { useAppDispatch, useAppSelector } from '../../../app/hook'
 import { logout } from '../../../common/utils/authentication/adminSlice'
