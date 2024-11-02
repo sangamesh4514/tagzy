@@ -1,10 +1,10 @@
-import React, { ChangeEvent, ChangeEventHandler, FormEvent, MouseEventHandler, useEffect, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
 import { fetchUserByPhoneNumber, updateUserProfile } from "../../features/getUserProfile/userProfileActions";
 import { UserProfile } from "../../types";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../../magicUi/ui/card";
 import { format } from "date-fns";
-import { el, enIN } from "date-fns/locale"
+import { enIN } from "date-fns/locale"
 import { Button } from "../../common/components/ui/button";
 import { Pencil } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../../magicUi/ui/avatar";
@@ -27,7 +27,7 @@ interface UserCardProps {
 
 const UserProfileCard: React.FC<UserCardProps> = ({ phoneNumber }) => {
     const dispatch = useAppDispatch()
-    const { loading, success, userInfo, error } = useAppSelector((state) => state.userProfile)
+    const { loading, userInfo } = useAppSelector((state) => state.userProfile)
     const [isDialogOpen, setIsDialogOpen] = useState(false)
     const [userData, setUserData] = useState<UserProfile>({
         name: '',

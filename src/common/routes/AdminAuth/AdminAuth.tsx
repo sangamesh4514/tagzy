@@ -1,6 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux';
-import Header from "../../components/Header"
+import { ChangeEvent, useEffect, useState } from 'react'
 import { Eye } from 'lucide-react';
 import { EyeOff } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
