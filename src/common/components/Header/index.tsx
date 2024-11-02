@@ -2,6 +2,7 @@ import "./style.css";
 import { useAppDispatch } from "../../../app/hook";
 import { logout } from "../../../common/utils/authentication/adminSlice";
 import { useNavigate } from "react-router-dom";
+import ContactDialog from "../ContactDialog";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -33,8 +34,9 @@ const Header = () => {
         </div>
       ) : (
         <div className="navbarItem">
-          <a href="/">About</a>
-          <a href="/">Contact</a>
+          {/* <a href="/">About</a>
+          <a href="/">Contact</a> */}
+          <ContactDialog headerView={true} />
         </div>
       )}
     </div>

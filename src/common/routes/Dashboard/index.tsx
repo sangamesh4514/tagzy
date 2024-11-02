@@ -17,7 +17,7 @@ const Dashboard: React.FC = () => {
   return (
     <div>
       <Header />
-      <div className="mx-10 max-w-full">
+      <div className="w-5/6 mx-auto">
         <form onSubmit={handleFormSubmit} className="flex items-center border rounded-lg overflow-hidden shadow-sm mt-4">
           <input 
             type="text" 
@@ -29,7 +29,7 @@ const Dashboard: React.FC = () => {
           />
           <button
             type="submit"
-            className="p-2 bg-colorA hover:colorB transition"
+            className="p-2 bg-colorA hover:bg-colorB transition"
             style={{color: "white", display: 'flex', gap: '10px', alignItems: 'center'}}
           >
             Search<Search />
