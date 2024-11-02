@@ -57,7 +57,7 @@ export default async function BoxRevealDemo() {
           }}
         >
           <a
-            href="https://apps.apple.com"
+            href="https://apps.apple.com/in/app/tagzy/id6737283128"
             target="_blank"
             rel="noopener noreferrer"
             style={{
