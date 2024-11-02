@@ -93,7 +93,7 @@ export default function ContactDialog(props: IProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-      <Button className={`${!headerView ? "contact-trigger-btn" : 'headerView'} hover:text-teal-600`} style={{ letterSpacing: '-1px', wordSpacing: '-5px', padding: '5px 10px'}}>
+      <Button className={`${!headerView ? "contact-trigger-btn" : 'headerView'} hover:text-teal-600`} style={{ letterSpacing: '-1px', wordSpacing: '-5px' }}>
           Contact Us
         </Button>
       </DialogTrigger>
