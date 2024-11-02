@@ -7,8 +7,8 @@ export type UserProfile = {
     dob?: string; // Alternatively, Date if you're parsing it as a Date object
     gender?: string;
     location?: Record<string, any>; // Replace `any` with specific fields if known
-    isUserPro?: string;
-    isUserVerified?: string;
+    isUserPro?: boolean;
+    isUserVerified?: boolean;
     coins?: number;
     profilePicture?: string ;
     address?: string;

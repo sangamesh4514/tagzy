@@ -80,15 +80,15 @@ export const updateUserProfile = createAsyncThunk(
 
             if(phoneNumber) {
                 const { data } = await axios.post(`${backendUrl}/user/update`, {
-                    name,
-                    email,
-                    phoneNumber,
-                    password,
-                    profilePicture,
-                    gender,
-                    dob,
-                    isUserPro,
-                    isUserVerified
+                    'name': name,
+                    'email': email,
+                    'phoneNumber':  phoneNumber,
+                    'password': password,
+                    'profilePicture': profilePicture,
+                    'gender': gender,
+                    'dob': dob,
+                    'isUserPro': isUserPro,
+                    'isUserVerified': isUserVerified
                 }, config)
                 console.log('user updated data', data)
             }

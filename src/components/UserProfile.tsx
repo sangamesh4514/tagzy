@@ -16,15 +16,10 @@ const UserProfileCard: React.FC<UserCardProps> = ({ phoneNumber }: any) => {
         email: '',
         phoneNumber: '',
         profilePicture: '',
-<<<<<<< HEAD
         dob: '',
         gender: '',
         isUserPro: false,
         isUserVerified: false
-=======
-        isUserPro: '',
-        isUserVerified: ''
->>>>>>> 1d2dc37f749e7c97be5abfc712dcdf2e55b49976
     })
 
     useEffect(() => {
@@ -153,10 +148,11 @@ const UserProfileCard: React.FC<UserCardProps> = ({ phoneNumber }: any) => {
                     <span className="text-gray-700">Date of birth</span>
                     <select
                         name="dob"
-                        value={userInfo?.dob}
+                        value={userInfo?.gender}
                         onChange={handleInputChange}
                         className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                    >
+                    >   
+                        <option value="">Gender</option>
                         <option value='Male'>Male</option>
                         <option value='Female'>Female</option>
                         <option value='Other'>Other</option>
@@ -166,28 +162,24 @@ const UserProfileCard: React.FC<UserCardProps> = ({ phoneNumber }: any) => {
                     <span className="text-gray-700">Professional Status</span>
                     <select
                         name="isUserPro"
-                        value={userData.isUserPro}
+                        value={userData.isUserPro ? 'Yes' : 'No'}
                         onChange={handleInputChange}
                         className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                     >
-                        <option value='Yes'>Yes</option>
-                        <option value='No'>No</option>
+                        <option value='true'>Yes</option>
+                        <option value='false'>No</option>
                     </select>
                 </label>
                 <label className="block">
                     <span className="text-gray-700">Verified Status</span>
                     <select
                         name="isUserVerified"
-<<<<<<< HEAD
-                        value={userInfo?.isUserVerified ? 'Yes' : 'No'}
-=======
-                        value={userData.isUserVerified}
->>>>>>> 1d2dc37f749e7c97be5abfc712dcdf2e55b49976
+                        value={userData.isUserVerified ? 'Yes' : 'No'}
                         onChange={handleInputChange}
                         className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                     >
-                        <option value='Yes'>Yes</option>
-                        <option value='No'>No</option>
+                        <option value='true'>Yes</option>
+                        <option value='false'>No</option>
                     </select>
                 </label>
                 </div>
@@ -198,8 +190,8 @@ const UserProfileCard: React.FC<UserCardProps> = ({ phoneNumber }: any) => {
                     <p><strong>Phone number:</strong> {userData.phoneNumber}</p>
                     <p><strong>Gender:</strong>{userInfo?.gender}</p>
                     <p><strong>Date of birth:</strong>{userInfo?.dob}</p>
-                    <p><strong>Pro Status:</strong> {userData.isUserPro ? 'True' : 'False'}</p>
-                    <p><strong>Verified Status:</strong> {userData.isUserVerified ? 'True' : 'False'}</p>
+                    <p><strong>Pro Status:</strong> {userData.isUserPro ? 'Yes' : 'No'}</p>
+                    <p><strong>Verified Status:</strong> {userData.isUserVerified ? 'Yes' : 'No'}</p>
                 </div>
             )}
 
