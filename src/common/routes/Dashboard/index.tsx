@@ -11,6 +11,7 @@ const Dashboard: React.FC = () => {
     e.preventDefault()
     if(inputNumber.trim()) {
       setPhoneNumber(inputNumber)
+      setInputNumber('')
     }
   }
 

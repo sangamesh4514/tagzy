@@ -55,6 +55,8 @@ const UserProfileCard: React.FC<UserCardProps> = ({ phoneNumber }) => {
                 email: userInfo.email,
                 phoneNumber: userInfo.phoneNumber,
                 profilePicture: userInfo.profilePicture,
+                dob: userInfo.dob,
+                gender: userInfo.gender,
                 isUserPro: userInfo.isUserPro,
                 isUserVerified: userInfo.isUserVerified
             })
@@ -107,39 +109,41 @@ const UserProfileCard: React.FC<UserCardProps> = ({ phoneNumber }) => {
             {userInfo ? (
                 <Card className="mt-8 w-5/6 mx-auto">
                     <CardHeader>
-                        <CardTitle>User Profile</CardTitle>
+                        <CardTitle>{
+                            userInfo.isUserPro ? 'Worker' : 'User'    
+                        } Profile</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="flex flex-row justify-between">
                             <div className="flex-row">
                                 <p>
-                                    <span className="font-semibold">Name: </span>{userInfo?.name}
+                                    <span className="font-semibold">Name: </span>{userData?.name}
                                 </p>
                                 <p>
-                                    <span className="font-semibold">Email: </span>{userInfo?.email}
+                                    <span className="font-semibold">Email: </span>{userData?.email}
                                 </p>
                                 <p>
-                                    <span className="font-semibold">Mobile No.: </span>{userInfo?.phoneNumber}
+                                    <span className="font-semibold">Mobile No.: </span>{userData?.phoneNumber}
                                 </p>
                                 <p>
-                                    <span className="font-semibold">Gender: </span>{userInfo?.gender}
+                                    <span className="font-semibold">Gender: </span>{userData?.gender ? userData?.gender : null}
                                 </p>
                                 <p>
                                     <span className="font-semibold">Date of birth: </span>{
-                                        userInfo?.dob ? format((userInfo?.dob || ''), "dd MMMM yyyy", { locale: enIN }) : null
+                                        userData?.dob ? format((userData?.dob || ''), "dd MMMM yyyy", { locale: enIN }) : null
                                     }
                                 </p>
                                 <p>
-                                    <span className="font-semibold">User Professional: </span>{userInfo?.isUserPro ? 'Yes' : 'No'}
+                                    <span className="font-semibold">User Professional: </span>{userData?.isUserPro ? 'Yes' : 'No'}
                                 </p>
                                 <p>
-                                    <span className="font-semibold">User Verified: </span>{userInfo?.isUserVerified ? 'Yes' : 'No'}
+                                    <span className="font-semibold">User Verified: </span>{userData?.isUserVerified ? 'Yes' : 'No'}
                                 </p>
                             </div>
                             <div className="items-center">
                                 <Avatar className="w-32 h-32">
-                                    <AvatarImage alt="User Profile" src={userInfo?.profilePicture} />
-                                    <AvatarFallback className="text-6xl bg-gray-200">{userInfo?.name ? userInfo?.name[0] : 'UN'}</AvatarFallback>
+                                    <AvatarImage alt="User Profile" src={userData?.profilePicture} />
+                                    <AvatarFallback className="text-6xl bg-gray-200">{userData?.name ? userData?.name[0] : 'UN'}</AvatarFallback>
                                 </Avatar>
                             </div>
                         </div>
@@ -170,7 +174,7 @@ const UserProfileCard: React.FC<UserCardProps> = ({ phoneNumber }) => {
                                             </Avatar>
                                             <TooltipProvider>
                                                 <Tooltip>
-                                                    <TooltipTrigger>
+                                                    <TooltipTrigger type="button">
                                                         <Pencil size={24} strokeWidth={1} className="relative bg-colorA hover:bg-colorB p-1 text-white rounded-full p-0 left-6 bottom-6" />
                                                     </TooltipTrigger>
                                                     <TooltipContent 
@@ -211,7 +215,7 @@ const UserProfileCard: React.FC<UserCardProps> = ({ phoneNumber }) => {
                                                         )}
                                                     >
                                                         <CalendarIcon className="w-4 h-4 mr-2" />
-                                                        {userData.dob ? format((userData.dob || ''), "dd MMMM yyyy", { locale: enIN }) : <span>Pick a date</span>}
+                                                        {userData.dob ? format((userData.dob), "dd MMMM yyyy", { locale: enIN }) : <span>Pick a date</span>}
                                                     </Button>
                                                 </PopoverTrigger>
                                                 <PopoverContent className="bg-white text-black pl-2">
@@ -220,6 +224,7 @@ const UserProfileCard: React.FC<UserCardProps> = ({ phoneNumber }) => {
                                                         selected={userData.dob ? new Date(userData.dob) : undefined}
                                                         onSelect={handleDateChange}
                                                         initialFocus
+                                                        defaultMonth={new Date(2003, 0)}
                                                     />
                                                 </PopoverContent>
                                             </Popover>
@@ -230,7 +235,7 @@ const UserProfileCard: React.FC<UserCardProps> = ({ phoneNumber }) => {
                                             <Label htmlFor="edit-gender">Gender</Label>
                                             <Select onValueChange={(value) => setUserData((prev) => ({ ...prev, gender: value }))}>
                                                 <SelectTrigger id="edit-gender">
-                                                    <SelectValue placeholder={userData.gender || 'Select your gender'} />
+                                                    <SelectValue placeholder={userData.gender !== 'string' ? userData.gender : undefined} />
                                                 </SelectTrigger>
                                                 <SelectContent className="bg-white text-black">
                                                     <SelectItem value="Male">Male</SelectItem>
