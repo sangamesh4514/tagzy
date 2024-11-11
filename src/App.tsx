@@ -4,6 +4,7 @@ import AdminAuth from './common/routes/AdminAuth/AdminAuth'
 import Home from './common/routes/Home'
 import Dashboard from './common/routes/Dashboard'
 import ProtectedRoute from './common/routes/ProtectedRoute'
+import ProProfile from './profile/userProfile'
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
           <Route path='/' element={<Home />} />
           <Route path='/privacyPolicy' element={<PrivacyPolicy />} />
           <Route path='/admin/login' element={<AdminAuth />} />
+          <Route path='/profile/:userId' element={<ProProfile />} /> 
 
           {/* Protected Routes */}
           <Route path='/' element={<ProtectedRoute />} >
