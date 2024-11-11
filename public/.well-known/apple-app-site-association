@@ -1,0 +1,11 @@
+{
+    "applinks": {
+      "details": [
+        {
+          "appID": "C7WQWBC8DN.com.tagzy.app",
+          "paths": [ "/profile/*" ]
+        }
+      ]
+    }
+  }
+  
