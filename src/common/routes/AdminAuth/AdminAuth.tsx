@@ -4,7 +4,6 @@ import { EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { adminLogin } from "../../utils/authentication/adminActions";
 import { useAppDispatch, useAppSelector } from "../../../app/hook";
-import { Spinner } from "../../../components/Spinner";
 import Loader from "src/common/components/Loader";
 import Header from "src/common/components/Header";
 
