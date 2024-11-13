@@ -18,7 +18,9 @@ const Header = () => {
   return (
     <div className="navWrapper">
       <div className="logoAndText">
+        <a href="/">
         <img className="logo" src="/logo.png" alt="logo" />
+        </a>
         {/* <span className="name text-[3.5rem] font-semibold">TagZy</span> */}
       </div>
       {serachPath ? (
