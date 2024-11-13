@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Instagram, Twitter, Youtube } from "lucide-react";
+import { Instagram, Mail, Twitter, Youtube } from "lucide-react";
 import { Button } from "../ui/button";
 import ContactDialog from "../ContactDialog";
 
@@ -61,6 +61,16 @@ export default function Footer() {
                 >
                   <Youtube className="h-5 w-5 md:h-7 md:w-7" />
                   <span className="sr-only">YouTube</span>
+                </Button>
+              </a>
+              <a href="mailto:info@tagzy.in" rel="noopener noreferrer">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="hover:text-teal-600"
+                >
+                  <Mail className="h-5 w-5 md:h-7 md:w-7" />
+                  <span className="sr-only">E-Mail</span>
                 </Button>
               </a>
             </div>

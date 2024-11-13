@@ -1,6 +1,8 @@
 import React from "react";
 import "./style.css"; // Add custom CSS for styling
 import { Helmet } from "react-helmet";
+import Header from "src/common/components/Header";
+import Footer from "src/common/components/Footer";
 
 const PrivacyPolicy = () => {
   return (
@@ -24,6 +26,7 @@ const PrivacyPolicy = () => {
       <meta name="robots" content="index, follow" />
       <meta name="author" content="TagZy" />
     </Helmet>
+    <Header />
       <div className="privacy-container">
         <div className="privacy-content">
           <div className="logo-container">
@@ -137,6 +140,7 @@ const PrivacyPolicy = () => {
           </p>
         </div>
       </div>
+      <Footer />
     </>
   );
 };
