@@ -91,9 +91,7 @@ const AdminAuth = () => {
                   style={{ color: "white" }}
                 >
                   "Login"
-
                 <Loader isLoading={loading} />
-
                 </button>
               </div>
             </div>

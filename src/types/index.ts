@@ -1,4 +1,4 @@
-export type UserProfile = {
+export type IUserProfile = {
     fcmToken?: string;
     name?: string;
     email?: string;
