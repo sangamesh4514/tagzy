@@ -1,39 +1,12 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { UserProfile } from "../../types";
+import { IUserProfile } from "../../types";
 import { backendUrl } from "../../common/utils/authentication/adminActions";
-
-interface UserSearchDataType {
-    phoneNumber: string
-}
-
-// interface UserProfileUpdateType {
-//     name?: string;
-//     email?: string;
-//     phoneNumber: string;
-//     password: string
-//     dob?: string; // Alternatively, Date if you're parsing it as a Date object
-//     gender?: string;
-//     location?: Record<string, any>; // Replace `any` with specific fields if known
-//     isUserPro?: boolean;
-//     isUserVerified?: boolean;
-//     coins?: number;
-//     profilePicture?: string ;
-//     address?: string;
-//     categoryId?: number;
-//     experience?: number;
-//     skillTitle?: string;
-//     description?: string;
-//     languages?: string[];
-//     city?: string;
-//     subSkills?: string[];
-// };
-
 
 // search user profile by phoneNumber
 export const fetchUserByPhoneNumber = createAsyncThunk(
     'user/search',
-    async({phoneNumber}: UserSearchDataType, {rejectWithValue}) => {
+    async(phoneNumber: string, {rejectWithValue}) => {
         try {
             const config = {
                 headers: {
@@ -70,7 +43,7 @@ export const updateUserProfile = createAsyncThunk(
         profilePicture,
         isUserPro,
         isUserVerified
-    }: UserProfile, { rejectWithValue }) => {
+    }: IUserProfile, { rejectWithValue }) => {
         try{
             const config = {
                 headers: {

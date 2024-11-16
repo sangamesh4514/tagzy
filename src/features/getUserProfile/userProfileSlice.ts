@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { fetchUserByPhoneNumber, updateUserProfile } from "./userProfileActions"
-import { UserProfile } from "../../types"
+import { IUserProfile } from "../../types"
 
 type UserProfileProps = {
     loading: boolean,
-    userInfo: UserProfile | null ,
+    userInfo: IUserProfile | null ,
     error: string | null,
     success: boolean
 }
@@ -27,7 +27,7 @@ const userProfileSLice = createSlice({
                 state.loading = true
                 state.error = null
             })
-            .addCase(fetchUserByPhoneNumber.fulfilled, (state, action: PayloadAction<UserProfile>) => {
+            .addCase(fetchUserByPhoneNumber.fulfilled, (state, action: PayloadAction<IUserProfile>) => {
                 state.loading = false
                 state.userInfo = action.payload
                 state.success = true
