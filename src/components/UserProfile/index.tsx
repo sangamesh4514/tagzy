@@ -43,12 +43,14 @@ const UserProfileCard: React.FC = () => {
       setEditableFields(Object.keys(userInfo) as (keyof IUserProfile)[]);
     }
   }, [userInfo]);
+  
   const handleEdit = () => {
     setIsEditing(true);
     if (data) {
       setEditedData({ ...data });
     }
   };
+  
   const handleUpdate = async () => {
     if (editedData && editedData.phoneNumber) {
       setData(editedData);
@@ -56,13 +58,16 @@ const UserProfileCard: React.FC = () => {
     }
     setIsEditing(false);
   };
+  
   const handleCancel = () => {
     setEditedData(data);
     setIsEditing(false);
   };
+  
   const handleInputChange = (key: keyof IUserProfile, value: any) => {
     setEditedData((prev) => (prev ? { ...prev, [key]: value } : null));
   };
+  
   const isDataChanged = () => {
     if (!data || !editedData) return false;
     return Object.keys(data).some(
@@ -71,14 +76,17 @@ const UserProfileCard: React.FC = () => {
         editedData[key as keyof IUserProfile]
     );
   };
+  
   const handleFieldSelection = (field: keyof IUserProfile) => {
     setSelectedFields((prev) =>
       prev.includes(field) ? prev.filter((f) => f !== field) : [...prev, field]
     );
   };
+  
   const applyFilter = () => {
     setEditableFields(selectedFields);
   };
+  
   const renderEditableField = (key: keyof IUserProfile, value: any) => {
     if (!editableFields.includes(key)) {
       return value?.toString() || "";
@@ -94,9 +102,9 @@ const UserProfileCard: React.FC = () => {
           <SelectTrigger className="w-full">
             <SelectValue>{editedData?.[key]?.toString()}</SelectValue>
           </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="true">True</SelectItem>
-            <SelectItem value="false">False</SelectItem>
+          <SelectContent style={{background: 'black'}}>
+            <SelectItem style={{background: 'green'}} value="true">True</SelectItem>
+            <SelectItem style={{background: 'red'}} value="false">False</SelectItem>
           </SelectContent>
         </Select>
       );
@@ -105,6 +113,7 @@ const UserProfileCard: React.FC = () => {
         <Input
           value={editedData?.[key]?.join(", ") || ""}
           onChange={(e) => handleInputChange(key, e.target.value.split(", "))}
+          className="test1"
         />
       );
     } else if (typeof value === "object" && value !== null) {
@@ -112,6 +121,7 @@ const UserProfileCard: React.FC = () => {
         <Input
           value={JSON.stringify(editedData?.[key])}
           onChange={(e) => handleInputChange(key, JSON.parse(e.target.value))}
+          className="test2"
         />
       );
     } else {
@@ -119,6 +129,7 @@ const UserProfileCard: React.FC = () => {
         <Input
           value={editedData?.[key]?.toString() || ""}
           onChange={(e) => handleInputChange(key, e.target.value)}
+          className="test3"
         />
       );
     }
@@ -130,6 +141,7 @@ const UserProfileCard: React.FC = () => {
       </div>
     );
   }
+  
   return (
     <div
       className="container mx-auto p-4"
@@ -176,7 +188,7 @@ const UserProfileCard: React.FC = () => {
               <TableCell style={{ borderRight: "5px solid green" }}>
                 {key}
               </TableCell>
-              <TableCell>
+              <TableCell className="test4">
                 {isEditing
                   ? renderEditableField(key as keyof IUserProfile, value)
                   : typeof value === "object"
@@ -222,7 +234,6 @@ const UserProfileCard: React.FC = () => {
   );
 };
 export default UserProfileCard;
-
 {
   /* <div className="items-center">
   <Avatar className="w-32 h-32">
