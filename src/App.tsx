@@ -4,7 +4,7 @@ import AdminAuth from './common/routes/AdminAuth/AdminAuth'
 import Home from './common/routes/Home'
 import Dashboard from './common/routes/Dashboard'
 import ProtectedRoute from './common/routes/ProtectedRoute'
-import ProProfile from './profile/userProfile'
+import ProProfile from './common/components/profile/userProfile'
 
 const App = () => {
   return (

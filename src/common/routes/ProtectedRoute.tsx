@@ -1,4 +1,4 @@
-import { useAppSelector } from '../../app/hook'
+import { useAppSelector } from '../hooks/hook'
 import { Outlet, Navigate } from 'react-router-dom'
 
 const ProtectedRoute = () => {
