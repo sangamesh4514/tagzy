@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Button } from "../ui/button";
 import {
   Dialog,
@@ -13,6 +13,7 @@ import { Input } from "src/magicUi/ui/input"
 import { Label } from "src/magicUi/ui/label"
 import { Textarea } from "src/magicUi/ui/textarea"
 import { Mail } from "lucide-react"
+import emailjs from '@emailjs/browser';
 import './style.css';
 
 interface FormData {
@@ -27,16 +28,18 @@ interface IProps{
   }
 
 export default function ContactDialog(props: IProps) {
-    const { headerView = false } = props
+  const { headerView = false } = props
   const [open, setOpen] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     city: '',
     query: ''
   })
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  const formRef = useRef<HTMLFormElement>(null);
 
+  //Email validation
   const isValidEmail = (email: string) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
   }
@@ -52,19 +55,31 @@ export default function ContactDialog(props: IProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    const currentForm = formRef.current
+
+    if(currentForm === null) return
     if (isFormValid()) {
-      console.log('===Form submitted:', formData)
-      setIsSubmitted(true)
-      setTimeout(() => {
-        setIsSubmitted(false)
-        setOpen(false)
-        setFormData({
-          name: '',
-          email: '',
-          city: '',
-          query: ''
+      emailjs
+        .sendForm(
+          'service_5wa3w5j',
+          'template_90dytdq',
+          currentForm,
+          'xZiE81yyC9gBEedO8'
+        )
+        .then((result) => {
+          console.log('===Form submitted:', result)
+          setIsSubmitted(true)
+          setTimeout(() => {
+            setIsSubmitted(false)
+            setOpen(false)
+            setFormData({
+              name: '',
+              email: '',
+              city: '',
+              query: ''
+            })
+          }, 2000)
         })
-      }, 2000)
     }
   }
 
@@ -93,16 +108,16 @@ export default function ContactDialog(props: IProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-      <Button className={`${!headerView ? "contact-trigger-btn" : 'headerView'} hover:text-teal-600`} style={{ letterSpacing: '-1px', wordSpacing: '-5px' }}>
+        <div className={`${!headerView ? "contact-trigger-btn" : 'headerView'} hover:text-colorA cursor-pointer`} style={{ letterSpacing: '-1px', wordSpacing: '-5px' }}>
           Contact Us
-        </Button>
+        </div>
       </DialogTrigger>
       <DialogContent className="dialog-content">
         <DialogHeader>
           <DialogTitle className="dialog-title">Contact Us</DialogTitle>
         </DialogHeader>
         {!isSubmitted ? (
-          <form onSubmit={handleSubmit} className="contact-form">
+          <form ref={formRef} onSubmit={handleSubmit} className="contact-form">
             <div className="form-group">
               <Label htmlFor="name" className="form-label">Name</Label>
               <Input

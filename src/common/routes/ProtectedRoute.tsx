@@ -2,7 +2,7 @@ import { useAppSelector } from '../../app/hook'
 import { Outlet, Navigate } from 'react-router-dom'
 
 const ProtectedRoute = () => {
-    const { userInfo } = useAppSelector((state) => state.userProfile)
+    const { userInfo } = useAppSelector((state) => state.auth)
     const userId = localStorage.getItem('userId')
 
   return (

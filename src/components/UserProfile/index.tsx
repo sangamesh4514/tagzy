@@ -1,7 +1,5 @@
 /* eslint-disable no-lone-blocks */
 import React, { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../app/hook";
-import { updateUserProfile } from "../../features/getUserProfile/userProfileActions";
 import { IUserProfile } from "../../types";
 import { Button } from "../../common/components/ui/button";
 import { Input } from "../../magicUi/ui/input";
@@ -24,9 +22,12 @@ import {
 import { Checkbox } from "src/magicUi/ui/checkbox";
 import { Label } from "src/magicUi/ui/label";
 import { Pencil } from "lucide-react";
-const UserProfileCard: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const { userInfo } = useAppSelector((state) => state.userProfile);
+import { useUserData } from "../../common/api/getAndUpdateUser";
+import { Spinner } from "../Spinner";
+interface UserProfileCardProps {
+  user: IUserProfile
+}
+const UserProfileCard: React.FC<UserProfileCardProps> = ({user}) => {
   const [data, setData] = useState<IUserProfile | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editedData, setEditedData] = useState<IUserProfile | null>(null);
@@ -36,13 +37,15 @@ const UserProfileCard: React.FC = () => {
   const [selectedFields, setSelectedFields] = useState<(keyof IUserProfile)[]>(
     []
   );
+  const { updateUser, loading }= useUserData();
+
   useEffect(() => {
-    if (userInfo && userInfo.phoneNumber) {
-      setData(userInfo);
-      setEditedData(userInfo);
-      setEditableFields(Object.keys(userInfo) as (keyof IUserProfile)[]);
+    if (user && user.phoneNumber) {
+      setData(user);
+      setEditedData(user);
+      setEditableFields(Object.keys(user) as (keyof IUserProfile)[]);
     }
-  }, [userInfo]);
+  }, [user]);
   
   const handleEdit = () => {
     setIsEditing(true);
@@ -54,7 +57,7 @@ const UserProfileCard: React.FC = () => {
   const handleUpdate = async () => {
     if (editedData && editedData.phoneNumber) {
       setData(editedData);
-      await dispatch(updateUserProfile(editedData));
+      await updateUser(editedData);
     }
     setIsEditing(false);
   };
@@ -144,8 +147,8 @@ const UserProfileCard: React.FC = () => {
   
   return (
     <div
-      className="container mx-auto p-4"
-      style={{ border: "5px solid green" }}
+      className="px-4 mx-8 md:mx-20"
+      style={{ border: "3px solid green" }}
     >
       <div className="mb-4">
         <h2 className="text-lg font-semibold mb-2">Select fields to edit:</h2>
@@ -182,13 +185,13 @@ const UserProfileCard: React.FC = () => {
             <TableHead>Value</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody>
+        <TableBody className="">
           {Object.entries(data).map(([key, value]) => (
             <TableRow key={key}>
-              <TableCell style={{ borderRight: "5px solid green" }}>
+              <TableCell style={{ borderRight: "3px solid green" }}>
                 {key}
               </TableCell>
-              <TableCell className="test4">
+              <TableCell className="">
                 {isEditing
                   ? renderEditableField(key as keyof IUserProfile, value)
                   : typeof value === "object"
@@ -203,7 +206,7 @@ const UserProfileCard: React.FC = () => {
         {!isEditing && (
           <Button
             onClick={handleEdit}
-            className="bg-colorB hover:bg-colorA text-white"
+            className="bg-colorB hover:bg-colorA text-white mb-2"
             variant="outline"
           >
             <Pencil className="w-4 h-4 mr-2" />
@@ -216,14 +219,14 @@ const UserProfileCard: React.FC = () => {
               onClick={handleUpdate}
               disabled={!isDataChanged()}
               variant="outline"
-              className="bg-colorB hover:bg-colorA text-white"
+              className="bg-colorB hover:bg-colorA text-white mb-2"
             >
-              Update
+              {loading ? (<Spinner />): 'Update'}
             </Button>
             <Button
               onClick={handleCancel}
               variant="outline"
-              className="bg-colorB hover:bg-colorA text-white"
+              className="bg-colorB hover:bg-colorA text-white mb-2"
             >
               Cancel
             </Button>

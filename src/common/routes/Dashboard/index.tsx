@@ -2,21 +2,18 @@ import { Search } from "lucide-react";
 import { useState } from "react";
 import UserProfileCard from "../../../components/UserProfile";
 import Header from "../../components/Header";
-import { useDispatch } from "react-redux";
-import { fetchUserByPhoneNumber } from "src/features/getUserProfile/userProfileActions";
 import { Input } from "src/magicUi/ui/input";
 import { Button } from "src/magicUi/ui/button";
-import { useAppSelector } from "src/app/hook";
 import Loader from "src/common/components/Loader";
+import { useUserData } from "../../api/getAndUpdateUser";
 
 const Dashboard: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
-  const dispatch = useDispatch();
-  const { loading } = useAppSelector((state) => state.userProfile);
+  const { userDetails, loading, getUser } = useUserData()
 
-  const handleSearch = () => {
+  const handleSearch = async() => {
     if (phoneNumber.length === 10) {
-      dispatch(fetchUserByPhoneNumber(phoneNumber) as any);
+      await getUser(phoneNumber)
       setPhoneNumber("");
     } else {
       window.alert("Enter 10 digit valid number");
@@ -69,8 +66,11 @@ const Dashboard: React.FC = () => {
           <p className="text-red-500">Error fetching user data</p>
         )} */}
         <Loader isLoading={loading} />
-
-        <UserProfileCard />
+        {userDetails ? (
+          <div className="">
+            <UserProfileCard user={userDetails} />
+          </div>
+        ): null}
       </div>
     </>
   );
