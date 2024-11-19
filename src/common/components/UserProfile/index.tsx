@@ -1,15 +1,15 @@
 /* eslint-disable no-lone-blocks */
 import React, { useEffect, useState } from "react";
 import { IUserProfile } from "../../types";
-import { Button } from "../../common/components/ui/button";
-import { Input } from "../../magicUi/ui/input";
+import { Button } from "../ui/button";
+import { Input } from "../../../magicUi/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../magicUi/ui/select";
+} from "../../../magicUi/ui/select";
 import {
   Table,
   TableBody,
@@ -22,7 +22,7 @@ import {
 import { Checkbox } from "src/magicUi/ui/checkbox";
 import { Label } from "src/magicUi/ui/label";
 import { Pencil } from "lucide-react";
-import { useUserData } from "../../common/api/getAndUpdateUser";
+import { useUserData } from "../../api/getAndUpdateUser";
 import { Spinner } from "../Spinner";
 interface UserProfileCardProps {
   user: IUserProfile

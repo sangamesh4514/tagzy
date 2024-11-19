@@ -3,7 +3,7 @@ import { Eye } from "lucide-react";
 import { EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { adminLogin } from "../../utils/authentication/adminActions";
-import { useAppDispatch, useAppSelector } from "../../../app/hook";
+import { useAppDispatch, useAppSelector } from "../../hooks/hook";
 import Loader from "src/common/components/Loader";
 import Header from "src/common/components/Header";
 

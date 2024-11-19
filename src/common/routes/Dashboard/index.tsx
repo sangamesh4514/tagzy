@@ -1,6 +1,6 @@
 import { Search } from "lucide-react";
 import { useState } from "react";
-import UserProfileCard from "../../../components/UserProfile";
+import UserProfileCard from "../../components/UserProfile";
 import Header from "../../components/Header";
 import { Input } from "src/magicUi/ui/input";
 import { Button } from "src/magicUi/ui/button";

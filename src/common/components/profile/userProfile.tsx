@@ -18,10 +18,10 @@ import {
   DialogTrigger,
 } from "src/magicUi/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "src/magicUi/ui/tabs";
-import { IUserProfile } from "src/types";
 import { Calendar, Mail, MapPin, Phone, Star } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { IUserProfile } from "src/common/types";
 
 const ProProfile: React.FC = () => {
   const { userId } = useParams<{ userId: string }>(); // Extract userId from the URL

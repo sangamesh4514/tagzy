@@ -1,5 +1,5 @@
 import "./style.css";
-import { useAppDispatch } from "../../../app/hook";
+import { useAppDispatch } from "../../hooks/hook";
 import { logout } from "../../../common/utils/authentication/adminSlice";
 import { useNavigate } from "react-router-dom";
 import ContactDialog from "../ContactDialog";
