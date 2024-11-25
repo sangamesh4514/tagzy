@@ -96,11 +96,11 @@ export default function Footer() {
                   Contact Us
                 </a> */}
               </li>
-              {/* <li>
+              <li style={{marginTop: '26px'}}>
                 <a href="/careers" className="text-gray-600 hover:text-teal-600">
                   Careers
                 </a>
-              </li> */}
+              </li>
             </ul>
           </div>
 
