@@ -7,6 +7,7 @@ export function useUserData () {
     const [userDetails, setUserDetails] = useState<IUserProfile | null>(null)
     const [loading, setLoading] = useState<boolean>(false)
 
+    // get user by phone number
     const getUser = async(phoneNumber: string) => {
         setUserDetails(null)
         try{
@@ -31,7 +32,9 @@ export function useUserData () {
         }
     }
 
+    // update user
     const updateUser = async(inputData: IUserProfile) => {
+        setUserDetails(null)
         try{
             setLoading(true)
             const config = {
@@ -42,11 +45,10 @@ export function useUserData () {
 
             const { data } = await axios.post(`${backendUrl}/user/update`, inputData, config)
             if(data) {
-                console.log('updated user data', data)
-                await getUser(data?.phoneNumber)
                 setUserDetails(data)
                 setLoading(false)
             }
+
         }
         catch(err) {
             console.log(err)

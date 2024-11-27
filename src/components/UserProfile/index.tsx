@@ -217,7 +217,7 @@ const UserProfileCard: React.FC<UserProfileCardProps> = ({user}) => {
           <>
             <Button
               onClick={handleUpdate}
-              disabled={!isDataChanged()}
+              disabled={!isDataChanged() || loading}
               variant="outline"
               className="bg-colorB hover:bg-colorA text-white mb-2"
             >
