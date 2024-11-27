@@ -1,7 +1,7 @@
 import axios from "axios";
 import { backendUrl } from "../utils/authentication/adminActions";
 import { useState } from "react";
-import { IUserProfile } from "@/types";
+import { IUserProfile } from "../types";
 
 export function useUserData () {
     const [userDetails, setUserDetails] = useState<IUserProfile | null>(null)
