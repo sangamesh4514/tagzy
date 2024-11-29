@@ -5,6 +5,7 @@ import BoxRevealWrapper from "../AsyncComponent";
 import { MarqueeDemo } from "./MarqueeDemo";
 import FeatureShowcase from "./FeatureShowcase";
 import './style.css';
+import FAQ from "../FAQ";
 
 export function AnimatedGridPatternDemo() {
   return (
@@ -15,6 +16,9 @@ export function AnimatedGridPatternDemo() {
       </div>
       <MarqueeDemo />
       <FeatureShowcase />
+      <div>
+        <FAQ />
+      </div>
       <AnimatedGridPattern
         numSquares={25} // Number of squares in the pattern
         maxOpacity={0.2} // Maximum opacity of the pattern

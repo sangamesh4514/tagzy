@@ -29,7 +29,7 @@ export default function FeatureShowcase() {
   const [activeFeature, setActiveFeature] = useState(0)
 
   return (
-    <div className="relative z-10 flex flex-col items-center space-y-8 p-6 rounded-lg shadow-lg">
+    <div className="relative z-10 flex flex-col items-center space-y-8 p-6 rounded-lg">
       <h2 className="text-3xl font-serif  text-teal-800 m-0" style={{whiteSpace: 'nowrap'}}>Why Choose TagZy ?</h2>
       <div className="grid grid-cols-2 gap-4">
         {features.map((feature, index) => (

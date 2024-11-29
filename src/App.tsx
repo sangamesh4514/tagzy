@@ -6,6 +6,7 @@ import Dashboard from './common/routes/Dashboard'
 import ProtectedRoute from './common/routes/ProtectedRoute'
 import ProProfile from './common/components/profile/userProfile'
 import NotFound from './common/routes/NotFound'
+import FAQ from './common/components/FAQ'
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
           <Route path='/admin/login' element={<AdminAuth />} />
           <Route path='/profile/:userId' element={<ProProfile />} /> 
           <Route path="*" element={<NotFound />} />
+          <Route path='/faq' element={<FAQ />} />
 
           {/* Protected Routes */}
           <Route path='/' element={<ProtectedRoute />} >
