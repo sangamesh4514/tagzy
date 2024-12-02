@@ -9,18 +9,19 @@ import { useUserData } from "../../api/getAndUpdateUser";
 
 const Dashboard: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
-  const { userDetails, loading, getUser } = useUserData()
+  const { userDetails, loading, error, getUser } = useUserData(); // Included error state for better error handling
+  console.log("===Dashboard");
 
-  const handleSearch = async() => {
+  const handleSearch = async () => {
     if (phoneNumber.length === 10) {
-      await getUser(phoneNumber)
+      await getUser(phoneNumber);
       setPhoneNumber("");
     } else {
-      window.alert("Enter 10 digit valid number");
+      window.alert("Enter a valid 10-digit number");
     }
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handleSearch();
     }
@@ -32,10 +33,10 @@ const Dashboard: React.FC = () => {
       <div className="w-5/6 mx-auto">
         <div className="flex gap-2 mb-4">
           <Input
-            type="text" // --fix this, need to update type = number and dont want to incress or decress number with up/down arrow key
+            type="tel"
             placeholder="Enter mobile number"
             value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
+            onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, ""))}
             onKeyUp={handleKeyPress}
             className="w-full px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             maxLength={10}
@@ -43,34 +44,20 @@ const Dashboard: React.FC = () => {
           <Button
             onClick={handleSearch}
             disabled={loading}
-            className="p-2 bg-colorA hover:bg-colorB transition"
-            style={{
-              color: "white",
-              display: "flex",
-              gap: "10px",
-              alignItems: "center",
-            }}
+            className="p-2 bg-colorA hover:bg-colorB transition flex items-center gap-2"
           >
             <Search className="mr-2 h-4 w-4" /> Search
           </Button>
         </div>
       </div>
       <div>
-        {/* {loading && (
-          <div className="text-center mt-4 text-2xl text-gray-500">
-            Data Loading...
-          </div>
-        )} */}
-        {/* add error when enter number data not found */}
-        {/* {loading && (
-          <p className="text-red-500">Error fetching user data</p>
-        )} */}
+        {error && (
+          <p className="text-center text-red-500 mt-4">
+            {error || "User not found"}
+          </p>
+        )}
         <Loader isLoading={loading} />
-        {userDetails ? (
-          <div className="">
-            <UserProfileCard user={userDetails} />
-          </div>
-        ): null}
+        {userDetails && <UserProfileCard user={userDetails} />}
       </div>
     </>
   );
