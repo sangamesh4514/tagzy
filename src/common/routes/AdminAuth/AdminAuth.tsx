@@ -45,7 +45,7 @@ const AdminAuth = () => {
   return (
     <>
       <Header />
-      <div className="mt-2 flex flex-col h-screen bg-white rounded-t-3xl">
+      <div className="flex flex-col bg-white">
         <div className="my-auto item-center justify-center">
           <div className="flex flex-col item-center justify-center bg-white h-fit ">
             <div className="h-fit mx-8 md:mx-auto rounded-lg shadow-lg border-2 border-solid">
