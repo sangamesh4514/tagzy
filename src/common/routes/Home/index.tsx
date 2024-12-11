@@ -1,3 +1,4 @@
+import StickyIcons from "src/common/components/StickyIcons";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { Helmet } from "react-helmet";
@@ -78,6 +79,7 @@ const Home = () => {
       </Helmet>
       <Header />
       <AnimatedGridPatternDemo />
+      <StickyIcons />
       <Footer />
     </>
   );

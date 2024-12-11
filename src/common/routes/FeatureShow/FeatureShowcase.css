@@ -1,0 +1,126 @@
+.feature-showcase {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .feature-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+  
+  .feature-main {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  
+  .feature-main.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .feature-secondary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  
+  .feature-item {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  
+  .feature-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .feature-content {
+    flex: 1;
+  }
+  
+  .feature-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .feature-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 20px;
+  }
+  
+  .features_title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+  }
+  
+  .features_title_h3 {
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+    font-weight: bold;
+  }
+  
+  .features_description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #666;
+  }
+  
+  /* Mobile Styles */
+  @media (max-width: 768px) {
+    .feature-showcase {
+      padding: 2rem 1rem;
+    }
+  
+    .feature-grid {
+      gap: 2rem;
+    }
+  
+    .feature-main {
+      flex-direction: column;
+      text-align: center;
+      /* Remove animations for mobile */
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  
+    .feature-secondary-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .feature-item {
+      text-align: center;
+      /* Remove animations for mobile */
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  
+    h2 {
+      font-size: 2rem;
+    }
+  
+    h3 {
+      font-size: 1.5rem;
+    }
+  
+    p {
+      font-size: 1rem;
+    }
+  }
+  
+  

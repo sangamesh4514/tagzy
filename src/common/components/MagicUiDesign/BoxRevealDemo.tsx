@@ -8,7 +8,7 @@ export default async function BoxRevealDemo() {
     <div className="box-reveal-container">
       <IntroducingBadge />
       <BoxReveal boxColor={"#096c6c"} duration={0.75}>
-        <p className="main-heading" style={{ fontFamily: "serif" }}>
+        <p className="main-heading" style={{ fontFamily: "serif", color: '#096c6c', letterSpacing: '4px' }}>
           TagZy
         </p>
       </BoxReveal>

@@ -1,0 +1,134 @@
+.scroll-sections {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s ease;
+}
+
+.section.active {
+  opacity: 1;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  width: 100%;
+  padding: 0 20px;
+}
+
+.left-image {
+  flex-direction: row;
+}
+
+.right-image {
+  flex-direction: row-reverse;
+}
+
+.phone-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.phone-image {
+  max-width: 300px;
+  height: auto;
+  border-radius: 30px;
+  transition: transform 0.5s ease;
+}
+
+.section.active .phone-image {
+  transform: translateY(0);
+}
+
+.description {
+  flex: 1;
+  padding: 0 40px;
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.description.visible.slide-left {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.description.slide-left {
+  transform: translateX(-100px);
+}
+
+.description.visible.slide-right {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.description.slide-right {
+  transform: translateX(100px);
+}
+
+.section_title {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: #096c6c;
+  font-family: serif;
+  letter-spacing: 2px;
+}
+
+.section_description {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  font-family: serif;
+  letter-spacing: 2px;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #3490dc;
+  border-radius: 30px;
+  transition: background-color 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-family: serif;
+  letter-spacing: 2px;
+}
+
+.cta-button:hover {
+  background-color: #2779bd;
+}
+
+@media (max-width: 768px) {
+  .content {
+    flex-direction: column;
+  }
+
+  .phone-container {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  .phone-image {
+    max-width: 80%;
+  }
+
+  .description {
+    width: 100%;
+    text-align: center;
+    padding: 0 20px;
+  }
+}
+
