@@ -21,6 +21,7 @@
   }
   
   .section {
+    flex-direction: column;
     margin-bottom: 40px;
   }
   
@@ -56,7 +57,7 @@
   }
   
   .button {
-    background-color: #0070f3;
+    background-color: #096c6c;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -67,7 +68,7 @@
   }
   
   .button:hover {
-    background-color: #0050d3;
+    background-color: #033535;
   }
   
   form {
@@ -95,6 +96,89 @@
   textarea {
     min-height: 100px;
   }
+
+  /* General styles */
+/* body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h2, h3 {
+  font-weight: bold;
+} */
+
+/* Section Styles */
+.section-reason {
+  padding: 40px 20px;
+  background-color: #f4f4f4;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.reasons-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  justify-items: center;
+}
+
+.reason {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 350px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.reason:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.reason h3 {
+  color: #2c3e50;
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+.reason p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #7f8c8d;
+  text-align: justify;
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 1.75rem;
+  }
+
+  .reason {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: 20px;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .reason {
+    max-width: 100%;
+  }
+}
+
   
   @media (max-width: 768px) {
     .job-listings, .benefits {

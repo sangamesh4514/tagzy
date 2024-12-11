@@ -36,7 +36,7 @@ const Careers = () => {
         <meta name="author" content="TagZy" />
       </Helmet>
       <Header />
-      <CareerPage />;
+      <CareerPage />
       <Footer />
     </>
   );

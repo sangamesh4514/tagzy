@@ -131,7 +131,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="/privacyPolicy"
+                  href="/faq"
                   className="text-gray-600 hover:text-teal-600"
                 >
                   FAQ
