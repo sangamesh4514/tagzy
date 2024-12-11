@@ -26,26 +26,7 @@ export function AnimatedGridPatternDemo() {
       </div>
       <MarqueeDemo />
       <FeatureShowcase />
-      <div
-        style={{
-          borderRadius: "50px",
-          fontFamily: "serif",
-          margin: "2rem 0px",
-          cursor: "pointer",
-          color: "white",
-          backgroundColor: "#096c6c",
-          fontSize: "50px",
-          alignItems: "center",
-          justifyContent: "center",
-          flexDirection: "row",
-          display: "flex",
-          height: "200px",
-          letterSpacing: "2px",
-          position: "relative",
-          zIndex: "1",
-        }}
-        onClick={handleClick}
-      >
+      <div className="provider_banner" onClick={handleClick}>
         Ready to start your journey as a provider ?
       </div>
       <FAQ />
