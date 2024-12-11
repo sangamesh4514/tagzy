@@ -12,30 +12,30 @@ interface Feature {
 const features: Feature[] = [
   {
     id: 1,
-    title: "AI-Powered Scheduling",
+    title: "Lorem ipsum dolor sit.",
     description:
-      "Our app uses advanced AI to optimize your calendar, suggesting the best times for meetings and tasks based on your preferences and habits.",
-    imageUrl: "/assets/home.jpeg",
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro illum consequuntur minima harum voluptates temporibus quas, omnis quasi excepturi, soluta officia accusamus.",
+    imageUrl: "/assets/half.png",
   },
   {
     id: 2,
-    title: "Smart Time Blocking",
+    title: "Lorem ipsum dolor sit.",
     description:
-      "Automatically block out time for focused work, breaks, and personal activities to maintain a balanced and productive schedule.",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro illum consequuntur minima harum voluptates temporibus quas, omnis quasi excepturi, soluta officia accusamus.",
     imageUrl: "/assets/home.jpeg",
   },
   {
     id: 3,
-    title: "Intelligent Reminders",
+    title: "Lorem ipsum dolor sit.",
     description:
-      "Receive context-aware notifications that adapt to your schedule, ensuring you never miss important events or deadlines.",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro illum consequuntur minima harum voluptates temporibus quas, omnis quasi excepturi, soluta officia accusamus.",
     imageUrl: "/assets/home.jpeg",
   },
   {
     id: 4,
-    title: "Team Collaboration",
+    title: "Lorem ipsum dolor sit.",
     description:
-      "Effortlessly coordinate schedules with team members and clients, finding optimal meeting times across different time zones.",
+    "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro illum consequuntur minima harum voluptates temporibus quas, omnis quasi excepturi, soluta officia accusamus.",
     imageUrl: "/assets/home.jpeg",
   },
 ];
@@ -80,17 +80,14 @@ const FeatureShowcase: React.FC = () => {
           className={`feature-main ${
             visibleFeatures.includes(1) ? "visible" : ""
           }`}
-          style={{flexDirection: 'column'}}
+          style={{ flexDirection: "column" }}
         >
-          <div className="feature-image">
-            <Iphone15Pro
-              className="phone-image w-full h-64 sm:h-96 rounded-xl object-cover object-top"
-              src={features[0].imageUrl}
-            />
-          </div>
-          <div className="feature-content">
-            <h2 className="features_title">{features[0].title}</h2>
-            <p className="features_description">{features[0].description}</p>
+          <div className="feature-image" >
+            <div className="feature-content">
+              <h2 className="features_title">{features[0].title}</h2>
+              <p className="features_description">{features[0].description}</p>
+            </div>
+            <img style={{height: '24rem'}} src={features[0].imageUrl} alt={features[0].title} />
           </div>
         </div>
 

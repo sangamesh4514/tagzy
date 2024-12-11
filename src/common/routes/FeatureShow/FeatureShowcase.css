@@ -1,7 +1,9 @@
 .feature-showcase {
-    padding: 4rem 2rem;
-    max-width: 1200px;
+    padding: 2rem 2rem 4rem;
+    max-width: 768px;
     margin: 0 auto;
+    background: aliceblue;
+    border-radius: 1.5rem;
   }
   
   .feature-grid {
@@ -53,6 +55,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
   }
   
   .feature-image img {

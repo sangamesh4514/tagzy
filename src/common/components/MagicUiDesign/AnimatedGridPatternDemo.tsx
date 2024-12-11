@@ -13,6 +13,7 @@ export function AnimatedGridPatternDemo() {
 
   const handleClick = () => {
     navigate("/provider");
+    window.scrollTo(0, 0);
   };
   return (
     <div className="relative w-full overflow-hidden bg-background md:shadow-xl">

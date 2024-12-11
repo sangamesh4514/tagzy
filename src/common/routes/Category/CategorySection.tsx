@@ -128,7 +128,7 @@ const CategorySection: React.FC = () => {
         {categories.map((category) => (
           <div key={category.id} className="category-card">
             <h3 style={{textDecoration: 'underline'}}>{category.title}</h3>
-            <p>{category.description}</p>
+            <p style={{fontSize: '1.25rem'}}>{category.description}</p>
             <ul>
               {category.items.map((item, index) => (
                 <li key={index}>{item}</li>
