@@ -1,7 +1,6 @@
 import { cn } from "../../../lib/utils";
 import Marquee from "../../../magicUi/ui/marquee";
 
-
 const reviews = [
   {
     name: "Health & Wellness",
@@ -84,13 +83,14 @@ const ReviewCard = ({
         // light styles
         "border-gray-950/[.1] bg-white",
         // dark styles
-        "dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]",
+        "dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]"
       )}
+      style={{ borderColor: "#096c6c" }}
     >
       <div className="flex flex-row items-center gap-2">
         <img className="" width="60" height="60" alt="proImage" src={img} />
         <div className="flex flex-col">
-          <figcaption className="text-sm font-medium dark:text-white">
+          <figcaption style={{color: '#096c6c', fontWeight: '900'}} className="text-sm font-medium">
             {name}
           </figcaption>
           {/* <p className="text-xs font-medium dark:text-white/40">{username}</p> */}
@@ -103,14 +103,22 @@ const ReviewCard = ({
 
 export function MarqueeDemo() {
   return (
-    <div className="relative flex w-full flex-col items-center justify-center overflow-hidden" id="marqueeContainer">
-      <h2 className="text-3xl z-10 font-bold text-teal-800 mb-4 heading">Discover Our Service Categories</h2>
+    <div
+      className="relative flex w-full flex-col items-center justify-center overflow-hidden"
+      id="marqueeContainer"
+      style={{ padding: "2rem 0" }}
+    >
+      <h2 className="marquee_h2">Discover Our Service Categories</h2>
       <Marquee pauseOnHover className="z-10 pb-4 [--duration:40s] marqueeBox">
         {firstRow.map((review) => (
           <ReviewCard key={review.name} {...review} />
         ))}
       </Marquee>
-      <Marquee reverse pauseOnHover className=" z-10 [--duration:40s] marqueeBox">
+      <Marquee
+        reverse
+        pauseOnHover
+        className=" z-10 [--duration:40s] marqueeBox"
+      >
         {secondRow.map((review) => (
           <ReviewCard key={review.name} {...review} />
         ))}
