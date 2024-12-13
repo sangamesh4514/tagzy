@@ -22,7 +22,6 @@ const App = () => {
           <Route path='/admin/login' element={<AdminAuth />} />
           <Route path='/profile/:userId' element={<ProProfile />} /> 
           <Route path="*" element={<NotFound />} />
-          <Route path='/faq' element={<FAQ />} />
           <Route path='/provider' element={<Provider />} />
 
           {/* Protected Routes */}
