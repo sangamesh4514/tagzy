@@ -87,26 +87,13 @@ const FAQ = () => {
                   onClick={() => toggleQuestion(index)}
                 >
                   <span
-<<<<<<< HEAD
                     className={`text-sm transition-all font-semibold text-gray-800`}
-=======
-                    className={`text-sm transition-all ${
-                      openIndex === index
-                        ? "font-semibold text-gray-800"
-                        : "font-normal text-gray-600"
-                    }`}
->>>>>>> f53c282b61b0eade5e43a7e51efbcbfc1fd6ea2e
                   >
                     {faq.question}
                   </span>
                   <span
-<<<<<<< HEAD
                     className={`transition-transform duration-1000 ease-in-out ${
                       openIndex === index ? 'rotate-180' : ''
-=======
-                    className={`transition-transform ${
-                      openIndex === index ? "rotate-180" : ""
->>>>>>> f53c282b61b0eade5e43a7e51efbcbfc1fd6ea2e
                     }`}
                   >
                     {openIndex === index ? <CircleMinus /> : <CirclePlus />}
