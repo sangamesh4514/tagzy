@@ -1,0 +1,107 @@
+.sticky-icon {
+    position: fixed;
+    z-index: 1000;
+    top: 90%;
+    transform: translateY(-50%);
+  }
+  
+  .sticky-icon.left {
+    left: 20px;
+  }
+  
+  .sticky-icon.right {
+    right: 20px;
+  }
+  
+  /* WhatsApp Button Styles */
+  .whatsapp-button {
+    background: #25D366;
+    border: none;
+    border-radius: 12px;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    position: relative;
+    color: white;
+  }
+  
+  .whatsapp-button:hover {
+    transform: scale(1.1);
+  }
+  
+  .whatsapp-icon {
+    position: relative;
+    width: 32px;
+    height: 32px;
+  }
+  
+  .notification-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #FF4B4B;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  
+  /* Request Button Styles */
+  .request-button {
+    background: #25D366;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: transform 0.3s ease;
+  }
+  
+  .request-button:hover {
+    transform: scale(1.05);
+  }
+  
+  .phone-icon {
+    flex-shrink: 0;
+  }
+  
+  /* Mobile Responsiveness */
+  @media (max-width: 768px) {
+    .sticky-icon.left {
+      left: 10px;
+    }
+  
+    .sticky-icon.right {
+      right: 10px;
+    }
+  
+    .whatsapp-button {
+      width: 50px;
+      height: 50px;
+    }
+  
+    .whatsapp-icon {
+      width: 28px;
+      height: 28px;
+    }
+  
+    .request-button {
+      padding: 10px 20px;
+      font-size: 14px;
+    }
+  }
+  
+  
