@@ -71,16 +71,12 @@ const FAQ = () => {
                   onClick={() => toggleQuestion(index)}
                 >
                   <span
-                    className={`text-sm transition-all ${
-                      openIndex === index
-                        ? 'font-semibold text-gray-800'
-                        : 'font-normal text-gray-600'
-                    }`}
+                    className={`text-sm transition-all font-semibold text-gray-800`}
                   >
                     {faq.question}
                   </span>
                   <span
-                    className={`transition-transform ${
+                    className={`transition-transform duration-1000 ease-in-out ${
                       openIndex === index ? 'rotate-180' : ''
                     }`}
                   >
