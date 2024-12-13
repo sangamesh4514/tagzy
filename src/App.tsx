@@ -7,7 +7,6 @@ import Dashboard from './common/routes/Dashboard'
 import ProtectedRoute from './common/routes/ProtectedRoute'
 import ProProfile from './common/components/profile/userProfile'
 import NotFound from './common/routes/NotFound'
-import FAQ from './common/components/FAQ'
 import Provider from './common/routes/Provider'
 
 const App = () => {

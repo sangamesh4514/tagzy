@@ -83,29 +83,29 @@ const FAQ = () => {
             <div key={index} className="py-5">
               <div className="group">
                 <div
-                  className={`flex items-center justify-between cursor-pointer list-none`}
+                  className={`flex items-center flex-row justify-between cursor-pointer list-none`}
                   onClick={() => toggleQuestion(index)}
                 >
-                  <span
-                    className={`text-sm transition-all font-semibold text-gray-800`}
-                  >
+                  <div className={`text-sm font-semibold text-gray-800`}>
                     {faq.question}
-                  </span>
-                  <span
-                    className={`transition-transform duration-1000 ease-in-out ${
+                  </div>
+                  <div
+                    className={`transition-transform duration-1000 ease-in-out ml-2 ${
                       openIndex === index ? 'rotate-180' : ''
                     }`}
                   >
                     {openIndex === index ? <CircleMinus /> : <CirclePlus />}
-                  </span>
-                </div>
-                {openIndex === index && (
-                  <div className="">
-                    <p className="animate-fadeIn text-neutral-600 p-0 mt-1 mb-0">
-                      {faq.answer}
-                    </p>
                   </div>
-                )}
+                </div>
+                <div
+                  className={`overflow-hidden transition-[max-height] duration-1000 ease-in-out ${
+                    openIndex === index ? 'max-h-[500px]' : 'max-h-0'
+                  }`}
+                >
+                  <p className="text-neutral-600 p-0 mt-1 mb-0">
+                    {faq.answer}
+                  </p>
+                </div>
               </div>
             </div>
           ))}
