@@ -22,6 +22,8 @@ import { Calendar, Mail, MapPin, Phone, Star } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { IUserProfile } from "src/common/types";
+import { languageCodeToName } from "src/common/constant";
+import NewPro from "../NewPro";
 
 const ProProfile: React.FC = () => {
   const { userId } = useParams<{ userId: string }>(); // Extract userId from the URL
@@ -97,76 +99,80 @@ const ProProfile: React.FC = () => {
               className="h-12 object-contain"
             /> */}
             <a
-            href="https://apps.apple.com/in/app/tagzy/id6737283128"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              transition: "transform 0.2s ease-in-out",
-              borderRadius: "10px",
-              overflow: "hidden",
-              width: "140px",
-              height: "40px", // Adjust height to avoid inner black padding
-            }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.transform = "scale(1.05)")
-            }
-            onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
-          >
-            <img
-              src="/assets/appstore.png"
-              alt="Download on the App Store"
+              href="https://apps.apple.com/in/app/tagzy/id6737283128"
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                transition: "transform 0.2s ease-in-out",
                 borderRadius: "10px",
-                boxShadow: "0 2px 5px rgba(0, 0, 0, 0.15)",
+                overflow: "hidden",
+                width: "140px",
+                height: "40px", // Adjust height to avoid inner black padding
               }}
-            />
-          </a>
-          <a
-            href="https://play.google.com/store/apps/details?id=com.tagzy.hire_pro"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              transition: "transform 0.2s ease-in-out",
-              borderRadius: "10px",
-              overflow: "hidden",
-              width: "140px",
-              height: "40px", // Adjust height to match the image size
-              
-            }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.transform = "scale(1.05)")
-            }
-            onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
-          >
-            <img
-              src="/assets/playStore.png"
-              alt="Get it on Google Play"
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.transform = "scale(1.05)")
+              }
+              onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+            >
+              <img
+                src="/assets/appstore.png"
+                alt="Download on the App Store"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  borderRadius: "10px",
+                  boxShadow: "0 2px 5px rgba(0, 0, 0, 0.15)",
+                }}
+              />
+            </a>
+            <a
+              href="https://play.google.com/store/apps/details?id=com.tagzy.hire_pro"
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                transition: "transform 0.2s ease-in-out",
                 borderRadius: "10px",
-                boxShadow: "0 2px 5px rgba(0, 0, 0, 0.15)",
+                overflow: "hidden",
+                width: "140px",
+                height: "40px", // Adjust height to match the image size
+
               }}
-            />
-          </a>
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.transform = "scale(1.05)")
+              }
+              onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+            >
+              <img
+                src="/assets/playStore.png"
+                alt="Get it on Google Play"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  borderRadius: "10px",
+                  boxShadow: "0 2px 5px rgba(0, 0, 0, 0.15)",
+                }}
+              />
+            </a>
           </div>
         </div>
       </DialogContent>
     );
   };
 
+  const test = false;
+
   return (
-    <div className="min-h-screen bg-[#ffffff] relative overflow-hidden">
+    <>
+    { test ? (
+      <div className="min-h-screen bg-[#ffffff] relative overflow-hidden">
       {/* Animated background */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -inset-[10px] opacity-50">
@@ -301,7 +307,7 @@ const ProProfile: React.FC = () => {
                             variant="outline"
                             className="border-black text-black"
                           >
-                            {language}
+                            {languageCodeToName[+language - 1]}
                           </Badge>
                         ))}
                       </div>
@@ -337,12 +343,12 @@ const ProProfile: React.FC = () => {
                                 {service.rating} ({service.ratingCount} ratings)
                               </span>
                             </div>
-                            {service.addOns?.length > 0 && (
+                            {service?.addOns?.length > 0 && (
                               <div className="space-y-3">
                                 <h4 className="font-semibold text-black">
                                   Add-ons Available:
                                 </h4>
-                                {service.addOns.map((addon, addonIndex) => (
+                                {service?.addOns.map((addon, addonIndex) => (
                                   <div
                                     key={addonIndex}
                                     className="bg-gray-50 p-4 rounded-lg"
@@ -371,38 +377,6 @@ const ProProfile: React.FC = () => {
                                 </Button>
                               </DialogTrigger>
                               {renderDialogContent(service?.name)}
-                              {/* <DialogContent className="bg-white">
-                                <DialogHeader>
-                                  <DialogTitle className="text-black">
-                                    Book {service.name}
-                                  </DialogTitle>
-                                  <DialogDescription>
-                                    Scan the QR code or download our app to book
-                                    this service
-                                  </DialogDescription>
-                                </DialogHeader>
-                                <div className="grid gap-6">
-                                  <div className="mx-auto">
-                                    <img
-                                      src="/placeholder.svg?height=200&width=200"
-                                      alt="QR Code"
-                                      className="w-48 h-48 object-contain"
-                                    />
-                                  </div>
-                                  <div className="flex justify-center gap-4">
-                                    <img
-                                      src="/placeholder.svg?height=40&width=135"
-                                      alt="Download on Play Store"
-                                      className="h-12 object-contain"
-                                    />
-                                    <img
-                                      src="/placeholder.svg?height=40&width=135"
-                                      alt="Download on App Store"
-                                      className="h-12 object-contain"
-                                    />
-                                  </div>
-                                </div>
-                              </DialogContent> */}
                             </Dialog>
                           </CardFooter>
                         </Card>
@@ -436,15 +410,12 @@ const ProProfile: React.FC = () => {
         </div>
       </div>
     </div>
+    )
+    : 
+    <NewPro userProfile={userData}/>
+    }
+    </>
   );
 };
-
-// Styling for table cells
-// const cellStyle: React.CSSProperties = {
-//   padding: "10px",
-//   border: "1px solid #ddd",
-//   backgroundColor: "#f9f9f9",
-//   textAlign: "left",
-// };
 
 export default ProProfile;

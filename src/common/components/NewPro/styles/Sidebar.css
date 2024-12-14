@@ -1,0 +1,116 @@
+.sidebar {
+    width: 320px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .donate-section,
+  .subscription-section {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .amount-input {
+    position: relative;
+    margin: 1rem 0;
+  }
+  
+  .currency {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+  }
+  
+  .amount-input input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1.25rem;
+  }
+  
+  .text-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+  }
+  
+  textarea.text-input {
+    min-height: 100px;
+    resize: vertical;
+  }
+  
+  .donate-button {
+    width: 100%;
+    background: #dc6b20;
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  
+  .tier-card {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+  }
+  
+  .tier-card.premium {
+    background: #14232c;
+    color: white;
+  }
+  
+  .tier-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .tier-price {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .tier-price span {
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  .tier-features ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0;
+  }
+  
+  .tier-features li {
+    margin: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .subscribe-button {
+    width: 100%;
+    background: #dc6b20;
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 6px;
+    margin-top: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  
+  
