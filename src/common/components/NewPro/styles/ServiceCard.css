@@ -1,0 +1,119 @@
+.service-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+}
+
+.service-content {
+  padding: 1.5rem;
+}
+
+.service-content h3 {
+  margin: 0;
+  color: #333;
+  font-size: 1.25rem;
+}
+
+.service-content p {
+  color: #666;
+  margin: 0.5rem 0 1rem;
+}
+
+.service-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #096c6c;
+}
+
+.book-button {
+  background: #096c6c;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.book-button:hover {
+  background: #075858;
+}
+
+.book-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.addons-section {
+  padding: 1.5rem;
+  border-top: 1px solid #eee;
+}
+
+.addon-disclaimer {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.addon-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.addon-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-right: 1rem;
+}
+
+.addon-info {
+  flex: 1;
+}
+
+.addon-info h4 {
+  margin: 0;
+  color: #333;
+}
+
+.addon-info p {
+  margin: 0.25rem 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.addon-price {
+  font-weight: bold;
+  color: #096c6c;
+}
+
+.addon-button {
+  background: #096c6c;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.addon-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+

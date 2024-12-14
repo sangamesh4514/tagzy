@@ -1,0 +1,80 @@
+.addon-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+  
+  .addon-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 1rem;
+  }
+  
+  .addon-info {
+    flex: 1;
+  }
+  
+  .addon-info h4 {
+    margin: 0;
+    color: #333;
+  }
+  
+  .addon-info p {
+    margin: 0.25rem 0;
+    color: #666;
+    font-size: 0.9rem;
+  }
+  
+  .addon-price {
+    font-weight: bold;
+    color: #096c6c;
+  }
+  
+  .addon-actions {
+    display: flex;
+    align-items: center;
+  }
+  
+  .addon-actions button {
+    background: #096c6c;
+    color: white;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .addon-actions span {
+    margin: 0 0.5rem;
+  }
+  
+  .remove-addon {
+    background: #dc3545 !important;
+    margin-left: 0.5rem;
+  }
+  
+  .add-addon {
+    background: #096c6c;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .add-addon:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+  
+  

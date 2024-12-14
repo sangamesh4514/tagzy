@@ -1,0 +1,29 @@
+.date-selector {
+  margin-top: 1rem;
+}
+
+.date-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.date-option {
+  background: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.date-option:hover {
+  background: #e0e0e0;
+}
+
+.date-option.selected {
+  background: #096c6c;
+  color: white;
+}
+
