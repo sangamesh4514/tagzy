@@ -12,32 +12,33 @@ interface Section {
 const sections: Section[] = [
   {
     id: 1,
-    title: "Lorem, ipsum dolor",
+    title: "Advertise with Us and Build Your Brand",
     description:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat consequuntur consectetur expedita voluptas amet, non voluptate aut minus facilis temporibus iste quibusdam.",
-    imageUrl: "/assets/home.jpeg",
-  },
+      "Boost your visibility on Tagzy, reach more customers, and grow your brand. Turn one-time clients into loyal regulars with top-notch service.",
+    imageUrl: "/assets/homepageApp.jpeg",
+},
   {
     id: 2,
-    title: "Lorem, ipsum dolor",
+    title: "Create Business Account and Get Verified",
     description:
-      " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat consequuntur consectetur expedita voluptas amet, non voluptate aut minus facilis temporibus iste quibusdam.",
-    imageUrl: "/assets/home.jpeg",
+      "Register your business on Tagzy and complete the verification process to build trust and credibility with potential customers.",
+    imageUrl: "/assets/businessAccount/accountVerification.png",
   },
   {
     id: 3,
-    title: "Lorem, ipsum dolor",
+    title: "Create Services and Get Them Verified",
     description:
-      "  { Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat consequuntur consectetur expedita voluptas amet, non voluptate aut minus facilis temporibus iste quibusdam.",
-    imageUrl: "/assets/home.jpeg",
+      "Add the services you offer to your profile, and have them verified by Tagzy to ensure quality and reliability for customers.",
+    imageUrl: "/assets/businessAccount/services.jpeg",
   },
   {
     id: 4,
-    title: "Lorem, ipsum dolor",
+    title: "Share QR Code to Get Bookings",
     description:
-      "  { Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat consequuntur consectetur expedita voluptas amet, non voluptate aut minus facilis temporibus iste quibusdam.",
-    imageUrl: "/assets/home.jpeg",
+      "Share your unique QR code to receive bookings seamlessly. Track your bookings effortlessly, all with zero commission fees.",
+    imageUrl: "/assets/businessAccount/businessHomepage.png",
   },
+  
 ];
 
 const ScrollSections: React.FC = () => {

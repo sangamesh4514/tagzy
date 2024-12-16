@@ -7,6 +7,7 @@ import FeatureShowcase from "./FeatureShowcase";
 import "./style.css";
 import FAQ from "../FAQ";
 import { useNavigate } from "react-router-dom";
+import BannerCarousel from "../../../common/routes/Banner/BannerCarousel";
 
 export function AnimatedGridPatternDemo() {
   const navigate = useNavigate();
@@ -21,14 +22,19 @@ export function AnimatedGridPatternDemo() {
         <BoxRevealWrapper />
         <Iphone15Pro
           className="dummyIphone size-auto z-10"
-          src="/assets/home.jpeg"
+          src="/assets/homepageApp.jpeg"
         />
       </div>
       <MarqueeDemo />
       <FeatureShowcase />
-      <div className="provider_banner" onClick={handleClick}>
+      <div className="provider_banner"  onClick={handleClick}>
         Ready to start your journey as a provider ?
+        <div className="provider_banner_inner">
+         <BannerCarousel />
+         </div>
+
       </div>
+
       <FAQ />
       <AnimatedGridPattern
         numSquares={25} // Number of squares in the pattern

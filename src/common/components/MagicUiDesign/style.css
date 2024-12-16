@@ -103,16 +103,16 @@
 .provider_banner {
   border-radius: 50px;
   font-family: serif;
-  margin: 2rem 0px;
+  margin: 2rem 2rem;
   cursor: pointer;
   color: white;
   background-color: #096c6c;
   font-size: 50px;
   align-items: center;
   justify-content: center;
-  flex-direction: row;
+  flex-direction: column;
   display: flex;
-  height: 200px;
+  height: 500px;
   letter-spacing: 2px;
   position: relative;
   z-index: 1;
@@ -127,6 +127,34 @@
     font-size: 20px;
     height: 100px;
   }
+}
+
+.provider_banner_inner {
+  /* background-color: #ffffff;  */
+  border-radius: 30px;
+  margin-top: 20px;
+  padding: 1rem; /* Padding inside the inner container */
+  width: 100%; /* Takes full width of the parent */
+  height: calc(100% - 4rem); /* Adjusts height considering padding in parent */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Adds subtle shadow for depth */
+  overflow: hidden; /* Ensures carousel content doesn’t overflow */
+}
+
+.banner-carousel {
+  border-radius: 30px; /* Keep it slightly smaller for visual harmony */
+  height: 100%; /* Ensure it takes the full height of its parent */
+  width: 100%; /* Ensure it scales with the parent container */
+  position: relative;
+  overflow: hidden; /* Prevent content overflow */
+  background: #ccfbf1; /* Soft background color */
+  margin: 0; /* Remove additional margins to fit well inside the parent */
+  z-index: 1; /* Ensure it's on the correct layer */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .appLink {

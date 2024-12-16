@@ -99,17 +99,21 @@
   font-weight: bold;
   text-decoration: none;
   color: #ffffff;
-  background-color: #3490dc;
-  border-radius: 30px;
+  background-color: #0b6c6c;
+  border-radius: 10px;
   transition: background-color 0.3s ease;
   border: none;
   cursor: pointer;
   font-family: serif;
   letter-spacing: 2px;
+  transition: all 0.3s ease;
 }
 
 .cta-button:hover {
-  background-color: #2779bd;
+  background-color: #0a6969; /* Darker shade on hover */
+  color: #e0f7f7; /* Lighter text color for contrast */
+  transform: scale(1.05); /* Slight scaling effect */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Adds a shadow for depth */
 }
 
 @media (max-width: 768px) {
