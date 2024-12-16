@@ -39,10 +39,12 @@ export function Header({
     languages,
     location,
     categoryType,
+    experience
   } = userProfile;
   const subscribers = 3487;
-  const posts = 28;
   const likes = 1593;
+
+  console.log('===accountCreated',accountCreated);
 
   return (
     <header className="header">
@@ -74,7 +76,7 @@ export function Header({
               </div>
               <div className="content-section">
                 <CountUp className="value" end={subscribers} duration={2} />
-                <div className="label">subscribers</div>
+                <div className="label">Service Booked</div>
               </div>
             </div>
             <div className="separator"></div>
@@ -82,12 +84,12 @@ export function Header({
             {/* Posts */}
             <div className="stat">
               <div className="icon-section">
-                <span className="icon">✏️</span>
+                <span className="icon">💼</span>
               </div>
               {/* <div className="separator"></div> */}
               <div className="content-section">
-                <CountUp className="value" end={posts} duration={2} />
-                <div className="label">posts</div>
+                <CountUp className="value" end={experience || 1} duration={2} />
+                <div className="label">Experience</div>
               </div>
             </div>
             <div className="separator"></div>
@@ -99,8 +101,9 @@ export function Header({
               </div>
               {/* <div className="separator"></div> */}
               <div className="content-section">
-                <CountUp className="value" end={likes} duration={2} />
-                <div className="label">likes</div>
+              {accountCreated}
+                {/* <CountUp className="value" end={(accountCreated && +accountCreated) || 1} duration={2} /> */}
+                <div className="label">Member Since</div>
               </div>
             </div>
           </div>

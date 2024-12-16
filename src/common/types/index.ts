@@ -50,7 +50,7 @@ export interface Service {
 }
 
 export interface IUserProfile {
-  createdAt?: string;
+  createdAt: string;
   fcmToken?: string;
   name?: string;
   email?: string;

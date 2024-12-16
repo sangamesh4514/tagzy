@@ -30,13 +30,19 @@ export default function NewPro({ userProfile }: IProps) {
     services,
   } = userProfile;
 
+const date = new Date(createdAt);
+const year = date.getFullYear();    
+const month = date.getMonth(); 
+const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const formattedDate = `${monthNames[month]} ${year}`;
+
   const userData = {
     name: name,
     skillTitle: skillTitle,
     isUserVerified: isUserVerified,
     profilePicture: profilePicture,
     email: email,
-    accountCreated: createdAt,
+    accountCreated: formattedDate,
     languages: languages,
     location: location?.name,
     categoryType: CategoryCodeToName[categoryId - 1],
