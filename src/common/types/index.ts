@@ -80,3 +80,22 @@ export interface CartItem {
   selectedDate: string | null;
   selectedTimeSlot: string | null;
 }
+
+export interface Booking {
+  proPhoneNumber: string;
+  clientPhoneNumber: string;
+  address: string;
+  location: Record<string, unknown>; // Or replace with a specific type if you know the structure of 'location'
+  status: string;
+  dateTime: string; // Can be a Date object if parsed later
+  proName: string;
+  clientName: string;
+  discount: number;
+  cost: number;
+  proId: string;
+  clientId: string;
+  serviceId: string;
+  typeOfService: string;
+  addOns: string[];
+  procedure: string[];
+}
