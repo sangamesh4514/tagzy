@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Header } from "./components/Header";
 import { ServiceCard } from "./components/ServiceCard";
-import { Cart } from "./components/Cart";
 import { CartProvider } from "./context/CartContext";
 import { Page } from "./types/types";
 import "./styles/App.css";
 import { IUserProfile } from "src/common/types";
 import { CategoryCodeToName } from "src/common/constant";
+import StickyBar from "./components/StickyBar";
+import { Cart } from "./components/Cart";
+import ServiceBooking from "./components/service-booking";
 
 interface IProps {
   userProfile: IUserProfile;
@@ -30,11 +32,24 @@ export default function NewPro({ userProfile }: IProps) {
     services,
   } = userProfile;
 
-const date = new Date(createdAt);
-const year = date.getFullYear();    
-const month = date.getMonth(); 
-const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-const formattedDate = `${monthNames[month]} ${year}`;
+  const date = new Date(createdAt);
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const formattedDate = `${monthNames[month]} ${year}`;
 
   const userData = {
     name: name,
@@ -60,12 +75,15 @@ const formattedDate = `${monthNames[month]} ${year}`;
         <div className="main-content">
           <div className="content-area">
             {activePage === "services" && (
-              <div className="services-grid">
-                {services &&
-                  services.map((service) => (
-                    <ServiceCard key={service._id} service={service} />
-                  ))}
-              </div>
+              <>
+                <div className="services-grid">
+                  {services &&
+                    services.map((service) => (
+                      <ServiceCard key={service._id} service={service} />
+                    ))}
+                </div>
+                <StickyBar setActivePage={setActivePage} />
+              </>
             )}
             {activePage === "about" && (
               <div className="about-section">
@@ -73,8 +91,8 @@ const formattedDate = `${monthNames[month]} ${year}`;
                 <p>{description}</p>
               </div>
             )}
+            {activePage === "cart" && <Cart setActivePage={setActivePage}/>}
           </div>
-          <Cart />
         </div>
       </div>
     </CartProvider>

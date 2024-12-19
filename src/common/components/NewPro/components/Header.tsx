@@ -6,16 +6,16 @@ import BannerCarousel from "src/common/routes/Banner/BannerCarousel";
 import CountUp from "react-countup";
 
 export interface Profile {
-  profilePicture?: string; //
-  name?: string; //
-  skillTitle?: string; //
-  isUserVerified?: boolean; //
-  location?: string; //
-  email?: string; //
-  accountCreated?: string; //
+  profilePicture?: string;
+  name?: string;
+  skillTitle?: string;
+  isUserVerified?: boolean;
+  location?: string;
+  email?: string;
+  accountCreated?: string;
   experience?: number;
-  languages?: string[]; //
-  categoryType?: string; //
+  languages?: string[];
+  categoryType?: string;
 }
 
 interface HeaderProps {
@@ -39,12 +39,9 @@ export function Header({
     languages,
     location,
     categoryType,
-    experience
+    experience,
   } = userProfile;
   const subscribers = 3487;
-  const likes = 1593;
-
-  console.log('===accountCreated',accountCreated);
 
   return (
     <header className="header">
@@ -58,8 +55,13 @@ export function Header({
         </div>
         <div className="profile-info">
           <div className="details-container">
-            <h1>{name}</h1>
-            <p className="profile-title">{skillTitle}</p>
+            <h1 style={{ textTransform: "capitalize" }}>{name}</h1>
+            <p
+              className="profile-title"
+              style={{ textTransform: "capitalize" }}
+            >
+              {skillTitle}
+            </p>
             <p
               className="profile-location"
               style={{ display: "flex", alignItems: "center" }}
@@ -69,7 +71,6 @@ export function Header({
             </p>
           </div>
           <div className="stats-container">
-            {/* Subscribers */}
             <div className="stat">
               <div className="icon-section">
                 <span className="icon">👥</span>
@@ -81,12 +82,10 @@ export function Header({
             </div>
             <div className="separator"></div>
 
-            {/* Posts */}
             <div className="stat">
               <div className="icon-section">
                 <span className="icon">💼</span>
               </div>
-              {/* <div className="separator"></div> */}
               <div className="content-section">
                 <CountUp className="value" end={experience || 1} duration={2} />
                 <div className="label">Experience</div>
@@ -94,16 +93,13 @@ export function Header({
             </div>
             <div className="separator"></div>
 
-            {/* Likes */}
             <div className="stat">
               <div className="icon-section">
                 <span className="icon">❤️</span>
               </div>
-              {/* <div className="separator"></div> */}
               <div className="content-section">
-              {accountCreated}
-                {/* <CountUp className="value" end={(accountCreated && +accountCreated) || 1} duration={2} /> */}
                 <div className="label">Member Since</div>
+                {accountCreated}
               </div>
             </div>
           </div>
@@ -111,18 +107,26 @@ export function Header({
       </div>
 
       <nav className="navigation">
-        <button
-          className={`nav-button ${activePage === "services" ? "active" : ""}`}
-          onClick={() => setActivePage("services")}
-        >
-          Services
-        </button>
-        <button
-          className={`nav-button ${activePage === "about" ? "active" : ""}`}
-          onClick={() => setActivePage("about")}
-        >
-          About
-        </button>
+        {activePage === "cart" ? (
+          <span className="nav-button active">Cart</span>
+        ) : (
+          <>
+            <button
+              className={`nav-button ${
+                activePage === "services" ? "active" : ""
+              }`}
+              onClick={() => setActivePage("services")}
+            >
+              Services
+            </button>
+            <button
+              className={`nav-button ${activePage === "about" ? "active" : ""}`}
+              onClick={() => setActivePage("about")}
+            >
+              About
+            </button>
+          </>
+        )}
       </nav>
     </header>
   );

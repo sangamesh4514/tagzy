@@ -24,8 +24,6 @@ export function TimeSlotSelector({ service, selectedTimeSlot, onSelectTimeSlot }
   };
 
   const timeSlots = service.timeSlots.flatMap(slot => generateTimeSlots(slot.start, slot.end));
-  console.log('===timeSlots',timeSlots[0]);
-  console.log('===selectedTimeSlot',selectedTimeSlot);
 
   return (
     <div className="time-slot-selector">

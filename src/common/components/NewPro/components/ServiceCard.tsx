@@ -10,7 +10,7 @@ interface ServiceCardProps {
 }
 
 export function ServiceCard({ service }: ServiceCardProps) { 
-  const {_id, name, description, cost, image, addOns } = service;
+  const {_id, name, description, cost, image, addOns, isServiceVerified } = service;
   const { cartItem, addToCart, addAddon, removeAddon } = useCart();
   const [showModal, setShowModal] = useState(false);
 
@@ -48,7 +48,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
     <div className="service-card">
       <ImageCarousel images={image} />
       <div className="service-content">
-        <h3>{name}</h3>
+        <h3 style={{ textTransform: "capitalize" }}>{name}</h3>
         <p>{description}</p>
         <div className="service-footer">
           <span className="price">₹{cost}</span>

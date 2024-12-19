@@ -1,0 +1,159 @@
+.service-booking {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  
+  .service-booking-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+  }
+  
+  .back-button,
+  .cart-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: #666;
+  }
+  
+  .service-section,
+  .addons-section,
+  .related-addons {
+    margin-bottom: 2rem;
+  }
+  
+  .service-section-h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .service-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid #eee;
+    border-radius: 0.5rem;
+  }
+  
+  .addon-card {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid #eee;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .quantity-controls button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid #eee;
+    border-radius: 0.25rem;
+    background: none;
+    cursor: pointer;
+  }
+  
+  .delete-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+  }
+  
+  .total {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin: 2rem 0;
+  }
+  
+  .related-addons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+  
+  .related-addon-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid #eee;
+    border-radius: 0.5rem;
+  }
+  
+  .booking-section {
+    display: grid;
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+  
+  .time-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  
+  .time-slot-button {
+    width: 100%;
+  }
+  
+  footer {
+    background: #fff;
+    border-top: 1px solid #eee;
+    padding: 1rem;
+    position: sticky;
+    bottom: 0;
+  }
+  
+  .footer-content {
+    text-align: center;
+  }
+  
+  .footer-content h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .footer-content p {
+    color: #666;
+    margin-bottom: 1rem;
+  }
+  
+  .proceed-button {
+    width: 100%;
+    max-width: 400px;
+    background-color: #f4511e;
+  }
+  
+  @media (min-width: 768px) {
+    .booking-section {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  

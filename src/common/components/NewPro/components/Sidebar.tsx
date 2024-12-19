@@ -16,7 +16,6 @@ export function Sidebar() {
         <button className="donate-button">Donate $3.00</button>
       </div>
 
-      <Cart />
 
       <div className="subscription-section">
         <h2>Subscription tiers</h2>

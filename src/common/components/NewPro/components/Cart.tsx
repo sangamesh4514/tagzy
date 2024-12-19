@@ -4,8 +4,12 @@ import "../styles/Cart.css";
 import { DateSelector } from "./DateSelector";
 import { TimeSlotSelector } from "./TimeSlotSelector";
 import { OrderModal } from "./OrderModal";
+import { Page } from "../types/types";
+interface CartProps {
+  setActivePage: (page: Page) => void;
+}
 
-export function Cart() {
+export function Cart({ setActivePage }: CartProps) {
   const {
     cartItem,
     removeFromCart,
@@ -14,13 +18,18 @@ export function Cart() {
     removeAddon,
     setSelectedDate,
     setSelectedTimeSlot,
+    addAddon,
   } = useCart();
   const [isModalOpen, setIsModalOpen] = useState(false);
   if (!cartItem) {
     return (
       <div className="cart">
+        <button onClick={() => setActivePage("services")}>
+          🔙back to service pagepage
+        </button>
+
         <h2>My Cart</h2>
-        <p>Your cart is empty</p>
+        <p>Your cart is pagety</p>
       </div>
     );
   }
@@ -35,52 +44,71 @@ export function Cart() {
   const handlePlaceOrder = () => {
     setIsModalOpen(true);
     // Implement order placement logic here
-    console.log("Order placed:", cartItem);
+    console.log("===Order placed:", cartItem);
   };
 
   // const handleOrderSubmit = (mobileNumber: number, otp:number) => {
-    const handleOrderSubmit = () => {
+  const handleOrderSubmit = () => {
     // Implement order placement logic here
     // console.log('Order placed:', { ...cartItem, mobileNumber, otp });
     setIsModalOpen(false);
     // TODO: Implement user login logic here
   };
 
+  const getAddons = () => {
+    if (!cartItem.service.addOns) return null; // or an empty array: []
+
+    return cartItem.service.addOns.map((addOn) => (
+      <div key={addOn._id}>
+        <h3>{addOn.name}</h3>
+      </div>
+    ));
+  };
+
   return (
     <div className="cart">
-      <h2>My Cart</h2>
+      <button onClick={() => setActivePage("services")}>
+        🔙back to service pagepage
+      </button>
+      <h2>Your Cart</h2>
       <div className="cart-item">
+        <img
+          src={cartItem.service.image[0]}
+          alt="imag"
+          style={{ height: "20px", width: "20px" }}
+        />
         <h3>{cartItem.service.name}</h3>
         <p>₹{cartItem.service.cost}</p>
-        <button onClick={removeFromCart} className="remove-button">
+        {/* <button onClick={removeFromCart} className="remove-button">
           Remove
-        </button>
+        </button> */}
       </div>
       {cartItem.addons.length > 0 && (
-        <div className="cart-addons">
-          <h4>Addons:</h4>
-          {cartItem.addons.map(({ addon, quantity }) => (
-            <div key={addon._id} className="cart-addon">
-              <h5>{addon.name}</h5>
-              <p>
-                ₹{addon.cost} x {quantity}
-              </p>
-              <div className="addon-actions">
-                <button onClick={() => decrementAddon(addon._id)}>-</button>
-                <span>{quantity}</span>
-                <button onClick={() => incrementAddon(addon._id)}>+</button>
-                <button
-                  onClick={() => removeAddon(addon._id)}
-                  className="remove-addon"
-                  style={{ width: "75px" }}
-                >
-                  Remove
-                </button>
+          <div className="cart-addons">
+            <h4>Addons:</h4>
+            {cartItem.addons.map(({ addon, quantity }) => (
+              <div key={addon._id} className="cart-addon">
+                <h5>{addon.name}</h5>
+                <p>
+                  ₹{addon.cost} x {quantity}
+                </p>
+                <div className="addon-actions">
+                  <button onClick={() => decrementAddon(addon._id)}>-</button>
+                  <span>{quantity}</span>
+                  <button onClick={() => incrementAddon(addon._id)}>+</button>
+                  <button
+                    onClick={() => removeAddon(addon._id)}
+                    className="remove-addon"
+                    style={{ width: "75px" }}
+                  >
+                    Remove
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        )}
+      {getAddons()}
       <DateSelector
         service={cartItem.service}
         selectedDate={cartItem.selectedDate}
@@ -107,5 +135,6 @@ export function Cart() {
         onSubmit={handleOrderSubmit}
       />
     </div>
+    // <ServiceBooking/>
   );
 }
