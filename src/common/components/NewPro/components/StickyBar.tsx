@@ -1,45 +1,47 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/StickyBar.css";
-import { Cart } from "./Cart";
 import { useCart } from "../context/CartContext";
 import { Page } from "../types/types";
 
 interface StickyBarProps {
   setActivePage: (page: Page) => void;
+  test: string;
 }
 
-const StickyBar: React.FC<StickyBarProps> = ({ setActivePage }) => {
-  const [isStickyVisible, setIsStickyVisible] = useState(false);
-  const observerRef = useRef<IntersectionObserver | null>(null);
+const StickyBar: React.FC<StickyBarProps> = ({ setActivePage, test }) => {
+  const [isInView, setIsInView] = useState(false); 
   const { cartItem } = useCart();
 
   useEffect(() => {
-    const targetElement = document.querySelector(".service-content");
+    const targetElement = document.getElementById(test);
 
     if (!targetElement) {
-      console.warn("No element with class 'service-content' found.");
+      console.warn("No element with id 'circle-profile-image' found.");
       return;
     }
 
-    // Intersection Observer to detect visibility of the target element
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        // Update visibility based on intersection
-        setIsStickyVisible(entry.isIntersecting);
-      },
-      { threshold: 0.1 } // Trigger when at least 10% of the element is visible
-    );
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      const entry = entries[0];
+      if (entry.isIntersecting) {
+        setIsInView(true); 
+      } else {
+        setIsInView(false); 
+      }
+    };
 
-    // Start observing the target element
+    const observerOptions = {
+      threshold: 0.1, 
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
     observer.observe(targetElement);
-    observerRef.current = observer;
 
-    // Cleanup observer on unmount
     return () => {
       observer.disconnect();
     };
   }, []);
+
 
   if (!cartItem) {
     return;
@@ -53,7 +55,7 @@ const StickyBar: React.FC<StickyBarProps> = ({ setActivePage }) => {
     );
 
   return (
-    <div className={`sticky-bar ${isStickyVisible ? "visible" : "hidden"}`}>
+    <div className={`sticky-bar ${!isInView ? "visible" : "hidden"}`}>
       <div className="sticky-bar-content">
         <div className="sticky-bar-image">
           <img

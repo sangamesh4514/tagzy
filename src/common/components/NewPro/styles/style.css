@@ -1,17 +1,23 @@
-.app {
+.pro-page {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   background-color: #f8f9fa;
+  position: relative;
 }
 
 .main-content {
+  z-index: 10;
   display: flex;
   gap: 2rem;
-  padding: 2rem;
+  padding: 1.5rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+}
+
+.main-content-cart {
+  padding: 1rem;
 }
 
 .content-area {
@@ -31,9 +37,18 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.aboutRating{
+  .star-wrapper{
+    width: 35px;
+    height: 35px;
+  }
+  .rating-count{ 
+    font-size: 1.5rem;
+  }
+}
+
 @media (max-width: 1024px) {
   .main-content {
     flex-direction: column;
   }
 }
-

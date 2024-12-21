@@ -7,7 +7,7 @@
   display: flex;
   justify-content: center;
   padding: 10px 0;
-  z-index: 1000;
+  z-index: 11;
   transition: opacity 0.3s ease-in-out;
 }
 

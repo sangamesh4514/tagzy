@@ -1,0 +1,64 @@
+.rating-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 0 0;
+  }
+  
+  .stars-container {
+    display: flex;
+    gap: 0.25rem;
+  }
+  
+  /* Size variants */
+  .size-sm .star-wrapper {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .size-md .star-wrapper {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .size-lg .star-wrapper {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .star-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .star-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    color: #e2e8f0;
+  }
+  
+  .star-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    color: #fbbf24;
+  }
+  
+  .star-fill svg {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .rating-count {
+    color: #000000;
+    font-size: 0.875rem;
+  }
+  
+  /* Hover effect */
+  .star-wrapper:hover .star-background {
+    color: #fbbf24;
+  }
+  
+  
