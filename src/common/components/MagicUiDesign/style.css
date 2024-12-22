@@ -125,12 +125,13 @@
   }
   @media screen and (max-width: 425px) {
     font-size: 20px;
-    height: 100px;
+    height: auto;
+    margin: 0 15px;
   }
 }
 
 .provider_banner_inner {
-  /* background-color: #ffffff;  */
+  /* background-color: #ffffff; */
   border-radius: 30px;
   margin-top: 20px;
   padding: 1rem; /* Padding inside the inner container */
@@ -141,7 +142,9 @@
   justify-content: center;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Adds subtle shadow for depth */
   overflow: hidden; /* Ensures carousel content doesn’t overflow */
+  box-sizing: border-box; /* Include padding in height/width calculation */
 }
+
 
 .banner-carousel {
   border-radius: 30px; /* Keep it slightly smaller for visual harmony */
@@ -164,5 +167,17 @@
   @media screen and (max-width: 767px) {
     margin-top: 20px;
     flex-direction: column;
+  }
+}
+
+/* Media query for very small screens (like phones under 480px) */
+@media (max-width: 480px) {
+  .provider_banner_inner {
+    border-radius: 10px; /* Further reduce border radius */
+    margin-top: 5px; /* Minimal margin */
+    padding: 0.5rem; /* Compact padding */
+    height: auto; /* Ensure it adjusts dynamically */
+    flex-wrap: wrap; /* Allow wrapping of children if needed */
+    overflow-y: auto; /* Add scrolling for overflow */
   }
 }
