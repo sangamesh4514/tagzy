@@ -12,32 +12,39 @@ interface Feature {
 const features: Feature[] = [
   {
     id: 1,
-    title: "Lorem ipsum dolor sit.",
+    title: "Project Invitation",
     description:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro illum consequuntur minima harum voluptates temporibus quas, omnis quasi excepturi, soluta officia accusamus.",
-    imageUrl: "/assets/half.png",
+    "The selected service provider receives an invitation to join the project. They can accept or decline based on their availability.",
+    imageUrl: "/assets/businessAccount/projectStep2Invitation.jpeg",
   },
   {
     id: 2,
-    title: "Lorem ipsum dolor sit.",
+    title: "Step 1: Project Created",
     description:
-    "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro illum consequuntur minima harum voluptates temporibus quas, omnis quasi excepturi, soluta officia accusamus.",
-    imageUrl: "/assets/home.jpeg",
-  },
-  {
+    "When a customer books a service, a new project is created on Tagzy to streamline communication and task management.",
+    imageUrl: "/assets/businessAccount/projectStep1.jpeg",
+},
+{
     id: 3,
-    title: "Lorem ipsum dolor sit.",
+    title: "Step 2: Invitation Accepted",
     description:
-    "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro illum consequuntur minima harum voluptates temporibus quas, omnis quasi excepturi, soluta officia accusamus.",
-    imageUrl: "/assets/home.jpeg",
-  },
-  {
+    "The selected service provider receives an invitation to join the project. Once accepted, they are officially assigned to the project and can begin coordinating with the customer.",
+    imageUrl: "/assets/businessAccount/projectStep2.jpeg",
+},
+{
     id: 4,
-    title: "Lorem ipsum dolor sit.",
+    title: "Step 3: Work in Progress",
     description:
-    "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro illum consequuntur minima harum voluptates temporibus quas, omnis quasi excepturi, soluta officia accusamus.",
-    imageUrl: "/assets/home.jpeg",
-  },
+    "Once accepted, the project moves to the 'Work in Progress' stage, where the service provider begins delivering the requested service.",
+    imageUrl: "/assets/businessAccount/projectStep3.jpeg",
+},
+{
+    id: 5,
+    title: "Step 4: Project Completed",
+    description:
+    "After the work is completed, the project is marked as finished, and the customer can rate their experience to help others make informed decisions.",
+    imageUrl: "/assets/businessAccount/projectStep4.jpeg",
+},
 ];
 
 const FeatureShowcase: React.FC = () => {
@@ -87,7 +94,10 @@ const FeatureShowcase: React.FC = () => {
               <h2 className="features_title">{features[0].title}</h2>
               <p className="features_description">{features[0].description}</p>
             </div>
-            <img style={{height: '24rem'}} src={features[0].imageUrl} alt={features[0].title} />
+            <Iphone15Pro
+                  className="phone-image size-auto"
+                  src={features[0].imageUrl}
+                />
           </div>
         </div>
 
