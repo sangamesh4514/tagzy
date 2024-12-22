@@ -13,11 +13,11 @@ const Provider = () => {
     <>
       <Header />
       <div className="relative">
-      <BannerCarousel />
-      <ScrollSections />
-      <FeatureShowcase />
-      <CategorySection />
-      <StickyIcons />
+        <BannerCarousel />
+        <ScrollSections />
+        <FeatureShowcase />
+        <CategorySection />
+        <StickyIcons />
         <AnimatedGridPattern
           numSquares={25} // Number of squares in the pattern
           maxOpacity={0.2} // Maximum opacity of the pattern

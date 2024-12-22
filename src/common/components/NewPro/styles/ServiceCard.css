@@ -14,15 +14,34 @@
   padding: 1.5rem;
 }
 
-.service-content h3 {
+.serviceName {
   margin: 0;
   color: #333;
   font-size: 1.25rem;
+  gap: 15px;
+  align-items: center;
+  display: flex;
+  text-transform: capitalize;
 }
 
-.service-content p {
-  color: #666;
+.serviceDescription {
+  color: #000000;
   margin: 0.5rem 0 1rem;
+}
+
+.serviceType {
+  padding: 1rem 0 0.5rem;
+  gap: 5px;
+  display: flex;
+  font-size: 1rem;
+  flex-direction: column;
+  color: black;
+}
+
+.servicePlace {
+  gap: 5px;
+  display: flex;
+  align-items: center;
 }
 
 .service-footer {
@@ -58,28 +77,43 @@
   cursor: not-allowed;
 }
 
-.addons-section {
+.addonsSection {
   padding: 1.5rem;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #096c6c38;
 }
 
 .addon-disclaimer {
   font-size: 0.9rem;
-  color: #666;
+  color: #000000;
   margin-bottom: 1rem;
 }
 
 .addon-item {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   margin-bottom: 1rem;
+  gap: 10px;
+  border-bottom: 1px solid #096c6c38;
+}
+
+.secondBlock {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.thirdBlock {
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
 }
 
 .addon-image {
   width: 60px;
   height: 60px;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: 12px;
   margin-right: 1rem;
 }
 
@@ -87,14 +121,17 @@
   flex: 1;
 }
 
-.addon-info h4 {
+.addonName {
   margin: 0;
-  color: #333;
+  color: #096c6c;
+  text-transform: capitalize;
+  font-weight: 600;
+  font-size: 1rem;
 }
 
-.addon-info p {
+.addonDescription {
   margin: 0.25rem 0;
-  color: #666;
+  color: #000000;
   font-size: 0.9rem;
 }
 
@@ -110,10 +147,15 @@
   padding: 0.5rem 1rem;
   border-radius: 4px;
   cursor: pointer;
+  min-width: 80px;
+}
+
+.addon-button:hover {
+  background: #075858;
 }
 
 .addon-button:disabled {
+  min-width: 80px;
   background: #ccc;
   cursor: not-allowed;
 }
-
