@@ -41,6 +41,9 @@ export function Header({
     categoryType,
     experience,
   } = userProfile;
+
+  console.log(isUserVerified, email, languages, categoryType) //remove this console when you are editing
+
   const subscribers = 3487;
 
   return (
