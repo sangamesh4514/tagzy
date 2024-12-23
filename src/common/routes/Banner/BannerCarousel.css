@@ -1,10 +1,10 @@
 .banner-carousel {
-  border-radius: 50px;
-  height: 500px;
+  border-radius: 20px;
+  height: 400px;
   position: relative;
   overflow: hidden;
   background: #ccfbf1;
-  margin: 0 2rem 4rem;
+  margin: 0 1rem 2rem;
   z-index: 1;
 }
 
@@ -14,6 +14,7 @@
   left: 0;
   width: 100%;
   height: 100%;
+  padding: 0 5px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -37,23 +38,47 @@
 }
 
 .banner h1 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
   font-family: serif;
   letter-spacing: 2px;
 }
 
 .banner p {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
   font-family: serif;
   letter-spacing: 2px;
 }
 
 .banner .highlight {
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: #096c6c;
   font-weight: bold;
   font-family: serif;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
+}
+
+/* Media query for mobile screens */
+@media (max-width: 768px) {
+  .banner-carousel {
+    height: 200px; /* Further reduce height for smaller devices */
+    margin: 0 0 1rem;
+    border-radius: 15px;
+  }
+
+  .banner h1 {
+    font-size: 1.5rem; /* Adjusted for better readability */
+    letter-spacing: 0.5px;
+  }
+
+  .banner p {
+    font-size: 0.875rem; /* Further adjust text size */
+    letter-spacing: 0.5px;
+  }
+
+  .banner .highlight {
+    font-size: 1.25rem; /* Smaller highlight size */
+    letter-spacing: 0.5px;
+  }
 }
