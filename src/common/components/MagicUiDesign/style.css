@@ -120,21 +120,22 @@
 
   @media screen and (max-width: 767px) {
     font-size: 30px;
-    height: 120px;
+    height: auto;
     margin: 1rem 0px;
+    padding: 1rem;
+
   }
   @media screen and (max-width: 425px) {
     font-size: 20px;
     height: auto;
     margin: 0 15px;
+    padding: 1.5rem;
   }
 }
 
 .provider_banner_inner {
-  /* background-color: #ffffff;  */
+  padding-top: 2rem;
   border-radius: 30px;
-  margin-top: 20px;
-  padding: 1rem; /* Padding inside the inner container */
   width: 100%; /* Takes full width of the parent */
   height: calc(100% - 4rem); /* Adjusts height considering padding in parent */
   display: flex;
@@ -143,21 +144,41 @@
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Adds subtle shadow for depth */
   overflow: hidden; /* Ensures carousel content doesn’t overflow */
   box-sizing: border-box; /* Include padding in height/width calculation */
+
+  .banner-carousel {
+    border-radius: 30px; /* Keep it slightly smaller for visual harmony */
+    height: 100%; /* Ensure it takes the full height of its parent */
+    width: 100%; /* Ensure it scales with the parent container */
+    position: relative;
+    overflow: hidden; /* Prevent content overflow */
+    background: #ccfbf1; /* Soft background color */
+    margin: 0; /* Remove additional margins to fit well inside the parent */
+    z-index: 1; /* Ensure it's on the correct layer */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @media screen and (max-width: 375px) {
+      .banner{
+        h1{
+          font-size: 1rem;
+        }
+      }
+    }
+
+  }
+
+  @media screen and (max-width: 767px) {
+    height: 150px;
+    padding-top: 1.5rem;
+  }
+  @media screen and (max-width: 425px) {
+    font-size: 20px;
+    margin: 0 15px;
+  }
 }
 
-.banner-carousel {
-  border-radius: 30px; /* Keep it slightly smaller for visual harmony */
-  height: 100%; /* Ensure it takes the full height of its parent */
-  width: 100%; /* Ensure it scales with the parent container */
-  position: relative;
-  overflow: hidden; /* Prevent content overflow */
-  background: #ccfbf1; /* Soft background color */
-  margin: 0; /* Remove additional margins to fit well inside the parent */
-  z-index: 1; /* Ensure it's on the correct layer */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+
 
 .appLink {
   gap: 20px;
@@ -169,25 +190,23 @@
   }
 }
 
-/* Media query for mobile screens */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .provider_banner_inner {
-    border-radius: 15px; /* Reduce border radius for smaller screens */
-    margin-top: 10px; /* Adjust margin for compact spacing */
-    padding: 0.75rem; /* Smaller padding for mobile */
-    height: auto; /* Allow dynamic height for content */
-    flex-direction: column; /* Stack content vertically */
+    border-radius: 15px; 
+    margin-top: 10px; 
+    padding: 0.75rem; 
+    height: auto; 
+    flex-direction: column; 
   }
 }
 
-/* Media query for very small screens (like phones under 480px) */
 @media (max-width: 480px) {
   .provider_banner_inner {
-    border-radius: 10px; /* Further reduce border radius */
-    margin-top: 5px; /* Minimal margin */
-    padding: 0.5rem; /* Compact padding */
-    height: auto; /* Ensure it adjusts dynamically */
-    flex-wrap: wrap; /* Allow wrapping of children if needed */
-    overflow-y: auto; /* Add scrolling for overflow */
+    border-radius: 10px; 
+    margin-top: 5px; 
+    padding: 0.5rem; 
+    height: auto; 
+    flex-wrap: wrap; 
+    overflow-y: auto;
   }
-}
+} */
