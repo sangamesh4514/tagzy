@@ -51,8 +51,9 @@
   letter-spacing: 2px;
 }
 
+/* CSS changes */
 .banner .highlight {
-  font-size: 1.5rem;
+  font-size: 1.5rem; 
   color: #096c6c;
   font-weight: bold;
   font-family: serif;
