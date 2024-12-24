@@ -27,6 +27,7 @@ export function useUserLogin () {
             `${backendUrl}/otp/generate/${mobileNumber}`,
             config
           );
+          console.log('###data',data);
         } catch (err: any) {
           console.error("===getUser", err);
           setError(err?.response?.data?.message || "User has not found, Please Signup");

@@ -2,7 +2,6 @@ import React from "react";
 import "../styles/Header.css";
 import { Page } from "../types/types";
 import { MapPin } from "lucide-react";
-import BannerCarousel from "src/common/routes/Banner/BannerCarousel";
 import CountUp from "react-countup";
 
 export interface Profile {
@@ -43,8 +42,9 @@ export function Header({
   } = userProfile;
   const subscribers = 3487;
   const likes = 1593;
+  console.log('###isUserVerified',isUserVerified,languages,email,categoryType,likes);
 
-  console.log('===accountCreated',accountCreated);
+  console.log('### accountCreated',accountCreated);
 
   return (
     <header className="header">

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Phone } from 'lucide-react';
 import './style.css';
 
 const StickyIcons: React.FC = () => {
