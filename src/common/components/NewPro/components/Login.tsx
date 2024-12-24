@@ -173,3 +173,7 @@ export default function LoginPage({ setActivePage }: LoginProps) {
     </>
   );
 }
+
+{/* <button onClick={toggleSidebar} className="close-btn">
+                    &times;
+                  </button> */}

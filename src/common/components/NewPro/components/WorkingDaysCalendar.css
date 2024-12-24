@@ -1,28 +1,69 @@
 .calendarWrapper {
-    max-width: 300px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f0f0f0;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .workingDay {
-    background-color: #e6f7ff;
-    color: #1890ff;
-    font-weight: bold;
-  }
-  
-  .selected {
-    background-color: #1890ff !important;
-    color: white !important;
-  }
-  
-  .selectedDate {
-    margin-top: 20px;
-    text-align: center;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  
+  max-width: 300px;
+  /* margin: 0 auto; */
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.workingDay {
+  background-color: #e6f7f7;
+  color: #096c6c;
+  font-weight: bold;
+}
+
+.selected {
+  background-color: #096c6c !important;
+  color: white !important;
+}
+
+.timeSlotSelector {
+  margin-top: 20px;
+}
+
+.timeSlotSelector h3 {
+  margin-bottom: 8px;
+  color: #096c6c;
+  font-size: 0.9rem;
+}
+
+.selectTrigger {
+  width: 100%;
+  margin-top: 10px;
+  border-color: #096c6c;
+  background-color: white;
+}
+
+.selectedDateTime {
+  margin-top: 20px;
+  text-align: center;
+  font-weight: bold;
+  color: #096c6c;
+}
+
+/* Fix dropdown styling */
+.select-content{
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  z-index: 50;
+}
+
+.select-item {
+  padding: 8px 30px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.select-item:hover {
+  background-color: #e6f7f7;
+}
+
+.select-item[data-disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+

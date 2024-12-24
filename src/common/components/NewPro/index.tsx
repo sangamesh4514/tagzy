@@ -111,7 +111,7 @@ export default function NewPro({ userProfile }: IProps) {
             activePage === "basket" ? "main-content-cart" : ""
           }`}
         >
-          <div className="content-area">
+          <div className={`content-area ${isOpen ? 'addOverflow' : ''}`}>
             {activePage === "services" && (
               <>
                 <div className="services-grid">
@@ -125,19 +125,9 @@ export default function NewPro({ userProfile }: IProps) {
                   toggleSidebar={toggleSidebar}
                   test={"circle-profile-image"}
                 />
-                {/* <button onClick={toggleSidebar} className="open-btn">
-                  Open Sidebar
-                </button> */}
+                
                 <div className={`sidebar ${isOpen ? "open" : "notOpen"}`}>
-                  <button onClick={toggleSidebar} className="close-btn">
-                    &times;
-                  </button>
                   <LoginPage setActivePage={setActivePage} />
-
-                  {/* <div className="content">
-                    <h2>Sidebar Content</h2>
-                    <p>This sidebar adjusts to its parent's height.</p>
-                  </div> */}
                 </div>
               </>
             )}
