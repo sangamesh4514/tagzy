@@ -33,7 +33,7 @@ export default function OrderSummary({ setActivePage }: OrderPageProps){
   return (
     <div className="summary-container">
       <button className="back-button"
-      onClick={() => setActivePage("cart")}
+      onClick={() => setActivePage("basket")}
       >
         <ArrowLeft className="w-5 h-5" />
         Back TO Basket

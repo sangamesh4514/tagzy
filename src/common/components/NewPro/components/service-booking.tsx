@@ -10,6 +10,7 @@ import { Dialog, DialogTrigger } from "src/magicUi/ui/dialog";
 import { renderDialogContent } from "../../profile/userProfile";
 import EmptyCart from "src/assets/icons/EmptyCart";
 import StickyBar from "./StickyBar";
+import { WorkingDaysCalendar } from "./WorkingDaysCalendar";
 
 interface ServiceBookingProps {
   setActivePage: (page: Page) => void;
@@ -89,10 +90,9 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
             <h3>{cartItem.service.name}</h3>
             <span className="price">₹{cartItem.service.cost}</span>
           </div>
-        </section>
-        {cartItem.addons.length > 0 && (
+          {cartItem.addons.length > 0 && (
           <section className="addons-section">
-            <h2>Addons :-</h2>
+            <h2 style={{marginTop: '5px',fontSize: '1.5rem'}}>Addons :-</h2>
             {cartItem.addons.map(({ addon, quantity }) => (
               <div key={addon._id} className="addon-card">
                 <img
@@ -127,56 +127,61 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
             ))}
           </section>
         )}
-        <div className="total">
+         <div className="total">
           <span>Total:</span>
           <span>₹{total}</span>
         </div>
-        {!(cartItem.addons.length === cartItem.service.addOns.length) && (<section className="related-addons">
-          <h2>Add Addons Related to this Service :-</h2>
-          <div className="related-addons-grid">
-
-            {cartItem && cartItem.service.addOns.map(
-              (addon) =>
-                !addonsInCart.find(
-                  (item) => item.addon._id === addon._id
-                ) && (
-                  <div key={addon._id} className="related-addon-card">
-                    <img
-                      src={addon.imageUrl}
-                      alt={addon.name}
-                      width={80}
-                      height={80}
-                    />
-                    <div className="addon-info">
-                      <h4>{addon.name}</h4>
-                      <p>₹{addon.cost}</p>
-                    </div>
-                    <Button
-                      variant="outline"
-                      onClick={() => handleAddonToggle(addon)}
-                      disabled={
-                        !!addonsInCart.find(
-                          (item) => item.addon._id === addon._id
-                        )
-                      }
-                    >
-                      Add
-                    </Button>
-                  </div>
-                )
-            )}
-          </div>
-        </section>)}
-        <DateSelector
+        </section>
+        {!(cartItem.addons.length === cartItem.service.addOns.length) && (
+          <section className="related-addons">
+            <h2>Add Addons Related to this Service :-</h2>
+            <div className="related-addons-grid">
+              {cartItem &&
+                cartItem.service.addOns.map(
+                  (addon) =>
+                    !addonsInCart.find(
+                      (item) => item.addon._id === addon._id
+                    ) && (
+                      <div key={addon._id} className="related-addon-card">
+                        <img
+                          src={addon.imageUrl}
+                          alt={addon.name}
+                          width={80}
+                          height={80}
+                        />
+                        <div className="addon-info">
+                          <h4>{addon.name}</h4>
+                          <p>₹{addon.cost}</p>
+                        </div>
+                        <Button
+                          variant="outline"
+                          onClick={() => handleAddonToggle(addon)}
+                          disabled={
+                            !!addonsInCart.find(
+                              (item) => item.addon._id === addon._id
+                            )
+                          }
+                        >
+                          Add
+                        </Button>
+                      </div>
+                    )
+                )}
+            </div>
+          </section>
+        )}
+        {/* <DateSelector
           service={cartItem.service}
           selectedDate={cartItem.selectedDate}
           onSelectDate={setSelectedDate}
-        />
-        <TimeSlotSelector
+        /> */}
+        <WorkingDaysCalendar workingDays={cartItem.service.workingDays} />
+        {/* <TimeSlotSelector
           service={cartItem.service}
           selectedTimeSlot={cartItem.selectedTimeSlot}
           onSelectTimeSlot={setSelectedTimeSlot}
-        />
+          selectedDate={}
+        /> */}
       </main>
 
       <footer className="cart-footer">

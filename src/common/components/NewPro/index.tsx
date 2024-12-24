@@ -23,6 +23,11 @@ interface IProps {
 
 export default function NewPro({ userProfile }: IProps) {
   const [activePage, setActivePage] = useState<Page>("services");
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
 
   const {
     name,
@@ -72,10 +77,12 @@ export default function NewPro({ userProfile }: IProps) {
     categoryType: CategoryCodeToName[categoryId - 1],
     experience: experience,
   };
-  const tempEmail = 'abcdefgh@tagzy.in'
+  const tempEmail = "abcdefgh@tagzy.in";
   const maskedPhoneNumber = phoneNumber.replace(/.(?=.{5})/g, "*");
 
-  const maskedEmail = (email || tempEmail).replace(/^[^@]+/, (localPart) => "*".repeat(localPart.length));
+  const maskedEmail = (email || tempEmail).replace(/^[^@]+/, (localPart) =>
+    "*".repeat(localPart.length)
+  );
 
   const rate = getAverageRating(services);
 
@@ -101,7 +108,7 @@ export default function NewPro({ userProfile }: IProps) {
         />
         <div
           className={`main-content ${
-            activePage === "cart" ? "main-content-cart" : ""
+            activePage === "basket" ? "main-content-cart" : ""
           }`}
         >
           <div className="content-area">
@@ -113,7 +120,25 @@ export default function NewPro({ userProfile }: IProps) {
                       <ServiceCard key={service._id} service={service} />
                     ))}
                 </div>
-                <StickyBar setActivePage={setActivePage} test={'circle-profile-image'}/>
+                <StickyBar
+                  setActivePage={setActivePage}
+                  toggleSidebar={toggleSidebar}
+                  test={"circle-profile-image"}
+                />
+                {/* <button onClick={toggleSidebar} className="open-btn">
+                  Open Sidebar
+                </button> */}
+                <div className={`sidebar ${isOpen ? "open" : "notOpen"}`}>
+                  <button onClick={toggleSidebar} className="close-btn">
+                    &times;
+                  </button>
+                  <LoginPage setActivePage={setActivePage} />
+
+                  {/* <div className="content">
+                    <h2>Sidebar Content</h2>
+                    <p>This sidebar adjusts to its parent's height.</p>
+                  </div> */}
+                </div>
               </>
             )}
             {activePage === "about" && (
@@ -126,13 +151,15 @@ export default function NewPro({ userProfile }: IProps) {
                 </div>
                 <div className="flex items-center gap-2 text-black">
                   <Phone className="h-4 w-4" />
-                  <span className="text-lg font-semibold">Mobile Number:- </span>
-                  <span style={{fontSize: '1rem'}}>{maskedPhoneNumber}</span>
+                  <span className="text-lg font-semibold">
+                    Mobile Number:-{" "}
+                  </span>
+                  <span style={{ fontSize: "1rem" }}>{maskedPhoneNumber}</span>
                 </div>
                 <div className="flex items-center gap-2 my-5 text-black">
                   <Mail className="h-4 w-4" />
                   <span className="text-lg font-semibold">Email:- </span>
-                  <span style={{fontSize: '1rem'}}>{maskedEmail}</span>
+                  <span style={{ fontSize: "1rem" }}>{maskedEmail}</span>
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold mb-2 text-black">
@@ -169,22 +196,26 @@ export default function NewPro({ userProfile }: IProps) {
                     Overall Ratings:-
                   </h3>
                   <div className="aboutRating flex gap-2">
-                    {<Rating
-                      rating={rate.sumRating}
-                      ratingCount={rate.sumRatingCount}
-                      size="lg"
-                    />}
+                    {
+                      <Rating
+                        rating={rate.sumRating}
+                        ratingCount={rate.sumRatingCount}
+                        size="lg"
+                      />
+                    }
                   </div>
                 </div>
               </div>
             )}
-            {activePage === "cart" && (
+            {activePage === "basket" && (
               <ServiceBooking setActivePage={setActivePage} />
             )}
-            {activePage === "login" && (
+            {/* {activePage === "login" && (
               <LoginPage setActivePage={setActivePage} />
+            )} */}
+            {activePage === "checkout" && (
+              <OrderSummary setActivePage={setActivePage} />
             )}
-            {activePage === "checkout" && <OrderSummary setActivePage={setActivePage}/>}
           </div>
         </div>
       </div>

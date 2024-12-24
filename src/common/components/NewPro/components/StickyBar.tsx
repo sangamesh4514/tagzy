@@ -6,9 +6,10 @@ import { Page } from "../types/types";
 interface StickyBarProps {
   setActivePage: (page: Page) => void;
   test: string;
+  toggleSidebar: () => void
 }
 
-const StickyBar: React.FC<StickyBarProps> = ({ setActivePage, test }) => {
+const StickyBar: React.FC<StickyBarProps> = ({ setActivePage, test, toggleSidebar }) => {
   const [isInView, setIsInView] = useState(false); 
   const { cartItem } = useCart();
 
@@ -72,7 +73,8 @@ const StickyBar: React.FC<StickyBarProps> = ({ setActivePage, test }) => {
           <p className="item-price">Total: ₹{totalAmount}</p>
         </div>
 
-        <button className="go-to-cart" onClick={() => setActivePage("cart")}>
+        {/* <button className="go-to-cart" onClick={() => setActivePage("basket")}> */}
+        <button className="go-to-cart" onClick={() => toggleSidebar()}>
           Go to Cart
         </button>
       </div>

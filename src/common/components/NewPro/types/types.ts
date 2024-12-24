@@ -1,1 +1,1 @@
-export type Page = "services" | "about" | "cart" | "login" | "checkout";
+export type Page = "services" | "about" | "basket" | "login" | "checkout";

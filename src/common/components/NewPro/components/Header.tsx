@@ -105,13 +105,11 @@ export function Header({
       </div>
 
       <nav className="navigation">
-        {activePage === "cart" ? (
-          <span className="nav-button active">Cart</span>
-        ) : activePage === "login" ? (
+        {/* {activePage === "login" ? (
           <span className="nav-button active">Login</span>
         ) : activePage === "checkout" ? (
           <span className="nav-button active">Checkout</span>
-        ) : (
+        ) : ( */}
           <>
             <button
               className={`nav-button ${
@@ -127,8 +125,26 @@ export function Header({
             >
               About
             </button>
+            <button
+              className={`nav-button ${activePage === "basket" ? "active" : ""}`}
+              onClick={() => setActivePage("basket")}
+            >
+              Basket
+            </button>
+            {/* <button
+              className={`nav-button ${activePage === "login" ? "active" : ""}`}
+              onClick={() => setActivePage("login")}
+            >
+              login
+            </button> */}
+            <button
+              className={`nav-button ${activePage === "checkout" ? "active" : ""}`}
+              onClick={() => setActivePage("checkout")}
+            >
+              checkout
+            </button>
           </>
-        )}
+        {/* )} */}
       </nav>
     </header>
   );

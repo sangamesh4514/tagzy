@@ -7,7 +7,7 @@ import { ArrowLeft } from "lucide-react";
 import { Page } from "../types/types";
 
 interface LoginProps {
-  setActivePage: (page: Page) => void;
+  setActivePage?: (page: Page) => void;
 }
 
 export default function LoginPage({ setActivePage }: LoginProps) {
@@ -79,14 +79,14 @@ export default function LoginPage({ setActivePage }: LoginProps) {
   return (
     <>
       <div className="login-container" style={{ position: "relative" }}>
-        <button
+        {/* <button
           className="back-button"
           style={{ position: "absolute", top: "0", left: "0" }}
-          onClick={() => setActivePage("cart")}
+          onClick={() => setActivePage && setActivePage("basket")}
         >
           <ArrowLeft className="w-6 h-6" />
           Back to Cart
-        </button>
+        </button> */}
         <div className="login-card">
           <div className="login-card-logo">
             <img className="logo" src="/logo.png" alt="logo" />
@@ -165,7 +165,7 @@ export default function LoginPage({ setActivePage }: LoginProps) {
 
           {loginInfo && (
             <>
-            {setActivePage("checkout")}
+            {setActivePage && setActivePage("checkout")}
             </>
           )}
         </div>
