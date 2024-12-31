@@ -42,8 +42,7 @@ export function Header({
     experience,
   } = userProfile;
   const subscribers = 3487;
-  const likes = 1593;
-  console.log('###isUserVerified',isUserVerified,languages,email,categoryType,likes);
+  console.log('###isUserVerified',isUserVerified,languages,email,categoryType);
 
   console.log('### accountCreated',accountCreated);
 

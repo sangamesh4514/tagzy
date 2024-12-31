@@ -27,6 +27,28 @@
   position: absolute;
     right: 0;
 }
+.cart{
+  height: 500px;
+  background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  .cart-header{
+    align-items: center;
+    display: inline-flex;
+    gap: 10px;
+
+   }
+  
+  @media (max-width: 768px) {
+    /* .back-button{
+      padding: 0.2rem;
+    }
+   .cart-header{
+    padding-top: 25px;
+   } */
+  }
+}
 .service-section {
   background: white;
   border-radius: 0.5rem;
