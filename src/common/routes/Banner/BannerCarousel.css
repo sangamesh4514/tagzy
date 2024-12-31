@@ -1,10 +1,10 @@
 .banner-carousel {
-  border-radius: 20px; /* Reduced for mobile screens */
-  height: 400px; /* Adjusted height for smaller devices */
+  border-radius: 20px;
+  height: 400px;
   position: relative;
   overflow: hidden;
   background: #ccfbf1;
-  margin: 0 1rem 2rem; /* Adjusted margin */
+  margin: 0 1rem 2rem;
   z-index: 1;
 }
 
@@ -38,23 +38,22 @@
 }
 
 .banner h1 {
-  font-size: 2rem; /* Smaller font size for mobile */
-  margin-bottom: 0.5rem; /* Adjusted spacing */
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
   font-family: serif;
-  letter-spacing: 1px;
-  text-align: center;
+  letter-spacing: 2px;
 }
 
 .banner p {
-  font-size: 1rem; /* Smaller font size for mobile */
+  font-size: 1rem;
   margin-bottom: 0.5rem;
   font-family: serif;
-  letter-spacing: 1px;
-  text-align: center;
+  letter-spacing: 2px;
 }
 
+/* CSS changes */
 .banner .highlight {
-  font-size: 1.5rem; /* Smaller highlight size */
+  font-size: 1.5rem; 
   color: #096c6c;
   font-weight: bold;
   font-family: serif;
@@ -65,7 +64,7 @@
 @media (max-width: 768px) {
   .banner-carousel {
     height: 200px; /* Further reduce height for smaller devices */
-    margin: 0 1rem 1rem;
+    margin: 0 0 1rem;
     border-radius: 15px;
   }
 

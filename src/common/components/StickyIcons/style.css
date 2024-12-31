@@ -6,7 +6,8 @@
   }
   
   .sticky-icon.left {
-    left: 20px;
+    right: 20px;
+    /* left: 20px; */
   }
   
   .sticky-icon.right {
@@ -81,7 +82,8 @@
   /* Mobile Responsiveness */
   @media (max-width: 768px) {
     .sticky-icon.left {
-      left: 10px;
+      /* left: 10px; */
+    right: 10px;
     }
   
     .sticky-icon.right {

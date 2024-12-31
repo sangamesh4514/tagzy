@@ -41,8 +41,11 @@ export function Header({
     categoryType,
     experience,
   } = userProfile;
-
   const subscribers = 3487;
+  const likes = 1593;
+  console.log('###isUserVerified',isUserVerified,languages,email,categoryType,likes);
+
+  console.log('### accountCreated',accountCreated);
 
   return (
     <header className="pro-header">

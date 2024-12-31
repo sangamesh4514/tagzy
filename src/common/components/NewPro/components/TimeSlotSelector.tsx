@@ -37,6 +37,8 @@ export function TimeSlotSelector({ service, selectedTimeSlot, onSelectTimeSlot, 
     const slotTime = new Date(`2000-01-01T${startTime.trim()} ${now.toLocaleTimeString('en-US', { timeZoneName: 'short' }).split(' ')[1]}`); // Ensure timezone consistency
     return slotTime > now;
   };
+  console.log('###timeSlots',timeSlots[0]);
+  console.log('###selectedTimeSlot',selectedTimeSlot);
 
   return (
     <div className="time-slot-selector">
