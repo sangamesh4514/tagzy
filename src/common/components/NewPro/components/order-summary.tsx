@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ArrowLeft, Home } from "lucide-react";
-import "./order-summary.css";
+import "../styles/order-summary.css";
 import { Button } from "src/magicUi/ui/button";
 import {
   Dialog,

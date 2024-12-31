@@ -111,26 +111,34 @@ export default function NewPro({ userProfile }: IProps) {
             activePage === "basket" ? "main-content-cart" : ""
           }`}
         >
-          <div className={`content-area ${isOpen ? 'addOverflow' : ''}`}>
-            {activePage === "services" && (
-              <>
-                <div className="services-grid">
-                  {services &&
-                    services.map((service) => (
-                      <ServiceCard key={service._id} service={service} />
-                    ))}
+          <div className={`content-area ${isOpen ? "addOverflow" : ""}`}>
+            {activePage === "services" &&
+              (services?.length ? (
+                <>
+                  <div className="services-grid">
+                    {services &&
+                      services.map((service) => (
+                        <ServiceCard key={service._id} service={service} />
+                      ))}
+                  </div>
+                  <StickyBar
+                    setActivePage={setActivePage}
+                    toggleSidebar={toggleSidebar}
+                    test={"circle-profile-image"}
+                  />
+
+                  <div className={`sidebar ${isOpen ? "open" : "notOpen"}`}>
+                    <button onClick={toggleSidebar} className="close-btn">
+                      &times;
+                    </button>
+                    <LoginPage setActivePage={setActivePage} />
+                  </div>
+                </>
+              ) : (
+                <div className="about-section" style={{ height: "500px" }}>
+                  <h1>Currently, the provider has no services available.</h1>
                 </div>
-                <StickyBar
-                  setActivePage={setActivePage}
-                  toggleSidebar={toggleSidebar}
-                  test={"circle-profile-image"}
-                />
-                
-                <div className={`sidebar ${isOpen ? "open" : "notOpen"}`}>
-                  <LoginPage setActivePage={setActivePage} />
-                </div>
-              </>
-            )}
+              ))}
             {activePage === "about" && (
               <div className="about-section">
                 <div>
@@ -203,9 +211,9 @@ export default function NewPro({ userProfile }: IProps) {
             {/* {activePage === "login" && (
               <LoginPage setActivePage={setActivePage} />
             )} */}
-            {activePage === "checkout" && (
+            {/* {activePage === "checkout" && (
               <OrderSummary setActivePage={setActivePage} />
-            )}
+            )} */}
           </div>
         </div>
       </div>

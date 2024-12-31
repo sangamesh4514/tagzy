@@ -1,5 +1,5 @@
 import { Star } from "lucide-react";
-import "./rating.css";
+import "../styles/rating.css";
 
 interface RatingProps {
   rating: number;

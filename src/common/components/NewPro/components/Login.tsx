@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./login.css";
+import "../styles/login.css";
 import { useUserLogin } from "src/common/api/userLogin";
 import { Input } from "src/magicUi/ui/input";
 import { Button } from "src/magicUi/ui/button";
@@ -77,103 +77,84 @@ export default function LoginPage({ setActivePage }: LoginProps) {
   };
 
   return (
-    <>
-      <div className="login-container" style={{ position: "relative" }}>
-        {/* <button
-          className="back-button"
-          style={{ position: "absolute", top: "0", left: "0" }}
-          onClick={() => setActivePage && setActivePage("basket")}
-        >
-          <ArrowLeft className="w-6 h-6" />
-          Back to Cart
-        </button> */}
-        <div className="login-card">
-          <div className="login-card-logo">
-            <img className="logo" src="/logo.png" alt="logo" />
+    <div className="login-card">
+      <div className="login-card-logo">
+        <img className="logo" src="/logo.png" alt="logo" />
+      </div>
+      <h1>Login</h1>
+      <p className="subtitle">Enter your mobile number to continue</p>
+
+      {error && <p className="error-message">{error}</p>}
+
+      <form onSubmit={showOTP ? handleOTPVerify : handleMobileSubmit}>
+        <div className="mobile-input-group">
+          <div className="country-code">
+            <span style={{ fontSize: "24px" }}>🇮🇳</span>
+            <span>+91</span>
           </div>
-          <h1>Login</h1>
-          <p className="subtitle">Enter your mobile number to continue</p>
+          <Input
+            type="tel"
+            value={mobileNumber}
+            onChange={(e) => {
+              const value = e.target.value.replace(/\D/g, "");
+              if (value.length <= 10) {
+                setMobileNumber(value);
+              }
+            }}
+            placeholder="Enter mobile number"
+            maxLength={10}
+            disabled={showOTP || loading}
+            required
+            style={{ height: "100%", fontSize: "16px" }}
+          />
+        </div>
 
-          {error && <p className="error-message">{error}</p>}
-
-          <form onSubmit={showOTP ? handleOTPVerify : handleMobileSubmit}>
-            <div className="mobile-input-group">
-              <div className="country-code">
-                {/* <img
-                src="/placeholder.svg?text=IN"
-                alt="🇮🇳"
-                className="flag"
-              /> */}
-                <span style={{ fontSize: "24px" }}>🇮🇳</span>
-                <span>+91</span>
-              </div>
-              <Input
-                type="tel"
-                value={mobileNumber}
-                onChange={(e) => {
-                  const value = e.target.value.replace(/\D/g, "");
-                  if (value.length <= 10) {
-                    setMobileNumber(value);
-                  }
-                }}
-                placeholder="Enter mobile number"
-                maxLength={10}
-                disabled={showOTP || loading}
-                required
-                style={{ height: "100%", fontSize: "16px" }}
-              />
+        {showOTP && (
+          <div className="otp-section">
+            <p>Enter OTP sent to +91 {mobileNumber}</p>
+            <div className="otp-input-group">
+              {otp.map((digit, index) => (
+                <input
+                  key={index}
+                  type="text"
+                  inputMode="numeric"
+                  name={`otp-${index}`}
+                  value={digit}
+                  onChange={(e) => handleOTPChange(index, e.target.value)}
+                  onKeyDown={(e) => handleKeyDown(index, e)}
+                  maxLength={1}
+                  className="otp-input"
+                  autoComplete="off"
+                />
+              ))}
             </div>
-
-            {showOTP && (
-              <div className="otp-section">
-                <p>Enter OTP sent to +91 {mobileNumber}</p>
-                <div className="otp-input-group">
-                  {otp.map((digit, index) => (
-                    <input
-                      key={index}
-                      type="text"
-                      inputMode="numeric"
-                      name={`otp-${index}`}
-                      value={digit}
-                      onChange={(e) => handleOTPChange(index, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(index, e)}
-                      maxLength={1}
-                      className="otp-input"
-                      autoComplete="off"
-                    />
-                  ))}
-                </div>
-                <button
-                  type="button"
-                  className="resend-button"
-                  onClick={() => getOtp(mobileNumber)}
-                  disabled={loading}
-                >
-                  Resend OTP
-                </button>
-              </div>
-            )}
-
-            <Button
-              type="submit"
-              className="submit-button hover:bg-gray-800"
+            <button
+              type="button"
+              className="resend-button"
+              onClick={() => getOtp(mobileNumber)}
               disabled={loading}
             >
-              {loading ? "Please wait..." : showOTP ? "Verify OTP" : "Login"}
-            </Button>
-          </form>
+              Resend OTP
+            </button>
+          </div>
+        )}
 
-          {loginInfo && (
-            <>
-            {setActivePage && setActivePage("checkout")}
-            </>
-          )}
-        </div>
-      </div>
-    </>
+        <Button
+          type="submit"
+          className="submit-button hover:bg-gray-800"
+          disabled={loading}
+        >
+          {loading ? "Please wait..." : showOTP ? "Verify OTP" : "Login"}
+        </Button>
+      </form>
+
+      {loginInfo && <>{setActivePage && setActivePage("checkout")}</>}
+    </div>
   );
 }
 
-{/* <button onClick={toggleSidebar} className="close-btn">
+{
+  /* <button onClick={toggleSidebar} className="close-btn">
                     &times;
-                  </button> */}
+                  </button> */
+}

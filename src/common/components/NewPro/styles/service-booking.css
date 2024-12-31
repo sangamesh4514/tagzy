@@ -163,6 +163,11 @@
   font-size: 1rem;
 }
 
+.timeAndAddress{
+  display: flex;
+  justify-content: space-between;
+}
+
 @media (min-width: 768px) {
   .booking-section {
     grid-template-columns: 1fr 1fr;

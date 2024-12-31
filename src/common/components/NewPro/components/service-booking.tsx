@@ -1,5 +1,5 @@
 import { ArrowLeft, ShoppingCart, Trash2, Plus, Minus } from "lucide-react";
-import "./service-booking.css";
+import "../styles/service-booking.css";
 import { Button } from "../../ui/button";
 import { useCart } from "../context/CartContext";
 import { IAddon } from "src/common/types";
@@ -9,6 +9,8 @@ import { renderDialogContent } from "../../profile/userProfile";
 import EmptyCart from "src/assets/icons/EmptyCart";
 import StickyBar from "./StickyBar";
 import { WorkingDaysCalendar } from "./WorkingDaysCalendar";
+import GoogleLocation from "./LocationFetcher";
+import { calculateDistance } from "../utils";
 
 interface ServiceBookingProps {
   setActivePage: (page: Page) => void;
@@ -29,17 +31,18 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
 
   if (!cartItem) {
     return (
-      <div className="cart">
+      <div className="cart" style={{background: 'white', height: '500px'}}>
         <button
           className="back-button"
           onClick={() => setActivePage("services")}
+          style={{right: '20px'}}
         >
           <ArrowLeft className="w-6 h-6" />
           Back
         </button>
 
-        <h2>Your Cart</h2>
-        <p>Your Cart is Empty</p>
+        <h1>Your Cart</h1>
+        <h2 style={{fontSize: '20px'}}>Your Cart is Empty</h2>
       </div>
     );
   }
@@ -57,6 +60,17 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
       (total, item) => total + item.addon.cost * item.quantity,
       0
     );
+
+  const location1 = { lat: 12.9715987, lon: 77.5945627 }; 
+  const location2 = { lat: cartItem.service.location.coordinates[1], lon: cartItem.service.location.coordinates[0] }; 
+
+  const distance = calculateDistance(
+    location1.lat,
+    location1.lon,
+    location2.lat,
+    location2.lon
+  );
+
   return (
     <div className="service-booking">
       {/* <header className="service-booking-header">
@@ -74,12 +88,11 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
       </header> */}
 
       <main>
-      
         <section className="service-section">
-        <button className="empty-cart-button" onClick={removeFromCart}>
-          Empty Cart
-          <EmptyCart className="w-6 h-6" />
-        </button>
+          <button className="empty-cart-button" onClick={removeFromCart}>
+            Empty Cart
+            <EmptyCart className="w-6 h-6" />
+          </button>
           <h2 className="service-section-h2">Service :-</h2>
           <div className="service-card-cart">
             <div className="service-image">
@@ -176,14 +189,22 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
               </div>
             </section>
           )}
-          <h2 style={{ fontSize: "1rem", margin: "0 0 0.5rem 0" }}>
+          <div className="timeAndAddress">
+            <div className="userSelectTime">
+            <h2 style={{ fontSize: "1rem", margin: "0 0 0.5rem 0" }}>
             Select a Date & Time :-
           </h2>
-
-          <WorkingDaysCalendar
-            workingDays={cartItem.service.workingDays}
-            timeSlots={cartItem.service.timeSlots}
-          />
+            <WorkingDaysCalendar
+              workingDays={cartItem.service.workingDays}
+              timeSlots={cartItem.service.timeSlots}
+            />
+            </div>
+            <div className="useraddress">
+              Address 
+              <GoogleLocation/>
+              The distance between provider and user Address is {distance.toFixed(2)} km.
+            </div>
+          </div>
         </section>
 
         {/* <DateSelector

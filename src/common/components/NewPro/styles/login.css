@@ -9,11 +9,12 @@
 .login-card {
   background: white;
   padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 4px 6px 1px rgb(1 42 52);
+  /* border-radius: 1rem;
+  box-shadow: 0 4px 6px 1px rgb(1 42 52); */
   width: 100%;
-  max-width: 450px;
-  height: 700px;
+  /* max-width: 450px; */
+  /* height: 700px; */
+  height: 100%;
 }
 
 .login-card-logo{

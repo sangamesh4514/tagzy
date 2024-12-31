@@ -30,7 +30,6 @@ const GoogleLocation: React.FC = () => {
 
               // Initialize Geocoder
               const geocoder = new google.maps.Geocoder();
-              // console.log('===geocoder',geocoder);
               const latlng = { lat: latitude, lng: longitude };
 
               // Perform reverse geocoding
@@ -60,8 +59,6 @@ const GoogleLocation: React.FC = () => {
 
     getUserLocation();
   }, [apiKey]);
-
-  // console.log('===location',location);
 
   return (
     <div>

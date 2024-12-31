@@ -137,12 +137,12 @@ export function Header({
             >
               login
             </button> */}
-            <button
+            {/* <button
               className={`nav-button ${activePage === "checkout" ? "active" : ""}`}
               onClick={() => setActivePage("checkout")}
             >
               checkout
-            </button>
+            </button> */}
           </>
         {/* )} */}
       </nav>
