@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import "../styles/StickyBar.css";
 import { useCart } from "../context/CartContext";
