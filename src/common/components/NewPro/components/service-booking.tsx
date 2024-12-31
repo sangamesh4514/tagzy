@@ -1,4 +1,4 @@
-import { ArrowLeft, Trash2, Plus, Minus } from "lucide-react";
+import { Trash2, Plus, Minus, ShoppingCart } from "lucide-react";
 import "../styles/service-booking.css";
 import { Button } from "../../ui/button";
 import { useCart } from "../context/CartContext";
@@ -31,17 +31,17 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
 
   if (!cartItem) {
     return (
-      <div className="cart" style={{background: 'white', height: '500px'}}>
-        <button
+      <div className="cart" >
+        {/* <button
           className="back-button"
           onClick={() => setActivePage("services")}
           style={{right: '20px'}}
         >
           <ArrowLeft className="w-6 h-6" />
           Back
-        </button>
+        </button> */}
 
-        <h1>Your Cart</h1>
+        <h1 className="cart-header">Cart <ShoppingCart /></h1>
         <h2 style={{fontSize: '20px'}}>Your Cart is Empty</h2>
       </div>
     );
