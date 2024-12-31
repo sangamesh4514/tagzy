@@ -1,4 +1,4 @@
-import { ArrowLeft, ShoppingCart, Trash2, Plus, Minus } from "lucide-react";
+import { ArrowLeft, Trash2, Plus, Minus } from "lucide-react";
 import "../styles/service-booking.css";
 import { Button } from "../../ui/button";
 import { useCart } from "../context/CartContext";
@@ -7,7 +7,7 @@ import { Page } from "../types/types";
 import { Dialog, DialogTrigger } from "src/magicUi/ui/dialog";
 import { renderDialogContent } from "../../profile/userProfile";
 import EmptyCart from "src/assets/icons/EmptyCart";
-import StickyBar from "./StickyBar";
+// import StickyBar from "./StickyBar";
 import { WorkingDaysCalendar } from "./WorkingDaysCalendar";
 import GoogleLocation from "./LocationFetcher";
 import { calculateDistance } from "../utils";
@@ -23,8 +23,8 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
     incrementAddon,
     decrementAddon,
     removeAddon,
-    setSelectedDate,
-    setSelectedTimeSlot,
+    // setSelectedDate,
+    // setSelectedTimeSlot,
     addAddon,
   } = useCart();
   const addonsInCart = cartItem?.addons || [];

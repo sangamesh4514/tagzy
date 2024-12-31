@@ -9,7 +9,7 @@ import { CategoryCodeToName, languageCodeToName } from "src/common/constant";
 import StickyBar from "./components/StickyBar";
 import ServiceBooking from "./components/service-booking";
 import LoginPage from "./components/Login";
-import OrderSummary from "./components/order-summary";
+// import OrderSummary from "./components/order-summary";
 import AnimatedGridPattern from "src/magicUi/ui/animated-grid-pattern";
 import { cn } from "src/lib/utils";
 import { Badge } from "src/magicUi/ui/badge";

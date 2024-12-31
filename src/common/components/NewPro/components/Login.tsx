@@ -3,7 +3,7 @@ import "../styles/login.css";
 import { useUserLogin } from "src/common/api/userLogin";
 import { Input } from "src/magicUi/ui/input";
 import { Button } from "src/magicUi/ui/button";
-import { ArrowLeft } from "lucide-react";
+// import { ArrowLeft } from "lucide-react";
 import { Page } from "../types/types";
 
 interface LoginProps {
@@ -149,12 +149,12 @@ export default function LoginPage({ setActivePage }: LoginProps) {
       </form>
 
       {loginInfo && <>{setActivePage && setActivePage("checkout")}</>}
-    </div>
-  );
-}
-
-{
+      {
   /* <button onClick={toggleSidebar} className="close-btn">
                     &times;
                   </button> */
 }
+    </div>
+  );
+}
+

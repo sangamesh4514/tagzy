@@ -26,13 +26,13 @@ export const WorkingDaysCalendar: React.FC<WorkingDaysCalendarProps> = ({ workin
   // const [selectedTimeSlot, setSelectedTimeSlot] = useState<string | undefined>(undefined)
   const {
     cartItem,
-    removeFromCart,
-    incrementAddon,
-    decrementAddon,
-    removeAddon,
-    setSelectedDate,
+    // removeFromCart,
+    // incrementAddon,
+    // decrementAddon,
+    // removeAddon,
+    // setSelectedDate,
     setSelectedTimeSlot,
-    addAddon,
+    // addAddon,
   } = useCart();
 
   const today = startOfDay(new Date())
