@@ -15,6 +15,12 @@
     max-width: 800px;
     width: 100%;
     text-align: left;
+
+    h2 {
+      color: #555;
+      margin-top: 20px;
+      font-size: 1.5rem;
+    }
   }
   
   h1 {
@@ -25,11 +31,7 @@
     font-weight: bold;  /* Make it bolder */
   }
   
-  h2 {
-    color: #555;
-    margin-top: 20px;
-    font-size: 1.5rem;
-  }
+  
   
   p, ul {
     color: #666;

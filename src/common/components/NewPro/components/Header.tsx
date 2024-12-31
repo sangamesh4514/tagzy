@@ -1,20 +1,21 @@
 import React from "react";
 import "../styles/Header.css";
 import { Page } from "../types/types";
-import { MapPin } from "lucide-react";
+import {  MapPin } from "lucide-react";
 import CountUp from "react-countup";
+import VerifiedMark from "src/assets/icons/VerifiedMark";
 
 export interface Profile {
-  profilePicture?: string; //
-  name?: string; //
-  skillTitle?: string; //
-  isUserVerified?: boolean; //
-  location?: string; //
-  email?: string; //
-  accountCreated?: string; //
+  profilePicture?: string;
+  name?: string;
+  skillTitle?: string;
+  isUserVerified?: boolean;
+  location?: string;
+  email?: string;
+  accountCreated?: string;
   experience?: number;
-  languages?: string[]; //
-  categoryType?: string; //
+  languages?: string[];
+  categoryType?: string;
 }
 
 interface HeaderProps {
@@ -38,7 +39,7 @@ export function Header({
     languages,
     location,
     categoryType,
-    experience
+    experience,
   } = userProfile;
   const subscribers = 3487;
   const likes = 1593;
@@ -47,63 +48,59 @@ export function Header({
   console.log('### accountCreated',accountCreated);
 
   return (
-    <header className="header">
+    <header className="pro-header">
       <div className="cover-image">
         <img src="/assets/cover.jpg" alt="Cover" />
         {/* <BannerCarousel /> */}
       </div>
       <div className="profile-section">
         <div className="profile-avatar">
-          <img src={profilePicture} alt={name} />
+          <img id="circle-profile-image" src={profilePicture} alt={name} />
         </div>
         <div className="profile-info">
           <div className="details-container">
-            <h1>{name}</h1>
+            <h1 className="pro-name">
+              {name} <VerifiedMark width={28} />
+            </h1>
             <p className="profile-title">{skillTitle}</p>
-            <p
-              className="profile-location"
-              style={{ display: "flex", alignItems: "center" }}
-            >
+            <p className="profile-location">
               <MapPin className="h-4 w-4" />
               {location}
             </p>
           </div>
-          <div className="stats-container">
-            {/* Subscribers */}
+          <div className="stats-container" id="counterContainer">
             <div className="stat">
               <div className="icon-section">
                 <span className="icon">👥</span>
               </div>
               <div className="content-section">
                 <CountUp className="value" end={subscribers} duration={2} />
-                <div className="label">Service Booked</div>
+                <div className="content-section-label">Service Booked</div>
               </div>
             </div>
             <div className="separator"></div>
 
-            {/* Posts */}
             <div className="stat">
               <div className="icon-section">
                 <span className="icon">💼</span>
               </div>
-              {/* <div className="separator"></div> */}
               <div className="content-section">
                 <CountUp className="value" end={experience || 1} duration={2} />
-                <div className="label">Experience</div>
+                <div className="content-section-label">Experience</div>
               </div>
             </div>
             <div className="separator"></div>
 
-            {/* Likes */}
             <div className="stat">
               <div className="icon-section">
-                <span className="icon">❤️</span>
+                <span className="icon">
+                🗓️  
+                {/* <Calendar className="h-4 w-4" /> */}
+                </span>
               </div>
-              {/* <div className="separator"></div> */}
               <div className="content-section">
-              {accountCreated}
-                {/* <CountUp className="value" end={(accountCreated && +accountCreated) || 1} duration={2} /> */}
-                <div className="label">Member Since</div>
+                <span className="account-creation">{accountCreated}</span>
+                <div className="content-section-label">Member Since</div>
               </div>
             </div>
           </div>
@@ -111,18 +108,46 @@ export function Header({
       </div>
 
       <nav className="navigation">
-        <button
-          className={`nav-button ${activePage === "services" ? "active" : ""}`}
-          onClick={() => setActivePage("services")}
-        >
-          Services
-        </button>
-        <button
-          className={`nav-button ${activePage === "about" ? "active" : ""}`}
-          onClick={() => setActivePage("about")}
-        >
-          About
-        </button>
+        {/* {activePage === "login" ? (
+          <span className="nav-button active">Login</span>
+        ) : activePage === "checkout" ? (
+          <span className="nav-button active">Checkout</span>
+        ) : ( */}
+          <>
+            <button
+              className={`nav-button ${
+                activePage === "services" ? "active" : ""
+              }`}
+              onClick={() => setActivePage("services")}
+            >
+              Services
+            </button>
+            <button
+              className={`nav-button ${activePage === "about" ? "active" : ""}`}
+              onClick={() => setActivePage("about")}
+            >
+              About
+            </button>
+            <button
+              className={`nav-button ${activePage === "basket" ? "active" : ""}`}
+              onClick={() => setActivePage("basket")}
+            >
+              Basket
+            </button>
+            {/* <button
+              className={`nav-button ${activePage === "login" ? "active" : ""}`}
+              onClick={() => setActivePage("login")}
+            >
+              login
+            </button> */}
+            {/* <button
+              className={`nav-button ${activePage === "checkout" ? "active" : ""}`}
+              onClick={() => setActivePage("checkout")}
+            >
+              checkout
+            </button> */}
+          </>
+        {/* )} */}
       </nav>
     </header>
   );

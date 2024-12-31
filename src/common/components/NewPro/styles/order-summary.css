@@ -1,0 +1,167 @@
+.summary-container {
+  background: white;
+}
+
+.summary-container-summary {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  /* margin-bottom: 2rem; */
+}
+
+.back-button:hover {
+  color: #000;
+}
+
+.summary-card,
+.details-card {
+  background: white;
+  border: 1px solid #eee;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.service-section {
+  margin-bottom: 2rem;
+  border: 1px solid #eee;
+  padding: 0 1rem;
+}
+
+.service-section-name {
+  font-size: 1.25rem;
+  font-weight: 500;
+  /* margin-bottom: 1rem; */
+}
+
+.service-details,
+.addon-details {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  /* border: 1px solid #eee; */
+  border-radius: 0.5rem;
+}
+
+.service-image,
+.addon-image1 {
+  width: 80px;
+  height: 80px;
+  border: 1px solid #eee;
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+
+.service-image img,
+.addon-image1 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.addon-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.addon-quantity {
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.total-section {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  padding: 1rem 1rem 0 1rem;
+  border-top: 1px solid #eee;
+}
+
+.details-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.time-slot,
+.service-type,
+.address {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.Mainlabel {
+  font-weight: 500;
+  min-width: 180px;
+}
+
+.type-value {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.address-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  /* color: #000000; */
+}
+
+.place-order-button {
+  width: 100%;
+  height: 3rem;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.place-order-button:hover {
+  background-color: #1d4ed8;
+}
+
+@media (max-width: 640px) {
+  .summary-container {
+    margin: 1rem auto;
+  }
+
+  .service-details,
+  .addon-details {
+    grid-template-columns: auto 1fr;
+  }
+
+  .service-price,
+  .addon-price2 {
+    grid-column: 1 / -1;
+    justify-self: end;
+  }
+
+  .service-image,
+  .addon-image1 {
+    width: 60px;
+    height: 60px;
+  }
+}
