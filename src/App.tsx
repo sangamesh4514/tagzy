@@ -8,6 +8,7 @@ import ProtectedRoute from './common/routes/ProtectedRoute'
 import ProProfile from './common/components/profile/userProfile'
 import NotFound from './common/routes/NotFound'
 import Provider from './common/routes/Provider'
+import TermsAndConditions from './common/routes/TermsAndConditions'
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
           {/* Public Routes */}
           <Route path='/' element={<Home />} />
           <Route path='/privacyPolicy' element={<PrivacyPolicy />} />
+          <Route path='/termsAndConditions' element={<TermsAndConditions />} />
           <Route path='/careers' element={<Careers />} />
           <Route path='/admin/login' element={<AdminAuth />} />
           <Route path='/profile/:userId' element={<ProProfile />} /> 
