@@ -1,5 +1,4 @@
 import React from 'react';
-import { Phone } from 'lucide-react';
 import './style.css';
 
 const StickyIcons: React.FC = () => {
@@ -29,7 +28,7 @@ const StickyIcons: React.FC = () => {
       </div>
 
       {/* Request Icon - Right Side */}
-      <div className="sticky-icon right">
+      {/* <div className="sticky-icon right">
         <a 
           href="tel:+918320236754" 
           className="request-button"
@@ -38,7 +37,7 @@ const StickyIcons: React.FC = () => {
           <Phone className="phone-icon" size={16} />
           <span>Request</span>
         </a>
-      </div>
+      </div> */}
     </>
   );
 };

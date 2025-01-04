@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
 import '../styles/OrderModal.css';
 import { useUserLogin } from '../../../api/userLogin'
 import { useCreatePorject } from '../../../api/createProject'
@@ -64,6 +64,8 @@ export function OrderModal({ isOpen, onClose, onSubmit }: OrderModalProps) {
     ]
   }
 
+  console.log('###setShowOtp',setShowOtp);
+  console.log('###getOtp',getOtp);
   // const handleSubmit = (e: React.FormEvent) => {
   //   e.preventDefault();
   //   if (!showOtp) {

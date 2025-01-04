@@ -1,0 +1,128 @@
+.pro-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  position: relative;
+}
+
+.main-content {
+  z-index: 10;
+  display: flex;
+  gap: 2rem;
+  /* padding: 1.5rem 2rem; */
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* .main-content-cart {
+  padding: 1rem;
+} */
+
+.content-area {
+  flex: 1;
+  position: relative;
+  padding: 20px;
+}
+.addOverflow{
+  overflow: hidden;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.about-section {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.aboutRating {
+  .star-wrapper {
+    width: 35px;
+    height: 35px;
+  }
+  .rating-count {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .main-content {
+    flex-direction: column;
+  }
+}
+
+/* --------------------------------------------------------- */
+
+/* Parent container to define height and content structure */
+.parent-container {
+  position: relative;
+  height: 400px; /* Adjust this height to match your needs */
+  background-color: #eaeaea;
+  border: 1px solid #ccc;
+  padding: 20px;
+  overflow: hidden; /* Prevent overflow outside the parent */
+}
+
+/* Sidebar styles */
+.sidebar {
+  position: absolute;
+  top: 0;
+  right: 40%;
+    width: 40%;
+  height: 95%;
+  background-color: #f4f4f4;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+  /* padding: 20px; */
+  transform: translateX(0);
+  transition: transform 0.3s ease;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+/* Sidebar open state */
+.sidebar.open {
+  transform: translateX(100%);
+  margin: 20px;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px 1px rgb(1 42 52);
+}
+
+.sidebar.notOpen {
+  display: none;
+}
+
+/* Close button styles */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Overlay styles */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
