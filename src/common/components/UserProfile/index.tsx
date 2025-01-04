@@ -147,8 +147,8 @@ const UserProfileCard: React.FC<UserProfileCardProps> = ({user}) => {
   
   return (
     <div
-      className="px-4 mx-8 md:mx-20"
-      style={{ border: "3px solid green" }}
+      className="h-screen m-4"
+      // style={{ border: "3px solid green" }}
     >
       <div className="mb-4">
         <h2 className="text-lg font-semibold mb-2">Select fields to edit:</h2>
@@ -169,8 +169,7 @@ const UserProfileCard: React.FC<UserProfileCardProps> = ({user}) => {
         <Button
           onClick={applyFilter}
           disabled={isEditing}
-          className="bg-colorB hover:bg-colorA text-white"
-          variant="outline"
+          className="bg-colorA hover:bg-colorB text-white"
         >
           Apply Filter
         </Button>
@@ -206,8 +205,8 @@ const UserProfileCard: React.FC<UserProfileCardProps> = ({user}) => {
         {!isEditing && (
           <Button
             onClick={handleEdit}
-            className="bg-colorB hover:bg-colorA text-white mb-2"
-            variant="outline"
+            className="bg-colorA hover:bg-colorB text-white mb-2"
+            // variant="outline"
           >
             <Pencil className="w-4 h-4 mr-2" />
             Edit Profile
@@ -218,15 +217,15 @@ const UserProfileCard: React.FC<UserProfileCardProps> = ({user}) => {
             <Button
               onClick={handleUpdate}
               disabled={!isDataChanged() || loading}
-              variant="outline"
-              className="bg-colorB hover:bg-colorA text-white mb-2"
+              // variant="outline"
+              className="bg-colorA hover:bg-colorB text-white mb-2"
             >
               {loading ? (<Spinner />): 'Update'}
             </Button>
             <Button
               onClick={handleCancel}
-              variant="outline"
-              className="bg-colorB hover:bg-colorA text-white mb-2"
+              // variant="outline"
+              className="bg-colorA hover:bg-colorB text-white mb-2"
             >
               Cancel
             </Button>

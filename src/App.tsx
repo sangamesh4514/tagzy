@@ -8,6 +8,7 @@ import ProtectedRoute from './common/routes/ProtectedRoute'
 import ProProfile from './common/components/profile/userProfile'
 import NotFound from './common/routes/NotFound'
 import Provider from './common/routes/Provider'
+// import UserSearch from './common/components/User Search'
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
           {/* Protected Routes */}
           <Route path='/' element={<ProtectedRoute />} >
             <Route path='/admin/dashboard' element={<Dashboard />} />
+            {/* <Route path='/admin/dashboard/usersearch' element={<UserSearch />} /> */}
           </Route>
         </Routes>
       </BrowserRouter>
