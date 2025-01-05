@@ -12,6 +12,7 @@ const GoogleLocation: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   const apiKey = process.env.REACT_APP_GOOGLE_MAP_KEY;
+  console.log(setLocation)
 
   useEffect(() => {
     const getUserLocation = async () => {
@@ -28,22 +29,24 @@ const GoogleLocation: React.FC = () => {
               const latitude = position.coords.latitude;
               const longitude = position.coords.longitude;
 
+
               // Initialize Geocoder
-              const geocoder = new google.maps.Geocoder();
+              // const geocoder = new google.maps.Geocoder();
               const latlng = { lat: latitude, lng: longitude };
+              console.log(latlng)
 
               // Perform reverse geocoding
-              geocoder.geocode({ location: latlng }, (results, status) => {
-                if (status === 'OK' && results && results[0]) {
-                  setLocation({
-                    latitude,
-                    longitude,
-                    address: results[0].formatted_address,
-                  });
-                } else {
-                  setError('Unable to retrieve address');
-                }
-              });
+              // geocoder.geocode({ location: latlng }, (results: any, status: any) => {
+              //   if (status === 'OK' && results && results[0]) {
+              //     setLocation({
+              //       latitude,
+              //       longitude,
+              //       address: results[0].formatted_address,
+              //     });
+              //   } else {
+              //     setError('Unable to retrieve address');
+              //   }
+              // });
             },
             (geoError) => {
               setError(`Error getting location: ${geoError.message}`);
