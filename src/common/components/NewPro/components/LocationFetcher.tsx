@@ -1,80 +1,72 @@
-import React, { useEffect, useState } from 'react';
-import { loadGoogleMapsScript } from '../utils';
-
-interface LocationData {
-  latitude: number;
-  longitude: number;
-  address: string;
-}
+import React, { useState } from 'react';
+import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 
 const GoogleLocation: React.FC = () => {
-  const [location, setLocation] = useState<LocationData | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [location, setLocation] = useState<{ lat: number; lng: number } | null>(null);
 
-  const apiKey = process.env.REACT_APP_GOOGLE_MAP_KEY;
-  console.log(setLocation)
+  // Initialize Places Autocomplete
+  const {
+    ready,
+    value,
+    suggestions: { status, data },
+    setValue,
+    clearSuggestions,
+  } = usePlacesAutocomplete({
+    requestOptions: {
+      location: new google.maps.LatLng(0, 0), // default to (0,0) if no location set
+      radius: 200 * 1000, // 200km radius for results
+    },
+  });
 
-  useEffect(() => {
-    const getUserLocation = async () => {
-      try {
-        // Load Google Maps script
-        if(apiKey){
-          await loadGoogleMapsScript(apiKey);
-        }
+  // Handle address selection
+  const handleSelect = async (address: string) => {
+    setValue(address, false);  // Set value to the selected address
+    clearSuggestions();        // Clear the suggestion list
 
-        // Check if Geolocation is supported
-        if ('geolocation' in navigator) {
-          navigator.geolocation.getCurrentPosition(
-            async (position) => {
-              const latitude = position.coords.latitude;
-              const longitude = position.coords.longitude;
+    try {
+      // Get geocode and lat/lng of the selected address
+      const results = await getGeocode({ address });
+      const { lat, lng } = await getLatLng(results[0]);
 
-
-              // Initialize Geocoder
-              // const geocoder = new google.maps.Geocoder();
-              const latlng = { lat: latitude, lng: longitude };
-              console.log(latlng)
-
-              // Perform reverse geocoding
-              // geocoder.geocode({ location: latlng }, (results: any, status: any) => {
-              //   if (status === 'OK' && results && results[0]) {
-              //     setLocation({
-              //       latitude,
-              //       longitude,
-              //       address: results[0].formatted_address,
-              //     });
-              //   } else {
-              //     setError('Unable to retrieve address');
-              //   }
-              // });
-            },
-            (geoError) => {
-              setError(`Error getting location: ${geoError.message}`);
-            }
-          );
-        } else {
-          setError('Geolocation is not supported by your browser');
-        }
-      } catch (err) {
-        setError('Failed to load Google Maps API');
-      }
-    };
-
-    getUserLocation();
-  }, [apiKey]);
+      // Update the location state with lat and lng
+      setLocation({ lat, lng });
+    } catch (error) {
+      console.error('Error getting geocode: ', error);
+    }
+  };
 
   return (
     <div>
-      <h1>User Location</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {location ? (
+    
+      {/* Input field for address */}
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        disabled={!ready}  // Disable input if not ready
+        placeholder="Search for a location"
+      />
+      
+      {/* Display suggestions */}
+      {status === 'OK' && (
+        <ul>
+          {data.map(({ description }, index) => (
+            <li key={index} onClick={() => handleSelect(description)}>
+              {description}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {/* Display selected location */}
+      {location && (
         <div>
-          <p><strong>Latitude:</strong> {location.latitude}</p>
-          <p><strong>Longitude:</strong> {location.longitude}</p>
-          <p><strong>Address:</strong> {location.address}</p>
+          <h2>Selected Location: {value}({location.lat},{location.lng})</h2>
+          <h1>To do </h1>
+          <h2>compare with the service location see if it's available to book(for at home)</h2>
+          <h2>enter phone and verify (keep this simple and give a textfield and verify button below location)</h2>
+          <h2>we call create project with all the details</h2>
         </div>
-      ) : (
-        <p>Fetching location...</p>
       )}
     </div>
   );

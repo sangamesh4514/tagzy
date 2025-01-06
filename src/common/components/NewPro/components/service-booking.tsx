@@ -11,6 +11,7 @@ import EmptyCart from "src/assets/icons/EmptyCart";
 import { WorkingDaysCalendar } from "./WorkingDaysCalendar";
 import GoogleLocation from "./LocationFetcher";
 import { calculateDistance } from "../utils";
+import { useLoadScript } from "@react-google-maps/api";
 
 interface ServiceBookingProps {
   setActivePage: (page: Page) => void;
@@ -28,6 +29,15 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
     addAddon,
   } = useCart();
   const addonsInCart = cartItem?.addons || [];
+
+  // Load the Google Maps script and Places library
+    const { isLoaded } = useLoadScript({
+      googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_KEY || '',
+      libraries: ['places'], // Load the Places library
+    });
+  
+    // If Google Maps API is not loaded yet
+    if (!isLoaded) return <div>Loading...</div>;
 
   if (!cartItem) {
     return (
@@ -149,7 +159,40 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
             <span>Total:</span>
             <span>₹{total}</span>
           </div>
-          {!(cartItem.addons.length === cartItem.service.addOns.length) && (
+         
+          <div className="timeAndAddress">
+            <div className="userSelectTime">
+            <h2 style={{ fontSize: "1rem", margin: "0 0 0.5rem 0" }}>
+            Select a Date & Time :-
+          </h2>
+            <WorkingDaysCalendar
+              workingDays={cartItem.service.workingDays}
+              timeSlots={cartItem.service.timeSlots}
+            />
+            </div>
+            <div className="useraddress">
+              Address 
+              <GoogleLocation/>
+              The distance between provider and user Address is {distance.toFixed(2)} km.
+            </div>
+          </div>
+        </section>
+
+        {/* <DateSelector
+          service={cartItem.service}
+          selectedDate={cartItem.selectedDate}
+          onSelectDate={setSelectedDate}
+        /> */}
+        {/* <TimeSlotSelector
+          service={cartItem.service}
+          selectedTimeSlot={cartItem.selectedTimeSlot}
+          onSelectTimeSlot={setSelectedTimeSlot}
+          selectedDate={}
+        /> */}
+      </main>
+
+      <div>
+      {!(cartItem.addons.length === cartItem.service.addOns.length) && (
             <section className="related-addons">
               <h2 style={{ fontSize: "1rem", margin: "0 0 0.5rem 0" }}>
                 Add Addons Related to this Service :-
@@ -189,36 +232,7 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
               </div>
             </section>
           )}
-          <div className="timeAndAddress">
-            <div className="userSelectTime">
-            <h2 style={{ fontSize: "1rem", margin: "0 0 0.5rem 0" }}>
-            Select a Date & Time :-
-          </h2>
-            <WorkingDaysCalendar
-              workingDays={cartItem.service.workingDays}
-              timeSlots={cartItem.service.timeSlots}
-            />
-            </div>
-            <div className="useraddress">
-              Address 
-              <GoogleLocation/>
-              The distance between provider and user Address is {distance.toFixed(2)} km.
-            </div>
-          </div>
-        </section>
-
-        {/* <DateSelector
-          service={cartItem.service}
-          selectedDate={cartItem.selectedDate}
-          onSelectDate={setSelectedDate}
-        /> */}
-        {/* <TimeSlotSelector
-          service={cartItem.service}
-          selectedTimeSlot={cartItem.selectedTimeSlot}
-          onSelectTimeSlot={setSelectedTimeSlot}
-          selectedDate={}
-        /> */}
-      </main>
+      </div>
 
       <footer className="cart-footer">
         <div className="footer-content">
