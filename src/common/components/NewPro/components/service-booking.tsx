@@ -10,12 +10,17 @@ import EmptyCart from "src/assets/icons/EmptyCart";
 import { WorkingDaysCalendar } from "./WorkingDaysCalendar";
 import GoogleLocation from "./LocationFetcher";
 import { useLoadScript } from "@react-google-maps/api";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/common/store/store";
+import { updateBoolean } from "../dataSlice";
 
 interface ServiceBookingProps {
   setActivePage: (page: Page) => void;
 }
 
 export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
+  const dispatch = useDispatch();
+  const { isBoolean, text } = useSelector((state: RootState) => state.data);
   const {
     cartItem,
     removeFromCart,
@@ -143,64 +148,96 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
             <span>₹{total}</span>
           </div>
 
-          {/* Related Addons */}
-          {cartItem.addons.length !== cartItem.service.addOns.length && (
-            <section className="related-addons">
-              <h2 style={{ fontSize: "1rem", margin: "0 0 0.5rem 0" }}>
-                Add Addons Related to this Service :-
-              </h2>
-              <div className="related-addons-grid">
-                {cartItem.service.addOns.map(
-                  (addon) =>
-                    !addonsInCart.find(
-                      (item) => item.addon._id === addon._id
-                    ) && (
-                      <div key={addon._id} className="related-addon-card">
-                        <img
-                          src={addon.imageUrl}
-                          alt={addon.name}
-                          width={80}
-                          height={80}
-                        />
-                        <div className="addon-info">
-                          <h4 style={{ fontSize: "1rem" }}>{addon.name}</h4>
-                          <p style={{ fontSize: "1rem", marginBottom: "0" }}>
-                            ₹{addon.cost}
-                          </p>
-                        </div>
-                        <Button
-                          variant="outline"
-                          onClick={() => handleAddonToggle(addon)}
-                          disabled={
-                            !!addonsInCart.find(
-                              (item) => item.addon._id === addon._id
-                            )
-                          }
-                          className="addon-button"
-                        >
-                          Add
-                        </Button>
-                      </div>
-                    )
-                )}
-              </div>
-            </section>
-          )}
-
-          {/* User Time & Address */}
-          <div className="timeAndAddress">
-            <div className="userSelectTime">
-              <h2>Select a Date & Time :-</h2>
-              <WorkingDaysCalendar
-                workingDays={cartItem.service.workingDays}
-                timeSlots={cartItem.service.timeSlots}
-              />
-            </div>
-            <div className="useraddress">
-              <h3>Address</h3>
+          {!isBoolean ? (
+            <div className="userEnteraddress">
+              <h3 style={{padding: '1rem 0'}}>Select Location:-</h3>
               <GoogleLocation />
             </div>
-          </div>
+          ) : (
+            <>
+              {/* Related Addons */}
+              {cartItem.addons.length !== cartItem.service.addOns.length && (
+                <section className="related-addons">
+                  <h2 style={{ fontSize: "1rem", margin: "0 0 0.5rem 0" }}>
+                    Add Addons Related to this Service :-
+                  </h2>
+                  <div className="related-addons-grid">
+                    {cartItem.service.addOns.map(
+                      (addon) =>
+                        !addonsInCart.find(
+                          (item) => item.addon._id === addon._id
+                        ) && (
+                          <div key={addon._id} className="related-addon-card">
+                            <img
+                              src={addon.imageUrl}
+                              alt={addon.name}
+                              width={80}
+                              height={80}
+                            />
+                            <div className="addon-info">
+                              <h4 style={{ fontSize: "1rem" }}>{addon.name}</h4>
+                              <p
+                                style={{ fontSize: "1rem", marginBottom: "0" }}
+                              >
+                                ₹{addon.cost}
+                              </p>
+                            </div>
+                            <Button
+                              variant="outline"
+                              onClick={() => handleAddonToggle(addon)}
+                              disabled={
+                                !!addonsInCart.find(
+                                  (item) => item.addon._id === addon._id
+                                )
+                              }
+                              className="addon-button"
+                            >
+                              Add
+                            </Button>
+                          </div>
+                        )
+                    )}
+                  </div>
+                </section>
+              )}
+
+              {/* User Time & Address */}
+              <div className="timeAndAddress">
+                <div className="userSelectTime">
+                  <h2>Select a Date & Time :-</h2>
+                  <WorkingDaysCalendar
+                    workingDays={cartItem.service.workingDays}
+                    timeSlots={cartItem.service.timeSlots}
+                  />
+                </div>
+                <div className="useraddress">
+                  <h3>Selected Location :-</h3>
+                  <span>{text}</span>
+                  <button
+                onClick={() => dispatch(updateBoolean(false))}
+                className="bg-colorA hover:bg-colorB text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Change Location
+                <svg
+                  className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 14 10"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M1 5h12m0 0L9 1m4 4L9 9"
+                  />
+                </svg>
+              </button>
+                </div>
+              </div>
+            </>
+          )}
         </section>
       </main>
 

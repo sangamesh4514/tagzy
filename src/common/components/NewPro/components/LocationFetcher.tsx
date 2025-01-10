@@ -1,14 +1,24 @@
 import React, { useState, useEffect, useCallback } from "react";
-import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocomplete";
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from "use-places-autocomplete";
 import { useCart } from "../context/CartContext";
 import { calculateDistance } from "../utils";
+import { useDispatch } from "react-redux";
+import { updateBoolean, updateText } from "../dataSlice";
+import { MapPinHouse } from "lucide-react";
 
 const GoogleLocation: React.FC = () => {
+  const dispatch = useDispatch();
   const { cartItem } = useCart();
-  const [location, setLocation] = useState<{ lat: number; lng: number } | null>(null);
-  const [distance, setDistance] = useState<number | null>(null);
+  const [location, setLocation] = useState<{ lat: number; lng: number } | null>(
+    null
+  );
+  const [address, setAddress] = useState<string | null>(null); 
+  const [locationMessage, setLocationMessage] = useState<boolean>(false);
+  const [isTyping, setIsTyping] = useState(false);
 
-  // Initialize Places Autocomplete
   const {
     ready,
     value,
@@ -22,33 +32,55 @@ const GoogleLocation: React.FC = () => {
     },
   });
 
-  // Function to handle address selection
-  const handleSelect = useCallback(async (address: string) => {
-    setValue(address, false); // Set value to the selected address
-    clearSuggestions(); // Clear the suggestion list
+  const handleSelect = useCallback(
+    async (address: string) => {
+      setValue("", false);
+      clearSuggestions();
+      dispatch(updateText(address));
+      setIsTyping(false);
 
-    try {
-      const results = await getGeocode({ address });
-      const { lat, lng } = await getLatLng(results[0]);
-      setLocation({ lat, lng });
-    } catch (error) {
-      console.error("Error getting geocode: ", error);
-    }
-  }, [setValue, clearSuggestions]);
+      try {
+        const results = await getGeocode({ address });
+        const { lat, lng } = await getLatLng(results[0]);
+        setLocation({ lat, lng });
+        setAddress(address); // Save the selected address
+      } catch (error) {
+        console.error("Error getting geocode: ", error);
+      }
+    },
+    [setValue, clearSuggestions, dispatch]
+  );
 
   // Memoize provider location coordinates from cart item
-  const providerServiceLocation = React.useMemo(() => ({
-    lat: cartItem?.service.location.coordinates[1],
-    lon: cartItem?.service.location.coordinates[0],
-  }), [cartItem]);
+  const providerServiceLocation = React.useMemo(
+    () => ({
+      lat: cartItem?.service.location.coordinates[1],
+      lon: cartItem?.service.location.coordinates[0],
+    }),
+    [cartItem]
+  );
 
   // Effect to calculate distance only when location and provider service location are available
   useEffect(() => {
-    if (location && providerServiceLocation.lat && providerServiceLocation.lon) {
-      const dist = calculateDistance(location.lat, location.lng, providerServiceLocation.lat, providerServiceLocation.lon);
-      setDistance(dist); // Update distance state
+    if (
+      location &&
+      cartItem &&
+      providerServiceLocation.lat &&
+      providerServiceLocation.lon
+    ) {
+      const dist = calculateDistance(
+        location.lat,
+        location.lng,
+        providerServiceLocation.lat,
+        providerServiceLocation.lon
+      );
+      const serviceDistance = cartItem?.service.maxServiceDistance >= dist;
+      setLocationMessage(serviceDistance);
+      setTimeout(() => {
+        dispatch(updateBoolean(serviceDistance));
+      }, 2000);
     }
-  }, [location, providerServiceLocation]);
+  }, [cartItem, dispatch, location, providerServiceLocation]);
 
   // Function to get current location using Geolocation API
   const handleCurrentLocation = () => {
@@ -57,6 +89,27 @@ const GoogleLocation: React.FC = () => {
         (position) => {
           const { latitude, longitude } = position.coords;
           setLocation({ lat: latitude, lng: longitude });
+
+          // Use Geocoder to get the place name (address)
+          const geocoder = new google.maps.Geocoder();
+          const latLng = new google.maps.LatLng(latitude, longitude);
+
+          geocoder.geocode({ location: latLng }, (results, status) => {
+            if (
+              status === google.maps.GeocoderStatus.OK &&
+              results &&
+              results[0]
+            ) {
+              setAddress(results[0].formatted_address); // Set the place name
+              dispatch(updateText(results[0].formatted_address));
+              setValue("");
+              setIsTyping(false); // Stop typing state
+            } else if (!results) {
+              alert("Geocoder returned null results.");
+            } else {
+              alert("Unable to retrieve the address.");
+            }
+          });
         },
         (error) => {
           console.error("Error getting current location:", error);
@@ -70,25 +123,39 @@ const GoogleLocation: React.FC = () => {
 
   return (
     <div>
-      {/* Input field for address */}
-      <input
-        type="text"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        disabled={!ready} // Disable input if not ready
-        placeholder="Search for a location"
-      />
+      <div className="enterLocation">
+        {/* Input field for address */}
+        <input
+          type="text"
+          value={value}
+          onChange={(e) => {
+            setValue(e.target.value);
+            setIsTyping(true); // Start typing state
+          }}
+          disabled={!ready} // Disable input if not ready
+          placeholder="Search for a location"
+        />
 
-      {/* Button to select current location */}
-      <button onClick={handleCurrentLocation} disabled={!ready}>
-        Use Current Location
-      </button>
+        {/* Button to select current location */}
+        <button
+          className="useCurrentBtn"
+          onClick={handleCurrentLocation}
+          disabled={!ready}
+        >
+          Use Current Location
+          <MapPinHouse color="white" />
+        </button>
+      </div>
 
       {/* Display suggestions */}
       {status === "OK" && (
-        <ul>
+        <ul className="list-disc list-inside searchList">
           {data.map(({ description }, index) => (
-            <li key={index} onClick={() => handleSelect(description)}>
+            <li
+              className="hover:text-teal-700"
+              key={index}
+              onClick={() => handleSelect(description)}
+            >
               {description}
             </li>
           ))}
@@ -96,17 +163,17 @@ const GoogleLocation: React.FC = () => {
       )}
 
       {/* Display selected location and distance */}
-      {location && (
-        <div>
-          <h2>Selected Location: {value || "Current Location"}</h2>
-          {distance !== null && (
-            <h2>The distance between the provider and your location is {distance.toFixed(2)} km.</h2>
+      {!isTyping && location && address && (
+        <div className="InvalidLocation">
+          <h2>Selected Location: {address}</h2>
+          {!locationMessage ? (
+            <h2 style={{ color: "red" }}>
+              Unfortunately, this service is unavailable for booking as it is
+              outside your location range.
+            </h2>
+          ) : (
+            <h2>Redirecting to the next step...</h2>
           )}
-
-          {/* <h1>To do:</h1>
-          <h2>Compare with the service location to see if it's available to book (for at-home services).</h2>
-          <h2>Enter your phone number and verify (keep this simple with a textfield and verify button below location).</h2>
-          <h2>We'll create a project with all the details after verification.</h2> */}
         </div>
       )}
     </div>
