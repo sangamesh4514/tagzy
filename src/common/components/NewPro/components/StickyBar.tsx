@@ -74,8 +74,8 @@ const StickyBar: React.FC<StickyBarProps> = ({ setActivePage, test, toggleSideba
           <p className="item-price">Total: ₹{totalAmount}</p>
         </div>
 
-        {/* <button className="go-to-cart" onClick={() => setActivePage("basket")}> */}
-        <button className="go-to-cart" onClick={() => toggleSidebar()}>
+        <button className="go-to-cart" onClick={() => setActivePage("basket")}>
+        {/* <button className="go-to-cart" onClick={() => toggleSidebar()}> */}
           Go to Cart
         </button>
       </div>

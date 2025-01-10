@@ -26,6 +26,7 @@ import { languageCodeToName } from "src/common/constant";
 import NewPro from "../NewPro";
 import Header from "../Header";
 import Footer from "../Footer";
+import userDataJson from './data.json';
 
 const ProProfile: React.FC = () => {
   const { userId } = useParams<{ userId: string }>(); // Extract userId from the URL
@@ -42,8 +43,10 @@ const ProProfile: React.FC = () => {
           throw new Error("Failed to fetch user data");
         }
         const data: IUserProfile = await response.json();
-        setUserData(data);
+        setUserData(data || userDataJson);
       } catch (error) {
+        setUserData(userDataJson);
+
         console.error("Failed to fetch user data:", error);
       } finally {
         setLoading(false);

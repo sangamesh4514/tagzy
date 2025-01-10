@@ -12,7 +12,6 @@
   border-radius: 0 0 16px 16px;
 }
 
-.back-button,
 .empty-cart-button {
   display: flex;
   align-items: center;
@@ -21,25 +20,35 @@
   cursor: pointer;
   padding: 0.3rem;
   font-size: 16px;
-  color: red;
-  border: 2px solid red;
+  color: #096c6c;
+  border: 2px solid #096c6c;
   border-radius: 16px;
   position: absolute;
-    right: 0;
+  right: 50px;
+  path {
+    fill: #096c6c;
+  }
 }
-.cart{
+.empty-cart-button:hover {
+  color: red;
+
+  border: 2px solid red;
+  path {
+    fill: red;
+  }
+}
+.cart {
   height: 500px;
   background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  .cart-header{
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  .cart-header {
     align-items: center;
     display: inline-flex;
     gap: 10px;
+  }
 
-   }
-  
   @media (max-width: 768px) {
     /* .back-button{
       padding: 0.2rem;
@@ -52,6 +61,7 @@
 .service-section {
   background: white;
   border-radius: 0.5rem;
+  padding: 1rem;
 }
 
 .service-section,
@@ -60,7 +70,7 @@
   margin-bottom: 2rem;
 }
 
-.service-section-h2 {
+.service-title {
   font-size: 1.5rem;
   margin-bottom: 1rem;
 }
@@ -70,7 +80,7 @@
   align-items: center;
   gap: 1rem;
   padding: 1rem;
-  border: 1px solid #eee;
+  border: 1px solid #096c6c;
   border-radius: 0.5rem;
 
   .price {
@@ -84,7 +94,7 @@
   align-items: center;
   gap: 1rem;
   padding: 1rem;
-  border: 1px solid #eee;
+  border: 1px solid #096c6c;
   border-radius: 0.5rem;
   margin-bottom: 1rem;
 }
@@ -107,11 +117,21 @@
   cursor: pointer;
 }
 
+.incrementAddon:hover {
+  background-color: #00800087;
+}
+.decrementAddon:hover {
+  background-color: #ff0000b5;
+}
+
 .delete-button {
   background: none;
   border: none;
   cursor: pointer;
   color: #666;
+}
+.delete-button:hover {
+  color: red;
 }
 
 .total {
@@ -125,7 +145,8 @@
 
 .related-addons-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  /* grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); */
+  grid-template-columns: 50% auto;
   gap: 1rem;
 }
 
@@ -134,8 +155,23 @@
   align-items: center;
   gap: 1rem;
   padding: 1rem;
-  border: 1px solid #eee;
+  border: 1px solid #096c6c;
   border-radius: 0.5rem;
+}
+
+.addon-button {
+  background: #096c6c;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  min-width: 80px;
+}
+
+.addon-button:hover {
+  background: #075858;
+  color: white;
 }
 
 .booking-section {
@@ -185,7 +221,7 @@
   font-size: 1rem;
 }
 
-.timeAndAddress{
+.timeAndAddress {
   display: flex;
   justify-content: space-between;
 }

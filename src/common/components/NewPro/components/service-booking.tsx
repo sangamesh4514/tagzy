@@ -7,10 +7,8 @@ import { Page } from "../types/types";
 import { Dialog, DialogTrigger } from "src/magicUi/ui/dialog";
 import { renderDialogContent } from "../../profile/userProfile";
 import EmptyCart from "src/assets/icons/EmptyCart";
-// import StickyBar from "./StickyBar";
 import { WorkingDaysCalendar } from "./WorkingDaysCalendar";
 import GoogleLocation from "./LocationFetcher";
-import { calculateDistance } from "../utils";
 import { useLoadScript } from "@react-google-maps/api";
 
 interface ServiceBookingProps {
@@ -24,38 +22,29 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
     incrementAddon,
     decrementAddon,
     removeAddon,
-    // setSelectedDate,
-    // setSelectedTimeSlot,
     addAddon,
   } = useCart();
   const addonsInCart = cartItem?.addons || [];
 
   // Load the Google Maps script and Places library
-    const { isLoaded } = useLoadScript({
-      googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_KEY || '',
-      libraries: ['places'], // Load the Places library
-    });
-  
-    // If Google Maps API is not loaded yet
-    if (!isLoaded) return <div>Loading...</div>;
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_KEY || "",
+    libraries: ["places"], // Load the Places library
+  });
+
+  if (!isLoaded) return <div>Loading...</div>;
 
   if (!cartItem) {
     return (
-      <div className="cart" >
-        {/* <button
-          className="back-button"
-          onClick={() => setActivePage("services")}
-          style={{right: '20px'}}
-        >
-          <ArrowLeft className="w-6 h-6" />
-          Back
-        </button> */}
-
-        <h1 className="cart-header">Cart <ShoppingCart /></h1>
-        <h2 style={{fontSize: '20px'}}>Your Cart is Empty</h2>
+      <div className="cart">
+        <h1 className="cart-header">
+          Cart <ShoppingCart />
+        </h1>
+        <h2 style={{ fontSize: "20px" }}>Your Cart is Empty</h2>
       </div>
     );
   }
+
   const handlePlaceOrder = () => {
     setActivePage("login");
   };
@@ -64,61 +53,47 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
     addAddon(addon);
   };
 
-  const total =
-    cartItem.service.cost +
-    cartItem.addons.reduce(
-      (total, item) => total + item.addon.cost * item.quantity,
-      0
+  const getTotal = () => {
+    return (
+      cartItem.service.cost +
+      cartItem.addons.reduce(
+        (total, { addon, quantity }) => total + addon.cost * quantity,
+        0
+      )
     );
+  };
 
-  const location1 = { lat: 12.9715987, lon: 77.5945627 }; 
-  const location2 = { lat: cartItem.service.location.coordinates[1], lon: cartItem.service.location.coordinates[0] }; 
-
-  const distance = calculateDistance(
-    location1.lat,
-    location1.lon,
-    location2.lat,
-    location2.lon
-  );
+  const total = getTotal();
 
   return (
     <div className="service-booking">
-      {/* <header className="service-booking-header">
-        <button
-          className="back-button"
-          onClick={() => setActivePage("services")}
-        >
-          <ArrowLeft className="w-6 h-6" />
-          Back
-        </button>
-        <button className="empty-cart-button" onClick={removeFromCart}>
-          Empty Cart
-          <EmptyCart className="w-6 h-6" />
-        </button>
-      </header> */}
-
       <main>
         <section className="service-section">
           <button className="empty-cart-button" onClick={removeFromCart}>
-            Empty Cart
-            <EmptyCart className="w-6 h-6" />
+            Clear Cart <EmptyCart className="w-6 h-6" />
           </button>
-          <h2 className="service-section-h2">Service :-</h2>
-          <div className="service-card-cart">
-            <div className="service-image">
-              <img
-                src={cartItem.service.image[0]}
-                alt="service-image"
-                width={100}
-                height={100}
-              />
+
+          {/* Service Information */}
+          <div className="service-info">
+            <h2 className="service-title">Service :-</h2>
+            <div className="service-card-cart">
+              <div className="service-image">
+                <img
+                  src={cartItem.service.image[0]}
+                  alt="service-image"
+                  width={100}
+                  height={100}
+                />
+              </div>
+              <h3 style={{ fontSize: "1rem" }}>{cartItem.service.name}</h3>
+              <span className="price">₹{cartItem.service.cost}</span>
             </div>
-            <h3 style={{ fontSize: "1rem" }}>{cartItem.service.name}</h3>
-            <span className="price">₹{cartItem.service.cost}</span>
           </div>
-          {cartItem.addons.length > 0 && (
+
+          {/* Addons Section */}
+          {addonsInCart.length > 0 && (
             <section className="addons-section">
-              <h2 style={{ marginTop: "5px", fontSize: "1.5rem" }}>
+              <h2 style={{ margin: "1rem 0", fontSize: "1.5rem" }}>
                 Addons :-
               </h2>
               {cartItem.addons.map(({ addon, quantity }) => (
@@ -131,16 +106,22 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
                   />
                   <div className="addon-info">
                     <h4 style={{ fontSize: "1rem" }}>{addon.name}</h4>
-                    <p style={{ fontSize: "1rem" }}>
+                    <p style={{ fontSize: "1rem", marginBottom: "0" }}>
                       ₹{addon.cost} x {quantity}
                     </p>
                   </div>
                   <div className="quantity-controls">
-                    <button onClick={() => decrementAddon(addon._id)}>
+                    <button
+                      onClick={() => decrementAddon(addon._id)}
+                      className="decrementAddon"
+                    >
                       <Minus className="w-4 h-4" />
                     </button>
                     <span>{quantity}</span>
-                    <button onClick={() => incrementAddon(addon._id)}>
+                    <button
+                      onClick={() => incrementAddon(addon._id)}
+                      className="incrementAddon"
+                    >
                       <Plus className="w-4 h-4" />
                     </button>
                   </div>
@@ -155,86 +136,76 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
               ))}
             </section>
           )}
+
+          {/* Total Price */}
           <div className="total">
             <span>Total:</span>
             <span>₹{total}</span>
           </div>
-         
-          <div className="timeAndAddress">
-            <div className="userSelectTime">
-            <h2 style={{ fontSize: "1rem", margin: "0 0 0.5rem 0" }}>
-            Select a Date & Time :-
-          </h2>
-            <WorkingDaysCalendar
-              workingDays={cartItem.service.workingDays}
-              timeSlots={cartItem.service.timeSlots}
-            />
-            </div>
-            <div className="useraddress">
-              Address 
-              <GoogleLocation/>
-              The distance between provider and user Address is {distance.toFixed(2)} km.
-            </div>
-          </div>
-        </section>
 
-        {/* <DateSelector
-          service={cartItem.service}
-          selectedDate={cartItem.selectedDate}
-          onSelectDate={setSelectedDate}
-        /> */}
-        {/* <TimeSlotSelector
-          service={cartItem.service}
-          selectedTimeSlot={cartItem.selectedTimeSlot}
-          onSelectTimeSlot={setSelectedTimeSlot}
-          selectedDate={}
-        /> */}
-      </main>
-
-      <div>
-      {!(cartItem.addons.length === cartItem.service.addOns.length) && (
+          {/* Related Addons */}
+          {cartItem.addons.length !== cartItem.service.addOns.length && (
             <section className="related-addons">
               <h2 style={{ fontSize: "1rem", margin: "0 0 0.5rem 0" }}>
                 Add Addons Related to this Service :-
               </h2>
               <div className="related-addons-grid">
-                {cartItem &&
-                  cartItem.service.addOns.map(
-                    (addon) =>
-                      !addonsInCart.find(
-                        (item) => item.addon._id === addon._id
-                      ) && (
-                        <div key={addon._id} className="related-addon-card">
-                          <img
-                            src={addon.imageUrl}
-                            alt={addon.name}
-                            width={80}
-                            height={80}
-                          />
-                          <div className="addon-info">
-                            <h4>{addon.name}</h4>
-                            <p>₹{addon.cost}</p>
-                          </div>
-                          <Button
-                            variant="outline"
-                            onClick={() => handleAddonToggle(addon)}
-                            disabled={
-                              !!addonsInCart.find(
-                                (item) => item.addon._id === addon._id
-                              )
-                            }
-                          >
-                            Add
-                          </Button>
+                {cartItem.service.addOns.map(
+                  (addon) =>
+                    !addonsInCart.find(
+                      (item) => item.addon._id === addon._id
+                    ) && (
+                      <div key={addon._id} className="related-addon-card">
+                        <img
+                          src={addon.imageUrl}
+                          alt={addon.name}
+                          width={80}
+                          height={80}
+                        />
+                        <div className="addon-info">
+                          <h4 style={{ fontSize: "1rem" }}>{addon.name}</h4>
+                          <p style={{ fontSize: "1rem", marginBottom: "0" }}>
+                            ₹{addon.cost}
+                          </p>
                         </div>
-                      )
-                  )}
+                        <Button
+                          variant="outline"
+                          onClick={() => handleAddonToggle(addon)}
+                          disabled={
+                            !!addonsInCart.find(
+                              (item) => item.addon._id === addon._id
+                            )
+                          }
+                          className="addon-button"
+                        >
+                          Add
+                        </Button>
+                      </div>
+                    )
+                )}
               </div>
             </section>
           )}
-      </div>
 
-      <footer className="cart-footer">
+          {/* User Time & Address */}
+          <div className="timeAndAddress">
+            <div className="userSelectTime">
+              <h2>Select a Date & Time :-</h2>
+              <WorkingDaysCalendar
+                workingDays={cartItem.service.workingDays}
+                timeSlots={cartItem.service.timeSlots}
+              />
+            </div>
+            <div className="useraddress">
+              <h3>Address</h3>
+              <GoogleLocation />
+            </div>
+          </div>
+        </section>
+      </main>
+
+      {/* Footer */}
+      {/* <footer className="cart-footer">
         <div className="footer-content">
           <h3>Almost There</h3>
           <p>Login or Signup to place your order</p>
@@ -248,16 +219,15 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
               {renderDialogContent()}
             </Dialog>
           ) : (
-            // <StickyBar setActivePage={setActivePage} test={"counterContainer"} />
             <Button
-              className=" proceed-button text-white hover:bg-gray-800"
+              className="proceed-button text-white hover:bg-gray-800"
               onClick={handlePlaceOrder}
             >
               Proceed with phone number
             </Button>
           )}
         </div>
-      </footer>
+      </footer> */}
     </div>
   );
 }

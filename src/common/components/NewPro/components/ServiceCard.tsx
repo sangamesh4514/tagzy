@@ -28,7 +28,6 @@ export function ServiceCard({ service }: ServiceCardProps) {
 
   const isServiceInCart = cartItem?.service._id === _id;
   const addonsInCart = cartItem?.addons || [];
-  console.log('===ServiceCard');
 
   const handleBook = () => {
     if (!isServiceInCart) {
