@@ -97,48 +97,50 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
 
           {/* Addons Section */}
           {addonsInCart.length > 0 && (
-            <section className="addons-section">
+            <section>
               <h2 style={{ margin: "1rem 0", fontSize: "1.5rem" }}>
                 Addons :-
               </h2>
-              {cartItem.addons.map(({ addon, quantity }) => (
-                <div key={addon._id} className="addon-card">
-                  <img
-                    src={addon.imageUrl}
-                    alt={addon.name}
-                    width={80}
-                    height={80}
-                  />
-                  <div className="addon-info">
-                    <h4 style={{ fontSize: "1rem" }}>{addon.name}</h4>
-                    <p style={{ fontSize: "1rem", marginBottom: "0" }}>
-                      ₹{addon.cost} x {quantity}
-                    </p>
-                  </div>
-                  <div className="quantity-controls">
+              <div className="addonsSectionCart">
+                {cartItem.addons.map(({ addon, quantity }) => (
+                  <div key={addon._id} className="addon-card">
+                    <img
+                      src={addon.imageUrl}
+                      alt={addon.name}
+                      width={80}
+                      height={80}
+                    />
+                    <div className="addon-info">
+                      <h4 style={{ fontSize: "1rem" }}>{addon.name}</h4>
+                      <p style={{ fontSize: "1rem", marginBottom: "0" }}>
+                        ₹{addon.cost} x {quantity}
+                      </p>
+                    </div>
+                    <div className="quantity-controls">
+                      <button
+                        onClick={() => decrementAddon(addon._id)}
+                        className="decrementAddon"
+                      >
+                        <Minus className="w-4 h-4" />
+                      </button>
+                      <span>{quantity}</span>
+                      <button
+                        onClick={() => incrementAddon(addon._id)}
+                        className="incrementAddon"
+                      >
+                        <Plus className="w-4 h-4" />
+                      </button>
+                    </div>
                     <button
-                      onClick={() => decrementAddon(addon._id)}
-                      className="decrementAddon"
+                      className="delete-button"
+                      onClick={() => removeAddon(addon._id)}
                     >
-                      <Minus className="w-4 h-4" />
+                      <Trash2 className="w-4 h-4" />
                     </button>
-                    <span>{quantity}</span>
-                    <button
-                      onClick={() => incrementAddon(addon._id)}
-                      className="incrementAddon"
-                    >
-                      <Plus className="w-4 h-4" />
-                    </button>
+                    <span className="price">₹{addon.cost * quantity}</span>
                   </div>
-                  <button
-                    className="delete-button"
-                    onClick={() => removeAddon(addon._id)}
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
-                  <span className="price">₹{addon.cost * quantity}</span>
-                </div>
-              ))}
+                ))}
+              </div>
             </section>
           )}
 
@@ -150,7 +152,7 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
 
           {!isBoolean ? (
             <div className="userEnteraddress">
-              <h3 style={{padding: '1rem 0'}}>Select Location:-</h3>
+              <h3 style={{ padding: "1rem 0" }}>Select Location:-</h3>
               <GoogleLocation />
             </div>
           ) : (
@@ -190,7 +192,7 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
                                   (item) => item.addon._id === addon._id
                                 )
                               }
-                              className="addon-button"
+                              className="addon-button-cart"
                             >
                               Add
                             </Button>
@@ -203,37 +205,41 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
 
               {/* User Time & Address */}
               <div className="timeAndAddress">
-                <div className="userSelectTime">
-                  <h2>Select a Date & Time :-</h2>
-                  <WorkingDaysCalendar
-                    workingDays={cartItem.service.workingDays}
-                    timeSlots={cartItem.service.timeSlots}
-                  />
-                </div>
+                {cartItem.service.workingDays.length > 0 && (
+                  <div className="userSelectTime">
+                    <h2 style={{ textAlign: "center" }}>
+                      Select a Date {cartItem.service.timeSlots.length > 0 && '& Time'} :-
+                    </h2>
+                    <WorkingDaysCalendar
+                      workingDays={cartItem.service.workingDays}
+                      timeSlots={cartItem.service.timeSlots}
+                    />
+                  </div>
+                )}
                 <div className="useraddress">
                   <h3>Selected Location :-</h3>
                   <span>{text}</span>
                   <button
-                onClick={() => dispatch(updateBoolean(false))}
-                className="bg-colorA hover:bg-colorB text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                Change Location
-                <svg
-                  className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 14 10"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M1 5h12m0 0L9 1m4 4L9 9"
-                  />
-                </svg>
-              </button>
+                    onClick={() => dispatch(updateBoolean(false))}
+                    className="bg-colorA hover:bg-colorB text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  >
+                    Change Location
+                    <svg
+                      className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 14 10"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M1 5h12m0 0L9 1m4 4L9 9"
+                      />
+                    </svg>
+                  </button>
                 </div>
               </div>
             </>
@@ -242,11 +248,11 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
       </main>
 
       {/* Footer */}
-      {/* <footer className="cart-footer">
+     {isBoolean && <footer className="cart-footer">
         <div className="footer-content">
           <h3>Almost There</h3>
           <p>Login or Signup to place your order</p>
-          {!cartItem.selectedDate || !cartItem.selectedTimeSlot ? (
+          {!(cartItem.selectedDate || cartItem.selectedTimeSlot) ? (
             <Dialog>
               <DialogTrigger asChild>
                 <Button className="proceed-button text-white hover:bg-gray-800">
@@ -264,7 +270,7 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
             </Button>
           )}
         </div>
-      </footer> */}
+      </footer>}
     </div>
   );
 }

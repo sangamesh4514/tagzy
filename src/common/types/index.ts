@@ -26,7 +26,7 @@ export interface Service {
   description: string; //
   image: string[]; //
   cost: number; //
-  discount: number;
+  discount?: number | null;
   phoneNumber: string;
   proId: string;
   proTitle: string;

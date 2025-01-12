@@ -244,7 +244,7 @@ const ProProfile: React.FC = () => {
                                   <div className="text-2xl font-bold text-black">
                                     ₹{service.cost}
                                   </div>
-                                  {service.discount > 0 && (
+                                  {(service.discount || 1) > 0 && (
                                     <Badge className="bg-red-500 text-white hover:bg-red-600">
                                       {service.discount}% OFF
                                     </Badge>

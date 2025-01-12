@@ -1,264 +1,244 @@
 {
-    "_id": "675560ceac2627b4057ee3d0",
-    "name": "jackk",
-    "phoneNumber": "8310451852",
-    "status": "ACTIVE",
-    "isUserPro": true,
-    "isUserVerified": true,
-    "coins": 0,
-    "languages": [
-      "8",
-      "12",
-      "15",
-      "17",
-      "26",
-      "24",
-      "23"
+  "_id": "675560ceac2627b4057ee3d0",
+  "name": "jackk",
+  "phoneNumber": "8310451852",
+  "status": "ACTIVE",
+  "isUserPro": true,
+  "isUserVerified": true,
+  "coins": 0,
+  "languages": [
+    "8",
+    "12",
+    "15",
+    "17",
+    "26",
+    "24",
+    "23"
+  ],
+  "subSkills": [],
+  "createdAt": "2024-12-08T09:03:10.644Z",
+  "updatedAt": "2025-01-10T08:55:13.897Z",
+  "__v": 0,
+  "fcmToken": "c_UR7I1dSO6BUqZ_r3E7KK:APA91bGCPjJwupP3108c3Ie_nVkX6b8fusHmYRsovyUBOipnvmuU7xKUfuvUSLkf3i5wDDsDxr7k2NobGXwus28jEMylr3qfqA7JX4vTwOaIAIh-xsMwXvM",
+  "location": {
+    "coordinates": [
+      77.5945627,
+      12.9715987
     ],
-    "subSkills": [],
-    "createdAt": "2024-12-08T09:03:10.644Z",
-    "updatedAt": "2025-01-10T08:55:13.897Z",
-    "__v": 0,
-    "fcmToken": "c_UR7I1dSO6BUqZ_r3E7KK:APA91bGCPjJwupP3108c3Ie_nVkX6b8fusHmYRsovyUBOipnvmuU7xKUfuvUSLkf3i5wDDsDxr7k2NobGXwus28jEMylr3qfqA7JX4vTwOaIAIh-xsMwXvM",
-    "location": {
-      "coordinates": [
-        77.5945627,
-        12.9715987
+    "name": "Bangalore, Karnataka, India",
+    "type": "Point"
+  },
+  "address": "tvrfcde",
+  "categoryId": 1,
+  "description": "good doctor ",
+  "dob": null,
+  "email": "",
+  "experience": 20,
+  "gender": "Male",
+  "skillTitle": "doctor ",
+  "profilePicture": "https://tagzybucket.s3.ap-south-1.amazonaws.com/675560ceac2627b4057ee3d0/profileImage/043bba36-f981-4bcf-927c-0b8d9452318c",
+  "password": "test@123",
+  "services": [
+    {
+      "_id": "6755acc8ac2627b4057ee4ab",
+      "name": "Health checkup ",
+      "description": "stay healthy ",
+      "image": [
+        "https://tagzybucket.s3.ap-south-1.amazonaws.com/675560ceac2627b4057ee3d0/93b8224a-2aef-41b2-9810-6e19978e4ffe",
+        "https://tagzybucket.s3.ap-south-1.amazonaws.com/675560ceac2627b4057ee3d0/12aa68a6-092e-4982-87ad-bdb17aa0e8b3",
+        "https://tagzybucket.s3.ap-south-1.amazonaws.com/675560ceac2627b4057ee3d0/ea12085a-a7c3-4208-b65d-19a0add8bced"
       ],
-      "name": "Bangalore, Karnataka, India",
-      "type": "Point"
+      "cost": 300,
+      "discount": null,
+      "phoneNumber": "8310451852",
+      "proId": "675560ceac2627b4057ee3d0",
+      "proTitle": "doctor ",
+      "proName": "jackk",
+      "ratingCount": 9,
+      "rating": 4.888888888888889,
+      "reviewCount": 9,
+      "isServiceVerified": true,
+      "isBookingFree": true,
+      "location": {
+        "coordinates": [
+          77.5945627,
+          12.9715987
+        ],
+        "name": "Bangalore, Karnataka, India",
+        "type": "Point"
+      },
+      "maxServiceDistance": 50,
+      "status": "ACTIVE",
+      "typeOfService": "AT_HOME",
+      "categoryId": 1,
+      "tags": [
+        "1THRP000",
+        "1THRP001",
+        "1THRP002"
+      ],
+      "workingDays": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Friday",
+        "Thursday",
+        "Sunday",
+        "Saturday"
+      ],
+      "timeSlots": [
+        {
+          "start": "09:00",
+          "end": "19:00",
+          "_id": "67589ec63c1e3d7db343e8e8"
+        }
+      ],
+      "timeSlotDuration": 60,
+      "addOns": [
+        {
+          "name": "full body checkup",
+          "description": "Get your full body checked",
+          "imageUrl": "https://tagzybucket.s3.ap-south-1.amazonaws.com/675560ceac2627b4057ee3d0/service/addon/cacc83af-88a3-414b-8779-1c75a09a0171",
+          "cost": 100,
+          "count": null,
+          "_id": "6775196581e6a90199d3c95b"
+        },
+        {
+          "name": "Physics eval",
+          "description": "a game a day keeps you healthy ",
+          "imageUrl": "https://tagzybucket.s3.ap-south-1.amazonaws.com/675560ceac2627b4057ee3d0/service/addon/d535f551-71a9-4789-9b97-5597f104952c",
+          "cost": 250,
+          "count": null,
+          "_id": "6775196581e6a90199d3c95c"
+        }
+      ],
+      "createdAt": "2024-12-08T14:27:20.233Z",
+      "updatedAt": "2025-01-10T08:55:14.170Z",
+      "__v": 0
     },
-    "address": "tvrfcde",
-    "categoryId": 1,
-    "description": "good doctor ",
-    "dob": null,
-    "email": "",
-    "experience": 20,
-    "gender": "Male",
-    "skillTitle": "doctor ",
-    "profilePicture": "https://tagzybucket.s3.ap-south-1.amazonaws.com/675560ceac2627b4057ee3d0/profileImage/043bba36-f981-4bcf-927c-0b8d9452318c",
-    "password": "test@123",
-    "services": [
-      {
-        "_id": "6755acc8ac2627b4057ee4ab",
-        "name": "Health checkup ",
-        "description": "stay healthy ",
-        "image": [
-          "https://tagzybucket.s3.ap-south-1.amazonaws.com/675560ceac2627b4057ee3d0/93b8224a-2aef-41b2-9810-6e19978e4ffe",
-          "https://tagzybucket.s3.ap-south-1.amazonaws.com/675560ceac2627b4057ee3d0/12aa68a6-092e-4982-87ad-bdb17aa0e8b3",
-          "https://tagzybucket.s3.ap-south-1.amazonaws.com/675560ceac2627b4057ee3d0/ea12085a-a7c3-4208-b65d-19a0add8bced"
+    {
+      "_id": "675bd8ef4cb6f7a37527a6af",
+      "name": "Mental month",
+      "description": "stay healthy stay wise",
+      "image": [
+        "https://tagzybucket.s3.ap-south-1.amazonaws.com/675560ceac2627b4057ee3d0/ed3c456e-afcf-4be0-87e4-7a68540b5339",
+        "https://tagzybucket.s3.ap-south-1.amazonaws.com/675560ceac2627b4057ee3d0/81a743cd-c854-48f5-9ef9-e50e22214177",
+        "https://tagzybucket.s3.ap-south-1.amazonaws.com/675560ceac2627b4057ee3d0/277d63b4-c83e-403d-ad7c-c944072d8065"
+      ],
+      "cost": 300,
+      "discount": null,
+      "phoneNumber": "8310451852",
+      "proId": "675560ceac2627b4057ee3d0",
+      "proTitle": "doctor ",
+      "proName": "jackk",
+      "ratingCount": 1,
+      "rating": 5,
+      "reviewCount": 1,
+      "isServiceVerified": true,
+      "isBookingFree": true,
+      "location": {
+        "coordinates": [
+          77.5945627,
+          12.9715987
         ],
-        "cost": 300,
-        "discount": 0,
-        "phoneNumber": "8310451852",
-        "proId": "675560ceac2627b4057ee3d0",
-        "proTitle": "doctor ",
-        "proName": "jackk",
-        "ratingCount": 9,
-        "rating": 4.888888888888889,
-        "reviewCount": 9,
-        "isServiceVerified": true,
-        "isBookingFree": true,
-        "location": {
-          "coordinates": [
-            77.5945627,
-            12.9715987
-          ],
-          "name": "Bangalore, Karnataka, India",
-          "type": "Point"
-        },
-        "maxServiceDistance": 50,
-        "status": "ACTIVE",
-        "typeOfService": "AT_HOME",
-        "categoryId": 1,
-        "tags": [
-          "1THRP000",
-          "1THRP001",
-          "1THRP002"
-        ],
-        "workingDays": [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Friday",
-          "Thursday",
-          "Sunday",
-          "Saturday"
-        ],
-        "timeSlots": [
-          {
-            "start": "09:00",
-            "end": "19:00",
-            "_id": "67589ec63c1e3d7db343e8e8"
-          }
-        ],
-        "timeSlotDuration": 60,
-        "addOns": [
-          {
-            "name": "full body checkup",
-            "description": "Get your full body checked",
-            "imageUrl": "https://tagzybucket.s3.ap-south-1.amazonaws.com/675560ceac2627b4057ee3d0/service/addon/cacc83af-88a3-414b-8779-1c75a09a0171",
-            "cost": 100,
-            "count": null,
-            "_id": "6775196581e6a90199d3c95b"
-          },
-          {
-            "name": "Physics eval",
-            "description": "a game a day keeps you healthy ",
-            "imageUrl": "https://tagzybucket.s3.ap-south-1.amazonaws.com/675560ceac2627b4057ee3d0/service/addon/d535f551-71a9-4789-9b97-5597f104952c",
-            "cost": 250,
-            "count": null,
-            "_id": "6775196581e6a90199d3c95c"
-          },
-          {
-            "name": "full body checkup",
-            "description": "Get your full body checked",
-            "imageUrl": "https://tagzybucket.s3.ap-south-1.amazonaws.com/675560ceac2627b4057ee3d0/service/addon/cacc83af-88a3-414b-8779-1c75a09a0171",
-            "cost": 100,
-            "count": null,
-            "_id": "677519ae81e6a90199d3c967"
-          },
-          {
-            "name": "let's talk ",
-            "description": "open up",
-            "imageUrl": "https://tagzybucket.s3.ap-south-1.amazonaws.com/675560ceac2627b4057ee3d0/service/addon/f80ba3a5-0924-4e07-8a45-45b5b2cfad6e",
-            "cost": 150,
-            "count": null,
-            "_id": "677519ae81e6a90199d3c968"
-          }
-        ],
-        "createdAt": "2024-12-08T14:27:20.233Z",
-        "updatedAt": "2025-01-10T08:55:14.170Z",
-        "__v": 0
+        "name": "Bangalore, Karnataka, India",
+        "type": "Point"
       },
-      {
-        "_id": "675bd8ef4cb6f7a37527a6af",
-        "name": "Mental month",
-        "description": "stay healthy stay wise",
-        "image": [
-          "https://tagzybucket.s3.ap-south-1.amazonaws.com/675560ceac2627b4057ee3d0/ed3c456e-afcf-4be0-87e4-7a68540b5339",
-          "https://tagzybucket.s3.ap-south-1.amazonaws.com/675560ceac2627b4057ee3d0/81a743cd-c854-48f5-9ef9-e50e22214177",
-          "https://tagzybucket.s3.ap-south-1.amazonaws.com/675560ceac2627b4057ee3d0/277d63b4-c83e-403d-ad7c-c944072d8065"
-        ],
-        "cost": 300,
-        "discount": 0,
-        "phoneNumber": "8310451852",
-        "proId": "675560ceac2627b4057ee3d0",
-        "proTitle": "doctor ",
-        "proName": "jackk",
-        "ratingCount": 1,
-        "rating": 5,
-        "reviewCount": 1,
-        "isServiceVerified": true,
-        "isBookingFree": true,
-        "location": {
-          "coordinates": [
-            77.5945627,
-            12.9715987
-          ],
-          "name": "Bangalore, Karnataka, India",
-          "type": "Point"
+      "maxServiceDistance": 50,
+      "status": "ACTIVE",
+      "typeOfService": "AT_HOME",
+      "categoryId": 1,
+      "tags": [
+        "1THRP000",
+        "1THRP001",
+        "1THRP002"
+      ],
+      "workingDays": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Friday",
+        "Thursday",
+        "Sunday",
+        "Saturday"
+      ],
+      "timeSlots": [
+        
+      ],
+      "timeSlotDuration": 60,
+      "addOns": [
+        {
+          "name": "full body checkup",
+          "description": "Get your full body checked",
+          "imageUrl": "https://tagzybucket.s3.ap-south-1.amazonaws.com/675560ceac2627b4057ee3d0/service/addon/cacc83af-88a3-414b-8779-1c75a09a0171",
+          "cost": 100,
+          "count": null,
+          "_id": "677519ae81e6a90199d3c967"
         },
-        "maxServiceDistance": 50,
-        "status": "ACTIVE",
-        "typeOfService": "AT_HOME",
-        "categoryId": 1,
-        "tags": [
-          "1THRP000",
-          "1THRP001",
-          "1THRP002"
+        {
+          "name": "let's talk ",
+          "description": "open up",
+          "imageUrl": "https://tagzybucket.s3.ap-south-1.amazonaws.com/675560ceac2627b4057ee3d0/service/addon/f80ba3a5-0924-4e07-8a45-45b5b2cfad6e",
+          "cost": 150,
+          "count": null,
+          "_id": "677519ae81e6a90199d3c968"
+        }
+      ],
+      "createdAt": "2024-12-08T14:27:20.233Z",
+      "updatedAt": "2025-01-10T08:55:14.170Z",
+      "__v": 0
+    },
+    {
+      "_id": "675d02f73c1e3d7db343ed67",
+      "name": "kids checkup ",
+      "description": "get your kids checked up ",
+      "image": [
+        "https://tagzybucket.s3.ap-south-1.amazonaws.com/675560ceac2627b4057ee3d0/ea551e36-9ef6-428c-944b-a2d25e254044"
+      ],
+      "cost": 250,
+      "discount": 0,
+      "phoneNumber": "8310451852",
+      "proId": "675560ceac2627b4057ee3d0",
+      "proTitle": "doctor ",
+      "proName": "jackk",
+      "ratingCount": 0,
+      "rating": 0,
+      "reviewCount": 0,
+      "isServiceVerified": false,
+      "isBookingFree": true,
+      "location": {
+        "coordinates": [
+          77.5945627,
+          12.9715987
         ],
-        "workingDays": [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Friday",
-          "Thursday",
-          "Sunday",
-          "Saturday"
-        ],
-        "timeSlots": [
-          {
-            "start": "09:00",
-            "end": "19:00",
-            "_id": "675df0413c1e3d7db343ef3a"
-          }
-        ],
-        "timeSlotDuration": 60,
-        "addOns": [
-          {
-            "name": "full body checkup",
-            "description": "Get your full body checked",
-            "imageUrl": "https://tagzybucket.s3.ap-south-1.amazonaws.com/675560ceac2627b4057ee3d0/service/addon/cacc83af-88a3-414b-8779-1c75a09a0171",
-            "cost": 100,
-            "count": null,
-            "_id": "677519ae81e6a90199d3c967"
-          },
-          {
-            "name": "let's talk ",
-            "description": "open up",
-            "imageUrl": "https://tagzybucket.s3.ap-south-1.amazonaws.com/675560ceac2627b4057ee3d0/service/addon/f80ba3a5-0924-4e07-8a45-45b5b2cfad6e",
-            "cost": 150,
-            "count": null,
-            "_id": "677519ae81e6a90199d3c968"
-          }
-        ],
-        "createdAt": "2024-12-08T14:27:20.233Z",
-        "updatedAt": "2025-01-10T08:55:14.170Z",
-        "__v": 0
+        "name": "Bangalore, Karnataka, India",
+        "type": "Point"
       },
-      {
-        "_id": "675d02f73c1e3d7db343ed67",
-        "name": "kids checkup ",
-        "description": "get your kids checked up ",
-        "image": [
-          "https://tagzybucket.s3.ap-south-1.amazonaws.com/675560ceac2627b4057ee3d0/ea551e36-9ef6-428c-944b-a2d25e254044"
-        ],
-        "cost": 250,
-        "discount": 0,
-        "phoneNumber": "8310451852",
-        "proId": "675560ceac2627b4057ee3d0",
-        "proTitle": "doctor ",
-        "proName": "jackk",
-        "ratingCount": 0,
-        "rating": 0,
-        "reviewCount": 0,
-        "isServiceVerified": false,
-        "isBookingFree": true,
-        "location": {
-          "coordinates": [
-            77.5945627,
-            12.9715987
-          ],
-          "name": "Bangalore, Karnataka, India",
-          "type": "Point"
-        },
-        "maxServiceDistance": 50,
-        "status": "ACTIVE",
-        "typeOfService": "AT_OFFICE",
-        "categoryId": 1,
-        "tags": [
-          "1DCTR000"
-        ],
-        "workingDays": [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday"
-        ],
-        "timeSlots": [
-          {
-            "start": "10:00",
-            "end": "18:00",
-            "_id": "675d02f73c1e3d7db343ed68"
-          }
-        ],
-        "timeSlotDuration": 60,
-        "addOns": [],
-        "createdAt": "2024-12-14T04:00:55.219Z",
-        "updatedAt": "2025-01-10T08:55:14.170Z",
-        "__v": 0
-      }
-    ]
-  }
+      "maxServiceDistance": 50,
+      "status": "ACTIVE",
+      "typeOfService": "AT_OFFICE",
+      "categoryId": 1,
+      "tags": [
+        "1DCTR000"
+      ],
+      "workingDays": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "timeSlots": [
+        {
+          "start": "10:00",
+          "end": "18:00",
+          "_id": "675d02f73c1e3d7db343ed68"
+        }
+      ],
+      "timeSlotDuration": 60,
+      "addOns": [],
+      "createdAt": "2024-12-14T04:00:55.219Z",
+      "updatedAt": "2025-01-10T08:55:14.170Z",
+      "__v": 0
+    }
+  ]
+}

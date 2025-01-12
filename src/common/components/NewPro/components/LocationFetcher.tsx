@@ -120,6 +120,7 @@ const GoogleLocation: React.FC = () => {
       alert("Geolocation is not supported by this browser.");
     }
   };
+  console.log('===!isTyping',!isTyping,'location',location, 'address',address);
 
   return (
     <div>
@@ -131,6 +132,8 @@ const GoogleLocation: React.FC = () => {
           onChange={(e) => {
             setValue(e.target.value);
             setIsTyping(true); // Start typing state
+            setLocation(null);
+            setAddress(null);
           }}
           disabled={!ready} // Disable input if not ready
           placeholder="Search for a location"
@@ -165,7 +168,13 @@ const GoogleLocation: React.FC = () => {
       {/* Display selected location and distance */}
       {!isTyping && location && address && (
         <div className="InvalidLocation">
-          <h2>Selected Location: {address}</h2>
+          <table>
+            <tr>
+              <td style={{minWidth: '250px', fontSize: '1.25rem'}}>Selected Location :</td>
+              <td style={{fontSize: '1rem', width:'100%'}}>{address}</td>
+            </tr>
+          </table>
+          {/* <h2>Selected Location: {address}</h2> */}
           {!locationMessage ? (
             <h2 style={{ color: "red" }}>
               Unfortunately, this service is unavailable for booking as it is
