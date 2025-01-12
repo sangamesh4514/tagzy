@@ -120,6 +120,7 @@ export default function NewPro({ userProfile }: IProps) {
                     setActivePage={setActivePage}
                     toggleSidebar={toggleSidebar}
                     test={"circle-profile-image"}
+                    buttonName={"Go to Cart"}
                   />
 
                   <div className={`sidebar ${isOpen ? "open" : "notOpen"}`}>

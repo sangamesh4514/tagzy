@@ -13,6 +13,7 @@ import { useLoadScript } from "@react-google-maps/api";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/common/store/store";
 import { updateBoolean } from "../dataSlice";
+import StickyBar from "./StickyBar";
 
 interface ServiceBookingProps {
   setActivePage: (page: Page) => void;
@@ -248,29 +249,35 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
       </main>
 
       {/* Footer */}
-     {isBoolean && <footer className="cart-footer">
-        <div className="footer-content">
-          <h3>Almost There</h3>
-          <p>Login or Signup to place your order</p>
-          {!(cartItem.selectedDate || cartItem.selectedTimeSlot) ? (
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button className="proceed-button text-white hover:bg-gray-800">
-                  Proceed with phone number
-                </Button>
-              </DialogTrigger>
-              {renderDialogContent()}
-            </Dialog>
-          ) : (
-            <Button
-              className="proceed-button text-white hover:bg-gray-800"
-              onClick={handlePlaceOrder}
-            >
-              Proceed with phone number
-            </Button>
-          )}
-        </div>
-      </footer>}
+      {isBoolean && (
+        <footer className="sticky-bar">
+          <div className="sticky-bar-content">
+            {!(cartItem.selectedDate || cartItem.selectedTimeSlot) ? (
+              <div className="flex flex-row justify-between w-full">
+                <div className="">
+                  <h3 className="item-title">Almost There</h3>
+                  <p className="item-price">Login or Signup to place your order</p>
+                </div>
+                <div className="mt-4">
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <button className="cart-button">Proceed</button>
+                    </DialogTrigger>
+                    {renderDialogContent()}
+                  </Dialog>
+                </div>
+              </div>
+            ) : (
+              <StickyBar
+                buttonName={"Proceed"}
+                setActivePage={() => setActivePage("login")}
+                test="Basket-stickyBar"
+                toggleSidebar={handlePlaceOrder}
+              />
+            )}
+          </div>
+        </footer>
+      )}
     </div>
   );
 }

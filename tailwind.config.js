@@ -25,6 +25,7 @@ module.exports = {
   			colorA: '#096c6c',
   			colorB: '#064747',
   			customTeal: 'rgb(10, 82, 86)',
+			shadow: 'rgba(9, 108, 108, 0.66)', // Define your custom 
   			primary: {
   				DEFAULT: 'hsl(var(--primary))',
   				foreground: 'hsl(var(--primary-foreground))'
