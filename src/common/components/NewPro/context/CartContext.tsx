@@ -19,7 +19,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cartItem, setCartItem] = useState<CartItem | null>(null);
 
   const addToCart = (service: Service) => {
-    setCartItem({ service, addons: [], selectedDate: null, selectedTimeSlot: null });
+    setCartItem(prevCartItem => ({
+      service,
+      addons: [],
+      selectedDate: null,
+      selectedTimeSlot: null
+    }));
   };
 
   const removeFromCart = () => {
@@ -27,63 +32,48 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   };
 
   const addAddon = (addon: IAddon) => {
-    if (cartItem) {
-      setCartItem({
-        ...cartItem,
-        addons: [...cartItem.addons, { addon, quantity: 1 }],
-      });
-    }
+    setCartItem(prevCartItem => ({
+      ...prevCartItem!,
+      addons: [...prevCartItem!.addons, { addon, quantity: 1 }]
+    }));
   };
 
   const removeAddon = (addonId: string) => {
-    if (cartItem) {
-      setCartItem({
-        ...cartItem,
-        addons: cartItem.addons.filter((item) => item.addon._id !== addonId),
-      });
-    }
+    setCartItem(prevCartItem => ({
+      ...prevCartItem!,
+      addons: prevCartItem!.addons.filter(item => item.addon._id !== addonId)
+    }));
+  };
+
+  const updateAddonQuantity = (addonId: string, change: number) => {
+    setCartItem(prevCartItem => ({
+      ...prevCartItem!,
+      addons: prevCartItem!.addons.map(item =>
+        item.addon._id === addonId ? { ...item, quantity: item.quantity + change } : item
+      )
+    }));
   };
 
   const incrementAddon = (addonId: string) => {
-    if (cartItem) {
-      setCartItem({
-        ...cartItem,
-        addons: cartItem.addons.map((item) =>
-          item.addon._id === addonId ? { ...item, quantity: item.quantity + 1 } : item
-        ),
-      });
-    }
+    updateAddonQuantity(addonId, 1);
   };
 
   const decrementAddon = (addonId: string) => {
-    if (cartItem) {
-      setCartItem({
-        ...cartItem,
-        addons: cartItem.addons.map((item) =>
-          item.addon._id === addonId && item.quantity > 1
-            ? { ...item, quantity: item.quantity - 1 }
-            : item
-        ),
-      });
-    }
+    updateAddonQuantity(addonId, -1);
   };
 
   const setSelectedDate = (date: string) => {
-    if (cartItem) {
-      setCartItem({
-        ...cartItem,
-        selectedDate: date,
-      });
-    }
+    setCartItem(prevCartItem => ({
+      ...prevCartItem!,
+      selectedDate: date
+    }));
   };
 
   const setSelectedTimeSlot = (timeSlot: string) => {
-    if (cartItem) {
-      setCartItem({
-        ...cartItem,
-        selectedTimeSlot: timeSlot,
-      });
-    }
+    setCartItem(prevCartItem => ({
+      ...prevCartItem!,
+      selectedTimeSlot: timeSlot
+    }));
   };
 
   return (
@@ -107,9 +97,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
 export function useCart() {
   const context = useContext(CartContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error('useCart must be used within a CartProvider');
   }
   return context;
 }
-

@@ -9,12 +9,9 @@ export interface Profile {
   profilePicture?: string;
   name?: string;
   skillTitle?: string;
-  isUserVerified?: boolean;
   location?: string;
-  email?: string;
   accountCreated?: string;
   experience?: number;
-  languages?: string[];
   categoryType?: string;
 }
 
@@ -32,25 +29,19 @@ export function Header({
   const {
     name,
     skillTitle,
-    isUserVerified,
     profilePicture,
-    email,
     accountCreated,
-    languages,
     location,
     categoryType,
     experience,
   } = userProfile;
   const subscribers = 3487;
-  console.log('###isUserVerified',isUserVerified,languages,email,categoryType);
-
-  console.log('### accountCreated',accountCreated);
+  console.log('###categoryType',categoryType);
 
   return (
     <header className="pro-header">
       <div className="cover-image">
         <img src="/assets/cover.jpg" alt="Cover" />
-        {/* <BannerCarousel /> */}
       </div>
       <div className="profile-section">
         <div className="profile-avatar">

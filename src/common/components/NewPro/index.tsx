@@ -5,17 +5,13 @@ import { CartProvider } from "./context/CartContext";
 import { Page } from "./types/types";
 import "./styles/style.css";
 import { IUserProfile } from "src/common/types";
-import { CategoryCodeToName, languageCodeToName } from "src/common/constant";
+import { CategoryCodeToName } from "src/common/constant";
 import StickyBar from "./components/StickyBar";
 import ServiceBooking from "./components/service-booking";
 import LoginPage from "./components/Login";
-// import OrderSummary from "./components/order-summary";
 import AnimatedGridPattern from "src/magicUi/ui/animated-grid-pattern";
 import { cn } from "src/lib/utils";
-import { Badge } from "src/magicUi/ui/badge";
-import { Mail, Phone } from "lucide-react";
-import { getAverageRating } from "src/common/utils";
-import Rating from "./components/rating-display";
+import { AboutSection } from "./components/AboutSection";
 
 interface IProps {
   userProfile: IUserProfile;
@@ -84,11 +80,10 @@ export default function NewPro({ userProfile }: IProps) {
     "*".repeat(localPart.length)
   );
 
-  const rate = getAverageRating(services);
-
   return (
     <CartProvider>
       <div className="pro-page">
+        {/* <span id="circle-profile-image-head"></span> */}
         <AnimatedGridPattern
           numSquares={25} // Number of squares in the pattern
           maxOpacity={0.2} // Maximum opacity of the pattern
@@ -140,70 +135,15 @@ export default function NewPro({ userProfile }: IProps) {
                 </div>
               ))}
             {activePage === "about" && (
-              <div className="about-section">
-                <div>
-                  <h3 className="text-lg font-semibold mb-2 text-black">
-                    About Provider:-
-                  </h3>
-                  <p className="text-black">{description}</p>
-                </div>
-                <div className="flex items-center gap-2 text-black">
-                  <Phone className="h-4 w-4" />
-                  <span className="text-lg font-semibold">
-                    Mobile Number:-{" "}
-                  </span>
-                  <span style={{ fontSize: "1rem" }}>{maskedPhoneNumber}</span>
-                </div>
-                <div className="flex items-center gap-2 my-5 text-black">
-                  <Mail className="h-4 w-4" />
-                  <span className="text-lg font-semibold">Email:- </span>
-                  <span style={{ fontSize: "1rem" }}>{maskedEmail}</span>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold mb-2 text-black">
-                    Experience:-
-                  </h3>
-                  <p className="text-black">
-                    {experience} years of professional experience
-                  </p>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold mb-2 text-black">
-                    Address:-
-                  </h3>
-                  <p className="text-black">{address}</p>
-                </div>
-                <div className="my-5">
-                  <h3 className="text-lg font-semibold mb-2 text-black">
-                    Languages:-
-                  </h3>
-                  <div className="flex gap-2">
-                    {languages?.map((language, index) => (
-                      <Badge
-                        key={index}
-                        variant="outline"
-                        className="border-black text-black"
-                      >
-                        {languageCodeToName[+language - 1]}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-black">
-                    Overall Ratings:-
-                  </h3>
-                  <div className="aboutRating flex gap-2">
-                    {
-                      <Rating
-                        rating={rate.sumRating}
-                        ratingCount={rate.sumRatingCount}
-                        size="lg"
-                      />
-                    }
-                  </div>
-                </div>
-              </div>
+              <AboutSection
+                description={description}
+                maskedPhoneNumber={maskedPhoneNumber}
+                maskedEmail={maskedEmail}
+                experience={experience}
+                address={address}
+                services={services}
+                languages={languages}
+              />
             )}
             {activePage === "basket" && (
               <ServiceBooking setActivePage={setActivePage} />
