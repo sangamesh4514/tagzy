@@ -8,7 +8,6 @@ import { IUserProfile } from "src/common/types";
 import { CategoryCodeToName } from "src/common/constant";
 import StickyBar from "./components/StickyBar";
 import ServiceBooking from "./components/service-booking";
-import LoginPage from "./components/Login";
 import AnimatedGridPattern from "src/magicUi/ui/animated-grid-pattern";
 import { cn } from "src/lib/utils";
 import { AboutSection } from "./components/AboutSection";
@@ -21,8 +20,9 @@ export default function NewPro({ userProfile }: IProps) {
   const [activePage, setActivePage] = useState<Page>("services");
   const [isOpen, setIsOpen] = useState(false);
 
+  console.log(setIsOpen)
   const toggleSidebar = () => {
-    setIsOpen(!isOpen);
+    setActivePage('basket')
   };
 
   const {
@@ -122,13 +122,6 @@ export default function NewPro({ userProfile }: IProps) {
                     test={"circle-profile-image"}
                     buttonName={"Go to Cart"}
                   />
-
-                  <div className={`sidebar ${isOpen ? "open" : "notOpen"}`}>
-                    <button onClick={toggleSidebar} className="close-btn">
-                      &times;
-                    </button>
-                    <LoginPage setActivePage={setActivePage} />
-                  </div>
                 </>
               ) : (
                 <div className="about-section" style={{ height: "500px" }}>
@@ -149,12 +142,6 @@ export default function NewPro({ userProfile }: IProps) {
             {activePage === "basket" && (
               <ServiceBooking setActivePage={setActivePage} />
             )}
-            {/* {activePage === "login" && (
-              <LoginPage setActivePage={setActivePage} />
-            )} */}
-            {/* {activePage === "checkout" && (
-              <OrderSummary setActivePage={setActivePage} />
-            )} */}
           </div>
         </div>
       </div>

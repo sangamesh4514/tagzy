@@ -99,6 +99,16 @@
   margin-top: 1rem;
 }
 
+/* Mobile View */
+@media (max-width: 768px) {
+  .navigation {
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1rem;
+  }
+}
+
 .nav-button {
   font-size: 1rem;
   background: none;
@@ -107,11 +117,22 @@
   cursor: pointer;
   color: #000000;
   font-weight: 600;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
 }
 
 .nav-button.active {
   color: #096c6c;
   border-bottom: 2px solid #096c6c;
+}
+
+/* Mobile View Buttons */
+@media (max-width: 768px) {
+  .nav-button {
+    font-size: 0.9rem;
+    font-weight: bold;
+    flex: 1;
+    text-align: center;
+  }
 }
 
 .stats-container {
