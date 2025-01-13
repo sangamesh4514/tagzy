@@ -10,20 +10,16 @@
   z-index: 10;
   display: flex;
   gap: 2rem;
-  /* padding: 1.5rem 2rem; */
   max-width: 1200px;
+  padding: 10px;
   margin: 0 auto;
   width: 100%;
 }
 
-/* .main-content-cart {
-  padding: 1rem;
-} */
 
 .content-area {
   flex: 1;
   position: relative;
-  padding: 20px;
 }
 .addOverflow{
   overflow: hidden;
@@ -74,10 +70,9 @@
 /* Sidebar styles */
 .sidebar {
   position: absolute;
-  top: 0;
-  right: 40%;
-    width: 40%;
-  height: 95%;
+  /* top: 0;
+  right: 40%; */
+  width: 40%;
   background-color: #f4f4f4;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
   /* padding: 20px; */

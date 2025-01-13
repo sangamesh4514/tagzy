@@ -14,12 +14,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/common/store/store";
 import { updateBoolean } from "../dataSlice";
 import StickyBar from "./StickyBar";
+import { useState } from "react";
+import LoginPage from "./Login";
 
 interface ServiceBookingProps {
   setActivePage: (page: Page) => void;
 }
 
 export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
+
+  const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const { isBoolean, text } = useSelector((state: RootState) => state.data);
   const {
@@ -31,6 +35,7 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
     addAddon,
   } = useCart();
   const addonsInCart = cartItem?.addons || [];
+  
 
   // Load the Google Maps script and Places library
   const { isLoaded } = useLoadScript({
@@ -51,8 +56,9 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
     );
   }
 
-  const handlePlaceOrder = () => {
-    setActivePage("login");
+  // button with trigger sidebar
+  const toggleLoginSidebar = () => {
+    setIsOpen(!isOpen)
   };
 
   const handleAddonToggle = (addon: IAddon) => {
@@ -75,41 +81,49 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
     <div className="service-booking">
       <main>
         <section className="service-section">
-          <button className="empty-cart-button" onClick={removeFromCart}>
-            Clear Cart <EmptyCart className="w-6 h-6" />
-          </button>
+          <div className="flex flex-row justify-between mb-2">
+            <div>
+              <div className="text-lg sm:text-xl font-bold sm:font-normal">Service:-</div>
+            </div>
+            <div className="">
+              <button 
+                className="header-button border-solid border-2"
+                onClick={removeFromCart}
+              >
+                <span>Clear Cart</span> <EmptyCart className="w-6 h-6 inline mb-1.5 text-colorB" />
+              </button>
+            </div>
+          </div>
 
           {/* Service Information */}
           <div className="service-info">
-            <h2 className="service-title">Service :-</h2>
             <div className="service-card-cart">
-              <div className="service-image">
+              <div>
                 <img
                   src={cartItem.service.image[0]}
                   alt="service-image"
-                  width={100}
-                  height={100}
+                  className="h-14 w-16 sm:h-16"
                 />
               </div>
-              <h3 style={{ fontSize: "1rem" }}>{cartItem.service.name}</h3>
-              <span className="price">₹{cartItem.service.cost}</span>
+              <div className="text-md sm:text-lg">{cartItem.service.name}</div>
+              <div className="ml-auto text-xl sm:text-3xl text-colorA font-bold
+              sm:font-bold">₹{cartItem.service.cost}</div>
             </div>
           </div>
 
           {/* Addons Section */}
           {addonsInCart.length > 0 && (
             <section>
-              <h2 style={{ margin: "1rem 0", fontSize: "1.5rem" }}>
+              <div className="text-lg sm:text-xl font-bold sm:font-normal my-2">
                 Addons :-
-              </h2>
+              </div>
               <div className="addonsSectionCart">
                 {cartItem.addons.map(({ addon, quantity }) => (
                   <div key={addon._id} className="addon-card">
                     <img
                       src={addon.imageUrl}
                       alt={addon.name}
-                      width={80}
-                      height={80}
+                      className="h-14 w-16 sm:h-16"
                     />
                     <div className="addon-info">
                       <h4 style={{ fontSize: "1rem" }}>{addon.name}</h4>
@@ -147,13 +161,15 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
 
           {/* Total Price */}
           <div className="total">
-            <span>Total:</span>
-            <span>₹{total}</span>
+            <span className="text-base sm:text-lg text-colorA">Total:</span>
+            <span className="text-base sm:text-lg text-colorA">₹{total}</span>
           </div>
 
           {!isBoolean ? (
             <div className="userEnteraddress">
-              <h3 style={{ padding: "1rem 0" }}>Select Location:-</h3>
+              <div className="text-lg sm:text-xl font-bold sm:font-normal mb-2">
+                Select Location:-
+              </div>
               <GoogleLocation />
             </div>
           ) : (
@@ -161,9 +177,9 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
               {/* Related Addons */}
               {cartItem.addons.length !== cartItem.service.addOns.length && (
                 <section className="related-addons">
-                  <h2 style={{ fontSize: "1rem", margin: "0 0 0.5rem 0" }}>
+                  <div className="text-base sm:text-lg font-bold sm:font-normal mb-2">
                     Add Addons Related to this Service :-
-                  </h2>
+                  </div>
                   <div className="related-addons-grid">
                     {cartItem.service.addOns.map(
                       (addon) =>
@@ -171,19 +187,24 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
                           (item) => item.addon._id === addon._id
                         ) && (
                           <div key={addon._id} className="related-addon-card">
-                            <img
-                              src={addon.imageUrl}
-                              alt={addon.name}
-                              width={80}
-                              height={80}
-                            />
-                            <div className="addon-info">
-                              <h4 style={{ fontSize: "1rem" }}>{addon.name}</h4>
-                              <p
-                                style={{ fontSize: "1rem", marginBottom: "0" }}
-                              >
-                                ₹{addon.cost}
-                              </p>
+                            <div className="flex flex-row justify-between">
+                              <div>
+                                <img
+                                  src={addon.imageUrl}
+                                  alt={addon.name}
+                                  className="h-14 w-16 sm:h-16"
+                                />
+                              </div>
+                              <div 
+                                className="addon-info flex flex-row sm:flex-col justify-between  items-center sm:items-start ml-4">
+                                <div className="text-md sm:text-lg font-bold sm:font-normal pr-4 sm:pr-0">
+                                  {addon.name}
+                                </div>
+                                <div 
+                                  className="text-xl sm:text-2xl text-colorA font-bold sm:font-bold">
+                                  ₹{addon.cost}
+                                </div>
+                              </div>
                             </div>
                             <Button
                               variant="outline"
@@ -193,7 +214,7 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
                                   (item) => item.addon._id === addon._id
                                 )
                               }
-                              className="addon-button-cart"
+                              className="addon-button-cart ml-auto"
                             >
                               Add
                             </Button>
@@ -208,9 +229,9 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
               <div className="timeAndAddress">
                 {cartItem.service.workingDays.length > 0 && (
                   <div className="userSelectTime">
-                    <h2 style={{ textAlign: "center" }}>
+                    <div className="text-lg sm:text-xl font-bold sm:font-normal mb-2">
                       Select a Date {cartItem.service.timeSlots.length > 0 && '& Time'} :-
-                    </h2>
+                    </div>
                     <WorkingDaysCalendar
                       workingDays={cartItem.service.workingDays}
                       timeSlots={cartItem.service.timeSlots}
@@ -218,7 +239,7 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
                   </div>
                 )}
                 <div className="useraddress">
-                  <h3>Selected Location :-</h3>
+                  <div className="text-lg sm:text-xl font-bold sm:font-normal">Selected Location :-</div>
                   <span>{text}</span>
                   <button
                     onClick={() => dispatch(updateBoolean(false))}
@@ -250,30 +271,43 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
 
       {/* Footer */}
       {isBoolean && (
-        <footer className="sticky-bar">
-          <div className="sticky-bar-content">
+        <footer>
+          <div>
             {!(cartItem.selectedDate || cartItem.selectedTimeSlot) ? (
-              <div className="flex flex-row justify-between w-full">
-                <div className="">
-                  <h3 className="item-title">Almost There</h3>
-                  <p className="item-price">Login or Signup to place your order</p>
-                </div>
-                <div className="mt-4">
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <button className="cart-button">Proceed</button>
-                    </DialogTrigger>
-                    {renderDialogContent()}
-                  </Dialog>
+              <div className="sticky-bar flex">
+                <div className="sticky-bar-content">
+                  <div>
+                    <div className="item-title">Almost There</div>
+                    <div className="item-price">Login or Signup to place your order</div>
+                  </div>
+                  <div className="mt-4">
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <div className="mb-1">
+                          <button className="cart-button">Proceed</button>
+                        </div>
+                      </DialogTrigger>
+                      {renderDialogContent()}
+                    </Dialog>
+                  </div>
                 </div>
               </div>
             ) : (
-              <StickyBar
-                buttonName={"Proceed"}
-                setActivePage={() => setActivePage("login")}
-                test="Basket-stickyBar"
-                toggleSidebar={handlePlaceOrder}
-              />
+              <div>
+
+                <StickyBar
+                  setActivePage={setActivePage}
+                  toggleSidebar={toggleLoginSidebar}
+                  test="Basket-stickyBar"
+                  buttonName={"Proceed"}
+                />
+                <div className={`sidebar ${isOpen ? "open" : "notOpen"}`}>
+                  <button onClick={toggleLoginSidebar} className="close-btn">
+                    &times;
+                  </button>
+                  <LoginPage setActivePage={setActivePage} />
+                </div>
+              </div>
             )}
           </div>
         </footer>

@@ -1,7 +1,6 @@
 .service-booking {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1rem;
 }
 
 .service-booking-header {
@@ -12,7 +11,7 @@
   border-radius: 0 0 16px 16px;
 }
 
-.empty-cart-button {
+.header-button{
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -23,20 +22,11 @@
   color: #096c6c;
   border: 2px solid #096c6c;
   border-radius: 16px;
-  position: absolute;
-  right: 50px;
   path {
     fill: #096c6c;
   }
 }
-.empty-cart-button:hover {
-  color: red;
 
-  border: 2px solid red;
-  path {
-    fill: red;
-  }
-}
 .cart {
   min-height: 600px;
   background: white;
@@ -47,15 +37,6 @@
     align-items: center;
     display: inline-flex;
     gap: 10px;
-  }
-
-  @media (max-width: 768px) {
-    /* .back-button{
-      padding: 0.2rem;
-    }
-   .cart-header{
-    padding-top: 25px;
-   } */
   }
 }
 .service-section {
@@ -70,11 +51,6 @@
   margin-bottom: 2rem;
 }
 
-.service-title {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-}
-
 .service-card-cart {
   display: flex;
   align-items: center;
@@ -82,11 +58,8 @@
   padding: 1rem;
   border: 1px solid #096c6c;
   border-radius: 0.5rem;
-
-  .price {
-    margin-left: auto;
-  }
 }
+
 .addonsSectionCart {
   border-radius: 0.5rem;
   border: 1px solid #096c6c;
@@ -142,14 +115,12 @@
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin: 2rem 1rem 2rem 0;
+  font-weight: bolder;
+  margin-top: 10px;
 }
 
 .related-addons-grid {
   display: grid;
-  /* grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); */
   grid-template-columns: 50% auto;
   gap: 1rem;
 }
@@ -202,6 +173,8 @@
   display: flex;
   justify-content: center;
   padding: 10px 0;
+  margin-top: -5px;
+  margin-bottom: 2px;
   z-index: 11;
   transition: opacity 0.3s ease-in-out;
 }
@@ -216,9 +189,6 @@
 }
 
 .sticky-bar-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   background-color: #fff;
   max-width: 1200px;
   width: 100%;
@@ -283,7 +253,6 @@
 .timeAndAddress {
   display: flex;
   gap: 2rem;
-  /* justify-content: space-between; */
 }
 
 .useraddress {
@@ -295,7 +264,6 @@
   }
 }
 .userEnteraddress {
-  padding: 0 2rem;
   min-height: 400px;
 }
 .enterLocation {
@@ -346,3 +314,153 @@
     grid-template-columns: 1fr 1fr;
   }
 }
+
+/* General Mobile Adjustments */
+@media (max-width: 768px) {
+  .service-booking {
+    padding: 0 0.5rem;
+  }
+
+  .service-booking-header {
+    flex-direction: column;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .header-button{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    cursor: pointer;
+    padding: 0.2rem 0.6rem;
+    font-size: 13px;
+    font-weight: bold;
+    color: #096c6c;
+    border: 2px solid #096c6c;
+    border-radius: 16px;
+    path {
+      fill: #096c6c;
+    }
+  }
+  .cart {
+    padding: 1rem;
+    min-height: auto;
+    box-shadow: none;
+  }
+
+  .cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+  }
+
+  .service-section,
+  .addons-section,
+  .related-addons {
+    margin-bottom: 1rem;
+  }
+
+  .service-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .service-card-cart {
+    font-weight: bold;
+  }
+
+  .addonsSectionCart,
+  .addon-card {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+  }
+
+  .addon-card {
+    grid-template-columns: 1fr auto;
+    gap: 0.5rem;
+  }
+
+  .quantity-controls button {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .total {
+    font-weight: bold;
+    justify-content: right;
+    text-align: center;
+  }
+
+  .related-addons-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .related-addon-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .addon-button-cart {
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem 1rem;
+  }
+
+  .booking-section {
+    grid-template-columns: 1fr;
+    margin: 1rem 0;
+    gap: 1rem;
+  }
+
+  .time-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  .sticky-bar-image img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .sticky-bar-info {
+    margin-left: 0;
+    text-align: center;
+  }
+
+  .cart-button {
+    width: 100%;
+    margin: 0;
+  }
+
+  .timeAndAddress {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .useraddress button {
+    width: 100%;
+    max-width: none;
+  }
+
+  .userEnteraddress {
+    min-height: auto;
+  }
+
+  .enterLocation {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .searchList li {
+    margin: 10px 0;
+    font-size: 0.9rem;
+  }
+
+  .InvalidLocation {
+    margin: 1rem 0;
+  }
+}
+
