@@ -1,27 +1,36 @@
-import React, { useState } from "react";
-import "../styles/login.css";
-import { useUserLogin } from "src/common/api/userLogin";
+import React, { useEffect, useState } from "react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "src/magicUi/ui/dialog";
 import { Input } from "src/magicUi/ui/input";
 import { Button } from "src/magicUi/ui/button";
-// import { ArrowLeft } from "lucide-react";
-// import { Page } from "../types/types";
+import { useUserLogin } from "src/common/api/userLogin";
+import { Page } from "../types/types";
+import "../styles/login.css";
 
-interface LoginProps {
-  setActivePage?: any;
+interface LoginDialogProps {
+  isOpen: boolean;
+  onClose: () => void;
+  setActivePage?: (page: Page) => void;
 }
 
-export default function LoginPage({ setActivePage }: LoginProps) {
-  const [mobileNumber, setMobileNumber] = useState("");
-  const [showOTP, setShowOTP] = useState(false);
-  const [otp, setOTP] = useState(["", "", "", ""]);
+const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose, setActivePage }) => {
+  const [mobileNumber, setMobileNumber] = useState<string>("");
+  const [showOTP, setShowOTP] = useState<boolean>(false);
+  const [otp, setOTP] = useState<string[]>(["", "", "", ""]);
 
   const { getOtp, verifyOtp, loginInfo, loading, error } = useUserLogin();
+
+  useEffect(() => {
+    if(loginInfo && setActivePage) {
+      setActivePage('checkout')
+      onClose()
+    }
+  }, [loginInfo, setActivePage, onClose])
 
   const handleMobileSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (mobileNumber.length !== 10) {
-      window.alert("Enter valid 10-digit number");
+      window.alert("Enter a valid 10-digit number");
       return;
     }
 
@@ -34,127 +43,129 @@ export default function LoginPage({ setActivePage }: LoginProps) {
 
     const otpValue = otp.join("");
     if (otpValue.length !== 4) {
-      window.alert("Enter valid 4-digit OTP");
+      window.alert("Enter a valid 4-digit OTP");
       return;
     }
 
     await verifyOtp({ phoneNumber: mobileNumber, otp: otpValue });
+
+    if (loginInfo) {
+      setActivePage && setActivePage("checkout");
+      onClose(); // Close the dialog upon successful login
+    }
   };
 
   const handleOTPChange = (index: number, value: string) => {
-    if (value.length > 1) {
-      value = value[value.length - 1];
-    }
+    if (value.length > 1) value = value[value.length - 1];
 
     const newOTP = [...otp];
     newOTP[index] = value;
     setOTP(newOTP);
 
-    // Auto focus next input
+    // Auto-focus next input
     if (value !== "" && index < 3) {
       const nextInput = document.querySelector<HTMLInputElement>(
         `input[name='otp-${index + 1}']`
       );
-      if (nextInput) {
-        nextInput.focus();
-      }
+      nextInput?.focus();
     }
   };
 
-  const handleKeyDown = (
-    index: number,
-    e: React.KeyboardEvent<HTMLInputElement>
-  ) => {
+  const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Backspace" && !otp[index] && index > 0) {
-      // Focus previous input on backspace if current input is empty
       const prevInput = document.querySelector<HTMLInputElement>(
         `input[name='otp-${index - 1}']`
       );
-      if (prevInput) {
-        prevInput.focus();
-      }
+      prevInput?.focus();
     }
   };
 
   return (
-    <div className="login-card">
-      <div className="login-card-logo">
-        <img className="logo" src="/logo.png" alt="logo" />
-      </div>
-      <h1>Login</h1>
-      <p className="subtitle">Enter your mobile number to continue</p>
-
-      {error && <p className="error-message">{error}</p>}
-
-      <form onSubmit={showOTP ? handleOTPVerify : handleMobileSubmit}>
-        <div className="mobile-input-group">
-          <div className="country-code">
-            <span style={{ fontSize: "24px" }}>🇮🇳</span>
-            <span>+91</span>
-          </div>
-          <Input
-            type="tel"
-            value={mobileNumber}
-            onChange={(e) => {
-              const value = e.target.value.replace(/\D/g, "");
-              if (value.length <= 10) {
-                setMobileNumber(value);
-              }
-            }}
-            placeholder="Enter mobile number"
-            maxLength={10}
-            disabled={showOTP || loading}
-            required
-            style={{ height: "100%", fontSize: "16px" }}
-          />
-        </div>
-
-        {showOTP && (
-          <div className="otp-section">
-            <p>Enter OTP sent to +91 {mobileNumber}</p>
-            <div className="otp-input-group">
-              {otp.map((digit, index) => (
-                <input
-                  key={index}
-                  type="text"
-                  inputMode="numeric"
-                  name={`otp-${index}`}
-                  value={digit}
-                  onChange={(e) => handleOTPChange(index, e.target.value)}
-                  onKeyDown={(e) => handleKeyDown(index, e)}
-                  maxLength={1}
-                  className="otp-input"
-                  autoComplete="off"
-                />
-              ))}
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="bg-white">
+        <DialogHeader>
+          <DialogTitle>
+            <div>
+              <img className="logo mx-auto mb-2" src="/logo.png" alt="logo" />
             </div>
-            <button
-              type="button"
-              className="resend-button"
-              onClick={() => getOtp(mobileNumber)}
+            <div className="ml-2 text-center">Login</div>
+          </DialogTitle>
+          <DialogDescription className="mx-auto">Enter your mobile number to continue</DialogDescription>
+        </DialogHeader>
+
+        <div>
+          {error && <p className="error-message">{error}</p>}
+
+          <form onSubmit={showOTP ? handleOTPVerify : handleMobileSubmit}>
+            {/* Mobile Number Input */}
+            <div className="mobile-input-group">
+              <div className="country-code">
+                <span className="flag">🇮🇳</span>
+                <span>+91</span>
+              </div>
+              <Input
+                type="tel"
+                value={mobileNumber}
+                onChange={(e) => {
+                  const value = e.target.value.replace(/\D/g, "");
+                  if (value.length <= 10) setMobileNumber(value);
+                }}
+                placeholder="Enter mobile number"
+                maxLength={10}
+                disabled={showOTP || loading}
+                required
+              />
+            </div>
+
+            {/* OTP Section */}
+            {showOTP && (
+              <div className="otp-section">
+                <p className="text-center">Enter OTP sent to +91 {mobileNumber}</p>
+                <div className="otp-input-group">
+                  {otp.map((digit, index) => (
+                    <input
+                      key={index}
+                      type="text"
+                      inputMode="numeric"
+                      name={`otp-${index}`}
+                      value={digit}
+                      onChange={(e) => handleOTPChange(index, e.target.value)}
+                      onKeyDown={(e) => handleKeyDown(index, e)}
+                      maxLength={1}
+                      className="otp-input"
+                      autoComplete="off"
+                    />
+                  ))}
+                </div>
+                <div className="text-center">
+                  <span>
+                    Not Received OTP?
+                  </span>
+                  <button
+                    type="button"
+                    className="resend-button text-colorA ml-2"
+                    onClick={() => getOtp(mobileNumber)}
+                    disabled={loading}
+                  >
+                    Resend OTP
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Submit Button */}
+            <Button
+              type="submit"
+              className="submit-button bg-colorA hover:bg-colorB"
               disabled={loading}
             >
-              Resend OTP
-            </button>
-          </div>
-        )}
-
-        <Button
-          type="submit"
-          className="submit-button hover:bg-gray-800"
-          disabled={loading}
-        >
-          {loading ? "Please wait..." : showOTP ? "Verify OTP" : "Login"}
-        </Button>
-      </form>
-
-      {loginInfo && <>{setActivePage && setActivePage("checkout")}</>}
-      {
-  /* <button onClick={toggleSidebar} className="close-btn">
-                    &times;
-                  </button> */
-}
-    </div>
+              {loading ? "Please wait..." : showOTP ? "Verify OTP" : "Send OTP"}
+            </Button>
+          </form>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
-}
+};
 
+export default LoginDialog;
