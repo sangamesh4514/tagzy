@@ -9,12 +9,7 @@
 .login-card {
   background: white;
   padding: 2rem;
-  /* border-radius: 1rem;
-  box-shadow: 0 4px 6px 1px rgb(1 42 52); */
   width: 100%;
-  /* max-width: 450px; */
-  /* height: 700px; */
-  /* height: 100%; */
 }
 
 .login-card-logo{
@@ -48,7 +43,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1rem;
   background-color: #f5f5f5;
   border: 1px solid #e2e8f0;
   border-radius: 0.375rem;
@@ -64,12 +59,7 @@
   object-fit: cover;
 }
 
-.otp-section {
-  margin-bottom: 1.5rem;
-}
-
 .otp-section p {
-  margin-bottom: 1rem;
   color: #666;
   font-size: 0.875rem;
 }
@@ -78,7 +68,6 @@
   display: flex;
   gap: 0.75rem;
   justify-content: center;
-  margin-bottom: 1rem;
 }
 
 .otp-input {
@@ -107,14 +96,10 @@
 .resend-button {
   background: none;
   border: none;
-  color: #2563eb;
   font-size: 0.875rem;
   margin-top: 1rem;
   cursor: pointer;
   padding: 0;
-}
-
-.resend-button:hover {
   text-decoration: underline;
 }
 
@@ -125,7 +110,6 @@
 
 .submit-button {
   width: 100%;
-  background-color: #2563eb;
   color: white;
   font-weight: 500;
   height: 2.75rem;
@@ -158,4 +142,5 @@
     font-size: 1.5rem;
   }
 }
+
 

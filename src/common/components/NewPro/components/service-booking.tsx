@@ -305,7 +305,7 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
                   <button onClick={toggleLoginSidebar} className="close-btn">
                     &times;
                   </button>
-                  <LoginPage setActivePage={setActivePage} />
+                  <LoginPage isOpen={isOpen} onClose={() => setIsOpen(false)} setActivePage={setActivePage} />
                 </div>
               </div>
             )}
