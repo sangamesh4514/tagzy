@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "src/magicUi/ui/dialog";
 import { Input } from "src/magicUi/ui/input";
 import { Button } from "src/magicUi/ui/button";
@@ -18,6 +18,13 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose, setActivePag
   const [otp, setOTP] = useState<string[]>(["", "", "", ""]);
 
   const { getOtp, verifyOtp, loginInfo, loading, error } = useUserLogin();
+
+  useEffect(() => {
+    if(loginInfo && setActivePage) {
+      setActivePage('checkout')
+      onClose()
+    }
+  }, [loginInfo, setActivePage, onClose])
 
   const handleMobileSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
