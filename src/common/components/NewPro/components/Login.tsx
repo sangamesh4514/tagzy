@@ -11,8 +11,6 @@ import { Button } from "src/magicUi/ui/button";
 import { useUserLogin } from "src/common/api/userLogin";
 import { Page } from "../types/types";
 import "../styles/login.css";
-import { useProviderProfile } from "../../../api/providerProfile";
-import { useParams } from "react-router-dom";
 import { useAppSelector } from "src/common/hooks/hook";
 import { saveUserInfo, getUserInfo} from "src/common/utils/userInfo"
 
@@ -36,7 +34,6 @@ const LoginDialog: React.FC<LoginDialogProps> = ({
     (state) => state.providerNumber.mobileNumber
   );
   
-  console.log('Login comp', loginInfo)
   useEffect(() => {
     if (loginInfo) {
       saveUserInfo(loginInfo)
@@ -48,7 +45,6 @@ const LoginDialog: React.FC<LoginDialogProps> = ({
   useEffect(() => {
     const userInfo = getUserInfo();
     if (userInfo) {
-      console.log("User info from sessionStorage:", userInfo);
       return
     }
   }, []);
@@ -79,12 +75,7 @@ const LoginDialog: React.FC<LoginDialogProps> = ({
 
     await verifyOtp({ phoneNumber: mobileNumber, otp: otpValue });
 
-    // console.log('1', loginInfo)
-    // if (loginInfo) {
-    //   console.log('2')
-    //   setActivePage && setActivePage("basket");
-    //   onClose(); // Close the dialog upon successful login
-    // }
+   
   };
 
   const handleOTPChange = (index: number, value: string) => {

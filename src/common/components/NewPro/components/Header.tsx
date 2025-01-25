@@ -36,7 +36,6 @@ export function Header({
     experience,
   } = userProfile;
   const subscribers = 3487;
-  console.log('###categoryType',categoryType);
 
   return (
     <header className="pro-header">

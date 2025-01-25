@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../styles/OrderModal.css';
 import { useUserLogin } from '../../../api/userLogin'
 import { useCreatePorject } from '../../../api/createProject'
-import { useProviderProfile } from '@/common/api/providerProfile';
+import { useProviderProfile } from 'src/common/api/providerProfile';
 
 interface OrderModalProps {
   isOpen: boolean;
@@ -66,8 +66,7 @@ export function OrderModal({ isOpen, onClose, onSubmit }: OrderModalProps) {
     ]
   }
 
-  console.log('###setShowOtp',setShowOtp);
-  console.log('###getOtp',getOtp);
+
   // const handleSubmit = (e: React.FormEvent) => {
   //   e.preventDefault();
   //   if (!showOtp) {

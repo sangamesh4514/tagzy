@@ -26,7 +26,6 @@ export const adminLogin = createAsyncThunk(
             )
 
             if(data) {
-                console.log('Data of user from Action', data)
                 localStorage.setItem('userId', data._id)
             }
             return data

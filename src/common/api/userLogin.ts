@@ -23,13 +23,11 @@ export function useUserLogin () {
             },
           };
     
-          const { data } = await axios.get(
+          await axios.get(
             `${process.env.REACT_APP_BACKEND_URL}/otp/generate/${mobileNumber}`,
             config
           );
-          console.log('###data',data);
         } catch (err: any) {
-          console.error("===getUser", err);
           setError(err?.response?.data?.message || "User has not found, Please Signup");
         } finally {
           setLoading(false);
@@ -56,7 +54,6 @@ export function useUserLogin () {
             setLoginInfo(data);
           }
         } catch (err: any) {
-          console.error("===getUser", err);
           setLoginInfo(null);
           setError(err?.response?.data?.message || "Failed to fetch user data");
         } finally {

@@ -5,7 +5,7 @@ import { useCart } from "../context/CartContext";
 import { IAddon } from "src/common/types";
 import { Page } from "../types/types";
 import { Dialog, DialogTrigger } from "src/magicUi/ui/dialog";
-import { renderDialogContent } from "../../Profile/userProfile";
+import { renderDialogContent } from "../../profile/userProfile";
 import EmptyCart from "src/assets/icons/EmptyCart";
 import { WorkingDaysCalendar } from "./WorkingDaysCalendar";
 import GoogleLocation from "./LocationFetcher";
@@ -40,12 +40,9 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
   const userInfo = getUserInfo();
 
   const showLoginDialog = () => {
-    console.log('===userInfo', userInfo);
     if(userInfo) {
-      console.log('===if block');
       setOrderPlaceText("Place Order")
     } else {
-      console.log('===else block');
       return (
         <div className={`sidebar ${isOpen ? "open" : "notOpen"}`}>
           <button onClick={toggleLoginSidebar} className="close-btn">

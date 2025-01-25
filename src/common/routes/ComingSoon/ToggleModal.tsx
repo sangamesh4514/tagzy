@@ -27,7 +27,6 @@ const ToggleModal = () => {
       )
       .then(
         (result) => {
-          console.log('=== result', result);
           setIsOpen(false);
           setTimeout(() => {
             setShowGreet(true);
@@ -37,7 +36,6 @@ const ToggleModal = () => {
           }, 500); // Small delay to ensure modal is closed before showing Greet
         },
         (error) => {
-          console.log('=== error', error);
         }
       );
   };

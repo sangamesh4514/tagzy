@@ -45,7 +45,6 @@ const GoogleLocation: React.FC = () => {
         setLocation({ lat, lng });
         setAddress(address); // Save the selected address
       } catch (error) {
-        console.error("Error getting geocode: ", error);
       }
     },
     [setValue, clearSuggestions, dispatch]
@@ -112,7 +111,6 @@ const GoogleLocation: React.FC = () => {
           });
         },
         (error) => {
-          console.error("Error getting current location:", error);
           alert("Unable to retrieve your location. Please try again.");
         }
       );

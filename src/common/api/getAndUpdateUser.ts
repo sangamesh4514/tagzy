@@ -25,7 +25,6 @@ export function useUserData() {
         setUserDetails(data);
       }
     } catch (err: any) {
-      console.error("===getUser", err);
       setUserDetails(null);
       setError(err?.response?.data?.message || "Failed to fetch user data");
     } finally {
@@ -52,7 +51,6 @@ export function useUserData() {
         setUserDetails(data);
       }
     } catch (err: any) {
-      console.error("===updateUser", err);
       setError(err?.response?.data?.message || "Failed to update user");
     } finally {
       setLoading(false);

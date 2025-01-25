@@ -10,7 +10,6 @@ import Loader from "src/common/components/Loader";
 const UserSearch = () => {
     const [phoneNumber, setPhoneNumber] = useState("");
     const { userDetails, loading, error, getUser } = useUserData(); // Included error state for better error handling
-    console.log("===Dashboard");
 
     const handleSearch = async () => {
         if (phoneNumber.length === 10) {

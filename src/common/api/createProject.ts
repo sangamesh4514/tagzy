@@ -26,7 +26,6 @@ export function useCreatePorject () {
             setProjectInfo(data)
           }
         } catch (err: any) {
-          console.error("===getUser", err);
           setError(err?.response?.data?.message || "User has not found, Please Signup");
         } finally {
           setLoading(false);

@@ -67,7 +67,6 @@ export default function ContactDialog(props: IProps) {
           'xZiE81yyC9gBEedO8'
         )
         .then((result) => {
-          console.log('===Form submitted:', result)
           setIsSubmitted(true)
           setTimeout(() => {
             setIsSubmitted(false)
