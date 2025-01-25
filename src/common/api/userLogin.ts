@@ -1,8 +1,8 @@
 import axios from "axios";
-import { backendUrl } from "../utils/authentication/adminActions";
 import { useState } from "react";
 import { IUserProfile } from "../types";
 
+// login data type
 interface LoginData {
     phoneNumber: string
     otp: any
@@ -24,7 +24,7 @@ export function useUserLogin () {
           };
     
           const { data } = await axios.get(
-            `${backendUrl}/otp/generate/${mobileNumber}`,
+            `${process.env.REACT_APP_BACKEND_URL}/otp/generate/${mobileNumber}`,
             config
           );
           console.log('###data',data);
@@ -47,10 +47,11 @@ export function useUserLogin () {
           };
     
           const { data } = await axios.post(
-            `${backendUrl}/otp/verify`,
+            `${process.env.REACT_APP_BACKEND_URL}/otp/verify`,
             loginData,
             config
           );
+          
           if (data) {
             setLoginInfo(data);
           }

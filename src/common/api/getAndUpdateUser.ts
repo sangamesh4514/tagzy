@@ -1,5 +1,4 @@
 import axios from "axios";
-import { backendUrl } from "../utils/authentication/adminActions";
 import { useState } from "react";
 import { IUserProfile } from "../types";
 
@@ -19,7 +18,7 @@ export function useUserData() {
       };
 
       const { data } = await axios.get(
-        `${backendUrl}/user/phoneNumber/${phoneNumber}`,
+        `${process.env.REACT_APP_BACKEND_URL}/user/phoneNumber/${phoneNumber}`,
         config
       );
       if (data) {
@@ -45,7 +44,7 @@ export function useUserData() {
       };
 
       const { data } = await axios.post(
-        `${backendUrl}/user/update`,
+        `${process.env.REACT_APP_BACKEND_URL}/user/update`,
         inputData,
         config
       );

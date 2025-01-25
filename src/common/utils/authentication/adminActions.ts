@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export const backendUrl = "https://web-production-ff56.up.railway.app";
-
+// admin login type
 interface AdminLoginType{
     userId: string
     password: string
@@ -17,7 +16,8 @@ export const adminLogin = createAsyncThunk(
                     'Content-Type': 'application/json'
                 }
             }
-            const { data } = await axios.post(`${backendUrl}/admin/login`, 
+            
+            const { data } = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/admin/login`, 
                 {
                     "phoneNumber": userId,
                     "password": password

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { backendUrl } from "../utils/authentication/adminActions";
 import { useState } from "react";
 import { Booking } from "../types";
 
@@ -19,7 +18,7 @@ export function useCreatePorject () {
           };
     
           const { data } = await axios.post(
-            `${backendUrl}/project/create`,
+            `${process.env.REACT_APP_BACKEND_URL}/project/create`,
             payload,
             config
           );

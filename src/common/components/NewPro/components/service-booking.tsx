@@ -5,7 +5,7 @@ import { useCart } from "../context/CartContext";
 import { IAddon } from "src/common/types";
 import { Page } from "../types/types";
 import { Dialog, DialogTrigger } from "src/magicUi/ui/dialog";
-import { renderDialogContent } from "../../profile/userProfile";
+import { renderDialogContent } from "../../Profile/userProfile";
 import EmptyCart from "src/assets/icons/EmptyCart";
 import { WorkingDaysCalendar } from "./WorkingDaysCalendar";
 import GoogleLocation from "./LocationFetcher";
@@ -16,6 +16,7 @@ import { updateBoolean } from "../dataSlice";
 import StickyBar from "./StickyBar";
 import { useState } from "react";
 import LoginPage from "./Login";
+import { getUserInfo } from "src/common/utils/userInfo";
 
 interface ServiceBookingProps {
   setActivePage: (page: Page) => void;
@@ -24,6 +25,7 @@ interface ServiceBookingProps {
 export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
 
   const [isOpen, setIsOpen] = useState(false);
+  const [orderPlaceText, setOrderPlaceText] = useState("Login User");
   const dispatch = useDispatch();
   const { isBoolean, text } = useSelector((state: RootState) => state.data);
   const {
@@ -35,8 +37,25 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
     addAddon,
   } = useCart();
   const addonsInCart = cartItem?.addons || [];
-  
+  const userInfo = getUserInfo();
 
+  const showLoginDialog = () => {
+    console.log('===userInfo', userInfo);
+    if(userInfo) {
+      console.log('===if block');
+      setOrderPlaceText("Place Order")
+    } else {
+      console.log('===else block');
+      return (
+        <div className={`sidebar ${isOpen ? "open" : "notOpen"}`}>
+          <button onClick={toggleLoginSidebar} className="close-btn">
+            &times;
+          </button>
+          <LoginPage isOpen={isOpen} onClose={() => setIsOpen(!isOpen)} setActivePage={setActivePage} />
+        </div>
+      )
+    }
+  }
   // Load the Google Maps script and Places library
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_KEY || "",
@@ -135,6 +154,7 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
                       <button
                         onClick={() => decrementAddon(addon._id)}
                         className="decrementAddon"
+                        // disabled={quantity === 0 ? true : false}
                       >
                         <Minus className="w-4 h-4" />
                       </button>
@@ -166,7 +186,7 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
           </div>
 
           {!isBoolean ? (
-            <div className="userEnteraddress">
+            <div className="userEnteraddress mx-4 sm:mx-8">
               <div className="text-lg sm:text-xl font-bold sm:font-normal mb-2">
                 Select Location:-
               </div>
@@ -294,19 +314,13 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
               </div>
             ) : (
               <div>
-
                 <StickyBar
                   setActivePage={setActivePage}
                   toggleSidebar={toggleLoginSidebar}
                   test="Basket-stickyBar"
-                  buttonName={"Proceed"}
+                  buttonName={orderPlaceText}
                 />
-                <div className={`sidebar ${isOpen ? "open" : "notOpen"}`}>
-                  <button onClick={toggleLoginSidebar} className="close-btn">
-                    &times;
-                  </button>
-                  <LoginPage isOpen={isOpen} onClose={() => setIsOpen(false)} setActivePage={setActivePage} />
-                </div>
+                {showLoginDialog()}
               </div>
             )}
           </div>

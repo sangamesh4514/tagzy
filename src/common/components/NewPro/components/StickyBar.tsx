@@ -12,9 +12,9 @@ interface StickyBarProps {
 }
 
 const StickyBar: React.FC<StickyBarProps> = ({ setActivePage,test, toggleSidebar, buttonName }) => {
+  
   const [isInView, setIsInView] = useState(false); 
   const { cartItem } = useCart();
-  console.log(setActivePage, 'Active Page')
 
   useEffect(() => {
     const targetElement = document.getElementById(test);

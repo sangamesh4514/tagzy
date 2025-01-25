@@ -27,23 +27,29 @@ import NewPro from "../NewPro";
 import Header from "../Header";
 import Footer from "../Footer";
 import userDataJson from './data.json';
+import { useAppDispatch } from "src/common/hooks/hook";
+import { setMobileNumber } from "src/common/utils/providerProfile/providerProfileSlice";
 
 const ProProfile: React.FC = () => {
   const { userId } = useParams<{ userId: string }>(); // Extract userId from the URL
   const [userData, setUserData] = useState<IUserProfile | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const dispatch = useAppDispatch();
+    
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const response = await fetch(
-          `https://web-production-ff56.up.railway.app/user/id/${userId}`
+          `${process.env.REACT_APP_BACKEND_URL}/user/id/${userId}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch user data");
         }
         const data: IUserProfile = await response.json();
         setUserData(data || userDataJson);
+        dispatch(setMobileNumber(data.phoneNumber));
+
       } catch (error) {
         setUserData(userDataJson);
 
@@ -55,6 +61,8 @@ const ProProfile: React.FC = () => {
 
     fetchUserData();
   }, [userId]);
+
+  console.log('User Data', userData)
 
   if (loading) {
     return (
@@ -330,7 +338,7 @@ const ProProfile: React.FC = () => {
       ) : (
         <>
           <Header />
-          <NewPro userProfile={userData} />
+            <NewPro userProfile={userData} />
           <Footer />
         </>
       )}

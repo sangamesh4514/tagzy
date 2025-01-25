@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../styles/OrderModal.css';
 import { useUserLogin } from '../../../api/userLogin'
 import { useCreatePorject } from '../../../api/createProject'
+import { useProviderProfile } from '@/common/api/providerProfile';
 
 interface OrderModalProps {
   isOpen: boolean;
@@ -20,6 +21,7 @@ export function OrderModal({ isOpen, onClose, onSubmit }: OrderModalProps) {
   const [showOtp, setShowOtp] = useState(false);
   const { getOtp, verifyOtp } = useUserLogin();
   const { projectCreation } = useCreatePorject()
+  const { providerProfile, getProviderProfile, loading } = useProviderProfile()
 
   const test = {
     proPhoneNumber: 9559303975,

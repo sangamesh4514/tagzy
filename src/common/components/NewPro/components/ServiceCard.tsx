@@ -30,6 +30,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
   const addonsInCart = cartItem?.addons || [];
 
   const handleBook = () => {
+    console.log('===onclick handle');
     if (!isServiceInCart) {
       if (!cartItem) {
         addToCart(service);

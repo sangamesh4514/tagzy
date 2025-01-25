@@ -1,39 +1,69 @@
 import React, { useEffect, useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "src/magicUi/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "src/magicUi/ui/dialog";
 import { Input } from "src/magicUi/ui/input";
 import { Button } from "src/magicUi/ui/button";
 import { useUserLogin } from "src/common/api/userLogin";
 import { Page } from "../types/types";
 import "../styles/login.css";
+import { useProviderProfile } from "../../../api/providerProfile";
+import { useParams } from "react-router-dom";
+import { useAppSelector } from "src/common/hooks/hook";
+import { saveUserInfo, getUserInfo} from "src/common/utils/userInfo"
 
 interface LoginDialogProps {
   isOpen: boolean;
   onClose: () => void;
-  setActivePage?: (page: Page) => void;
+  setActivePage: (page: Page) => void;
 }
 
-const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose, setActivePage }) => {
+const LoginDialog: React.FC<LoginDialogProps> = ({
+  isOpen,
+  onClose,
+  setActivePage,
+}) => {
   const [mobileNumber, setMobileNumber] = useState<string>("");
   const [showOTP, setShowOTP] = useState<boolean>(false);
   const [otp, setOTP] = useState<string[]>(["", "", "", ""]);
 
   const { getOtp, verifyOtp, loginInfo, loading, error } = useUserLogin();
-
+  const providerNumber = useAppSelector(
+    (state) => state.providerNumber.mobileNumber
+  );
+  
+  console.log('Login comp', loginInfo)
   useEffect(() => {
-    if(loginInfo && setActivePage) {
-      setActivePage('checkout')
-      onClose()
+    if (loginInfo) {
+      saveUserInfo(loginInfo)
+      setActivePage("basket");
+      onClose();
     }
-  }, [loginInfo, setActivePage, onClose])
+  }, [loginInfo]);
+  
+  useEffect(() => {
+    const userInfo = getUserInfo();
+    if (userInfo) {
+      console.log("User info from sessionStorage:", userInfo);
+      return
+    }
+  }, []);
 
   const handleMobileSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (mobileNumber.length !== 10) {
       window.alert("Enter a valid 10-digit number");
       return;
     }
 
+    if (providerNumber === mobileNumber) {
+      window.alert(`You can't book your own services.`);
+      return;
+    }
     await getOtp(mobileNumber);
     setShowOTP(true);
   };
@@ -49,10 +79,12 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose, setActivePag
 
     await verifyOtp({ phoneNumber: mobileNumber, otp: otpValue });
 
-    if (loginInfo) {
-      setActivePage && setActivePage("checkout");
-      onClose(); // Close the dialog upon successful login
-    }
+    // console.log('1', loginInfo)
+    // if (loginInfo) {
+    //   console.log('2')
+    //   setActivePage && setActivePage("basket");
+    //   onClose(); // Close the dialog upon successful login
+    // }
   };
 
   const handleOTPChange = (index: number, value: string) => {
@@ -71,7 +103,10 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose, setActivePag
     }
   };
 
-  const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (
+    index: number,
+    e: React.KeyboardEvent<HTMLInputElement>
+  ) => {
     if (e.key === "Backspace" && !otp[index] && index > 0) {
       const prevInput = document.querySelector<HTMLInputElement>(
         `input[name='otp-${index - 1}']`
@@ -90,7 +125,9 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose, setActivePag
             </div>
             <div className="ml-2 text-center">Login</div>
           </DialogTitle>
-          <DialogDescription className="mx-auto">Enter your mobile number to continue</DialogDescription>
+          <DialogDescription className="mx-auto">
+            Enter your mobile number to continue
+          </DialogDescription>
         </DialogHeader>
 
         <div>
@@ -120,7 +157,9 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose, setActivePag
             {/* OTP Section */}
             {showOTP && (
               <div className="otp-section">
-                <p className="text-center">Enter OTP sent to +91 {mobileNumber}</p>
+                <p className="text-center">
+                  Enter OTP sent to +91 {mobileNumber}
+                </p>
                 <div className="otp-input-group">
                   {otp.map((digit, index) => (
                     <input
@@ -138,9 +177,7 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose, setActivePag
                   ))}
                 </div>
                 <div className="text-center">
-                  <span>
-                    Not Received OTP?
-                  </span>
+                  <span>Not Received OTP?</span>
                   <button
                     type="button"
                     className="resend-button text-colorA ml-2"

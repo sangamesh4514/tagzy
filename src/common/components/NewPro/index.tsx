@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Header } from "./components/Header";
 import { ServiceCard } from "./components/ServiceCard";
 import { CartProvider } from "./context/CartContext";
@@ -20,7 +20,6 @@ export default function NewPro({ userProfile }: IProps) {
   const [activePage, setActivePage] = useState<Page>("services");
   const [isOpen, setIsOpen] = useState(false);
 
-  console.log(setIsOpen)
   const toggleSidebar = () => {
     setActivePage('basket')
   };

@@ -27,8 +27,7 @@ export const WorkingDaysCalendar: React.FC<WorkingDaysCalendarProps> = ({
 }) => {
   const [selectedDay, setSelectedDay] = useState<Date | undefined>(undefined);
   // const [selectedTimeSlot, setSelectedTimeSlot] = useState<string | undefined>(undefined)
-  const { cartItem, setSelectedDate, setSelectedTimeSlot } = useCart();
-  console.log('$$$setSelectedDate',setSelectedDate);
+  const { cartItem, setSelectedTimeSlot } = useCart();
   const today = startOfDay(new Date());
   const twentyDaysLater = addDays(today, 20);
 

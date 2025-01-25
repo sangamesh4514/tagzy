@@ -120,7 +120,6 @@ const GoogleLocation: React.FC = () => {
       alert("Geolocation is not supported by this browser.");
     }
   };
-  console.log('===!isTyping',!isTyping,'location',location, 'address',address);
 
   return (
     <div>
