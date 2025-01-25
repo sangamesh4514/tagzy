@@ -16,7 +16,7 @@ import { updateBoolean } from "../dataSlice";
 import StickyBar from "./StickyBar";
 import { useState } from "react";
 import LoginPage from "./Login";
-import { getUserInfo } from "src/common/utils/userInfo";
+import { clearLocation, getUserInfo } from "src/common/utils/sessionUtlis";
 
 interface ServiceBookingProps {
   setActivePage: (page: Page) => void;
@@ -80,6 +80,26 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
   const handleAddonToggle = (addon: IAddon) => {
     addAddon(addon);
   };
+
+  const changeLocationHandler = () => {
+    dispatch(updateBoolean(false))
+
+    // clear previous location from session
+    const previousLocation = sessionStorage.getItem("userLocation")
+    if(previousLocation) {
+      clearLocation()
+    }
+
+    const cartItem = JSON.parse(sessionStorage.getItem("cart")as any) 
+    // Check if cartItem exists, then update its properties
+    if (cartItem) {
+      cartItem.selectedDate = null; // Reset selectedDate
+      cartItem.selectedTimeSlot = null; // Reset selectedTimeSlot
+
+      // Save the updated cartItem back to sessionStorage
+      sessionStorage.setItem("cart", JSON.stringify(cartItem));
+    }
+  }
 
   const getTotal = () => {
     return (
@@ -259,7 +279,7 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
                   <div className="text-lg sm:text-xl font-bold sm:font-normal">Selected Location :-</div>
                   <span>{text}</span>
                   <button
-                    onClick={() => dispatch(updateBoolean(false))}
+                    onClick={changeLocationHandler}
                     className="bg-colorA hover:bg-colorB text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                   >
                     Change Location

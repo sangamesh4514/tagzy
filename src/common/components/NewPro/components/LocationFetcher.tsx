@@ -8,6 +8,8 @@ import { calculateDistance } from "../utils";
 import { useDispatch } from "react-redux";
 import { updateBoolean, updateText } from "../dataSlice";
 import { MapPinHouse } from "lucide-react";
+import { ILocation } from "src/common/types";
+import { saveLocationToSession } from "src/common/utils/sessionUtlis"
 
 const GoogleLocation: React.FC = () => {
   const dispatch = useDispatch();
@@ -103,6 +105,18 @@ const GoogleLocation: React.FC = () => {
               dispatch(updateText(results[0].formatted_address));
               setValue("");
               setIsTyping(false); // Stop typing state
+
+              // Save the location to sessionStorage
+            const userCurrentlocation: ILocation = {
+              coordinates: [latitude, longitude],
+              name: address as any,
+              type: "currentLocation", // Optional type property
+            };
+
+            if(userCurrentlocation) {
+              saveLocationToSession(userCurrentlocation)
+            }
+
             } else if (!results) {
               alert("Geocoder returned null results.");
             } else {

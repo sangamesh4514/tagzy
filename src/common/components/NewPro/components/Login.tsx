@@ -12,7 +12,7 @@ import { useUserLogin } from "src/common/api/userLogin";
 import { Page } from "../types/types";
 import "../styles/login.css";
 import { useAppSelector } from "src/common/hooks/hook";
-import { saveUserInfo, getUserInfo} from "src/common/utils/userInfo"
+import { saveUserInfo, getUserInfo} from "src/common/utils/sessionUtlis"
 
 interface LoginDialogProps {
   isOpen: boolean;
