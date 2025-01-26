@@ -18,12 +18,12 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 // Helper functions to work with sessionStorage
-const loadCartFromStorage = (): CartItem | null => {
+export const loadCartFromStorage = (): CartItem | null => {
   const storedCart = sessionStorage.getItem("cart");
   return storedCart ? JSON.parse(storedCart) : null;
 };
 
-const saveCartToStorage = (cart: CartItem | null) => {
+export const saveCartToStorage = (cart: CartItem | null) => {
   if (cart) {
     sessionStorage.setItem("cart", JSON.stringify(cart));
   } else {

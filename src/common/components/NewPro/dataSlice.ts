@@ -1,21 +1,23 @@
+import { getLocationFromSession } from 'src/common/utils/sessionUtlis';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+const savedLocation = getLocationFromSession()
 interface DataState {
-  isBoolean: boolean;
+  isLocationFound: boolean;
   text: string;
 }
 
 const initialState: DataState = {
-  isBoolean: false,
-  text: '',
+  isLocationFound: false || !!savedLocation,
+  text: savedLocation?.name ?? '' ,
 };
 
 const dataSlice = createSlice({
   name: 'data',
   initialState,
   reducers: {
-    updateBoolean: (state, action: PayloadAction<boolean>) => {
-      state.isBoolean = action.payload;
+    updatedLocationFound: (state, action: PayloadAction<boolean>) => {
+      state.isLocationFound = action.payload;
     },
     updateText: (state, action: PayloadAction<string>) => {
       state.text = action.payload;
@@ -23,5 +25,5 @@ const dataSlice = createSlice({
   },
 });
 
-export const { updateBoolean, updateText } = dataSlice.actions;
+export const { updatedLocationFound, updateText } = dataSlice.actions;
 export default dataSlice.reducer;

@@ -37,7 +37,7 @@ const LoginDialog: React.FC<LoginDialogProps> = ({
   useEffect(() => {
     if (loginInfo) {
       saveUserInfo(loginInfo)
-      setActivePage("basket");
+      // setActivePage("basket");
       onClose();
     }
   }, [loginInfo]);

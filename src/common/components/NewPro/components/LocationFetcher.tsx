@@ -6,7 +6,7 @@ import usePlacesAutocomplete, {
 import { useCart } from "../context/CartContext";
 import { calculateDistance } from "../utils";
 import { useDispatch } from "react-redux";
-import { updateBoolean, updateText } from "../dataSlice";
+import { updatedLocationFound, updateText } from "../dataSlice";
 import { MapPinHouse } from "lucide-react";
 import { ILocation } from "src/common/types";
 import { saveLocationToSession } from "src/common/utils/sessionUtlis"
@@ -46,6 +46,17 @@ const GoogleLocation: React.FC = () => {
         const { lat, lng } = await getLatLng(results[0]);
         setLocation({ lat, lng });
         setAddress(address); // Save the selected address
+
+        // Save the location to sessionStorage
+        const userCurrentlocation: ILocation = {
+          coordinates: [lat, lng],
+          name: address as any,
+          type: "Point", // Optional type property
+        };
+
+        if(userCurrentlocation) {
+          saveLocationToSession(userCurrentlocation)
+        }
       } catch (error) {
       }
     },
@@ -78,10 +89,10 @@ const GoogleLocation: React.FC = () => {
       const serviceDistance = cartItem?.service.maxServiceDistance >= dist;
       setLocationMessage(serviceDistance);
       setTimeout(() => {
-        dispatch(updateBoolean(serviceDistance));
+        dispatch(updatedLocationFound(serviceDistance));
       }, 500);
     }
-  }, [cartItem, dispatch, location, providerServiceLocation]);
+  }, [cartItem, location, providerServiceLocation, dispatch]);
 
   // Function to get current location using Geolocation API
   const handleCurrentLocation = () => {
@@ -101,21 +112,22 @@ const GoogleLocation: React.FC = () => {
               results &&
               results[0]
             ) {
-              setAddress(results[0].formatted_address); // Set the place name
-              dispatch(updateText(results[0].formatted_address));
+              const updatedAddress = results[0].formatted_address
+              setAddress(updatedAddress); // Set the place name
+              dispatch(updateText(updatedAddress));
               setValue("");
               setIsTyping(false); // Stop typing state
-
               // Save the location to sessionStorage
-            const userCurrentlocation: ILocation = {
-              coordinates: [latitude, longitude],
-              name: address as any,
-              type: "currentLocation", // Optional type property
-            };
 
-            if(userCurrentlocation) {
-              saveLocationToSession(userCurrentlocation)
-            }
+              const userCurrentlocation: ILocation = {
+                coordinates: [latitude, longitude],
+                name: updatedAddress,
+                type: "Point", // Optional type property
+              };
+
+              if(userCurrentlocation) {
+                saveLocationToSession(userCurrentlocation)
+              }
 
             } else if (!results) {
               alert("Geocoder returned null results.");
@@ -132,6 +144,26 @@ const GoogleLocation: React.FC = () => {
       alert("Geolocation is not supported by this browser.");
     }
   };
+
+
+  // function to select location via suggestions 
+  // const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setValue(e.target.value);
+  //   setIsTyping(true); // Start typing state
+  //   setLocation(null);
+  //   setAddress(null);
+
+  //   // Save the location to sessionStorage
+  //   const userCurrentlocation: ILocation = {
+  //     coordinates: [],
+  //     name: address as any,
+  //     type: "currentLocation", // Optional type property
+  //   };
+
+  //   if(userCurrentlocation) {
+  //     saveLocationToSession(userCurrentlocation)
+  //   }
+  // }
 
   return (
     <div>

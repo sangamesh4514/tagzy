@@ -50,6 +50,7 @@ export interface Service {
 }
 
 export interface IUserProfile {
+  _id: string;
   createdAt: string;
   fcmToken?: string;
   name?: string;
@@ -81,13 +82,21 @@ export interface CartItem {
   selectedTimeSlot: string | null;
 }
 
+export interface IProcedure {
+  step: number;
+  name: string;
+  status: string;
+  dateTime: string;
+  userType: string;
+}
+
 export interface Booking {
   proPhoneNumber: string;
   clientPhoneNumber: string;
   address: string;
-  location: Record<string, unknown>; // Or replace with a specific type if you know the structure of 'location'
+  location: ILocation; // Or replace with a specific type if you know the structure of 'location'
   status: string;
-  dateTime: string; // Can be a Date object if parsed later
+  dateTime?: string; // Can be a Date object if parsed later
   proName: string;
   clientName: string;
   discount: number;
@@ -96,6 +105,6 @@ export interface Booking {
   clientId: string;
   serviceId: string;
   typeOfService: string;
-  addOns: string[];
-  procedure: string[];
+  addOns?: IAddon[];
+  procedure: IProcedure[];
 }

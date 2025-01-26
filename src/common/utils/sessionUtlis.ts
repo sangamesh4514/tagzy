@@ -43,7 +43,7 @@ export const saveLocationToSession = (location: ILocation) => {
   sessionStorage.setItem("userLocation", JSON.stringify(locationData));
 };
 
-export const getLocationFromSession = (location: ILocation | null) => {
+export const getLocationFromSession = (): ILocation | null => {
   const locationData = sessionStorage.getItem("userLocation");
   if (locationData) {
     return JSON.parse(locationData);

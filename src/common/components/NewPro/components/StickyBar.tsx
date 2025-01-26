@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import "../styles/StickyBar.css";
 import { useCart } from "../context/CartContext";
-import { Page } from "../types/types";
+// import { Page } from "../types/types";
 
 interface StickyBarProps {
   // setActivePage: (page: Page) => void;
