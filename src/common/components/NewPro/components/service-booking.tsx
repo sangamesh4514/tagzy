@@ -79,7 +79,7 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
 
   
     // Check if date and time are not selected first
-    if (!(cartItem?.selectedDate && cartItem?.selectedTimeSlot)) {
+    if (!(cartItem?.selectedDate || cartItem?.selectedTimeSlot)) {
       dialogContent = (
         <Dialog open={isOpen} onOpenChange={() => setIsOpen(!isOpen)}>
           <DialogContent className="bg-white" style={{ height: "250px" }}>
