@@ -30,7 +30,7 @@ const ProProfile: React.FC = () => {
           throw new Error("Failed to fetch user data");
         }
         const data: IUserProfile = await response.json();
-        setUserData(data || userDataJson);
+        setUserData(data);
         dispatch(setMobileNumber(data.phoneNumber));
       } catch (error) {
         setUserData(userDataJson);

@@ -9,44 +9,42 @@ import {
 import { Input } from "src/magicUi/ui/input";
 import { Button } from "src/magicUi/ui/button";
 import { useUserLogin } from "src/common/api/userLogin";
-import { Page } from "../types/types";
 import "../styles/login.css";
 import { useAppSelector } from "src/common/hooks/hook";
-import { saveUserInfo, getUserInfo} from "src/common/utils/sessionUtlis"
+import { saveUserInfo } from "src/common/utils/sessionUtlis";
+import { RefreshCw } from "lucide-react";
 
 interface LoginDialogProps {
   isOpen: boolean;
   onClose: () => void;
-  setActivePage: (page: Page) => void;
 }
 
-const LoginDialog: React.FC<LoginDialogProps> = ({
-  isOpen,
-  onClose,
-  setActivePage,
-}) => {
+const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
   const [mobileNumber, setMobileNumber] = useState<string>("");
   const [showOTP, setShowOTP] = useState<boolean>(false);
   const [otp, setOTP] = useState<string[]>(["", "", "", ""]);
 
-  const { getOtp, verifyOtp, loginInfo, loading, error } = useUserLogin();
+  const { getOtp, verifyOtp, loginInfo, loading, error, setError } =
+    useUserLogin();
   const providerNumber = useAppSelector(
     (state) => state.providerNumber.mobileNumber
   );
-  
+
   useEffect(() => {
     if (loginInfo) {
-      saveUserInfo(loginInfo)
-      onClose();
+      saveUserInfo(loginInfo);
     }
-  }, [loginInfo, onClose]);
-  
-  useEffect(() => {
-    const userInfo = getUserInfo();
-    if (userInfo) {
-      return
-    }
-  }, []);
+
+    return () => {
+      if (error) {
+        console.log("=== inside error");
+        setMobileNumber("");
+        setShowOTP(false);
+        setOTP(["", "", "", ""]);
+        setError(null);
+      }
+    };
+  }, [loginInfo, error, setError]);
 
   const handleMobileSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,6 +54,7 @@ const LoginDialog: React.FC<LoginDialogProps> = ({
     }
 
     if (providerNumber === mobileNumber) {
+      setMobileNumber("");
       window.alert(`You can't book your own services.`);
       return;
     }
@@ -73,8 +72,6 @@ const LoginDialog: React.FC<LoginDialogProps> = ({
     }
 
     await verifyOtp({ phoneNumber: mobileNumber, otp: otpValue });
-
-   
   };
 
   const handleOTPChange = (index: number, value: string) => {
@@ -104,6 +101,25 @@ const LoginDialog: React.FC<LoginDialogProps> = ({
       prevInput?.focus();
     }
   };
+
+  const handleReset = () => {
+    setMobileNumber("");
+    setShowOTP(false);
+    setOTP(["", "", "", ""]);
+    setError(null);
+  };
+
+  //!! PRINCE
+
+  // const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  //   if (e.key === "Enter") {
+  //     if (showOTP) {
+  //       handleOTPVerify(e);
+  //     } else {
+  //       handleMobileSubmit(e);
+  //     }
+  //   }
+  // };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -137,11 +153,19 @@ const LoginDialog: React.FC<LoginDialogProps> = ({
                   const value = e.target.value.replace(/\D/g, "");
                   if (value.length <= 10) setMobileNumber(value);
                 }}
+                // onKeyUp={handleKeyPress}
                 placeholder="Enter mobile number"
                 maxLength={10}
                 disabled={showOTP || loading}
                 required
               />
+              <button
+                style={{ display: `${showOTP ? "" : "none"}` }}
+                disabled={loading}
+                onClick={handleReset}
+              >
+                <RefreshCw color="#096c6c" />
+              </button>
             </div>
 
             {/* OTP Section */}
@@ -154,7 +178,7 @@ const LoginDialog: React.FC<LoginDialogProps> = ({
                   {otp.map((digit, index) => (
                     <input
                       key={index}
-                      type="text"
+                      type="number"
                       inputMode="numeric"
                       name={`otp-${index}`}
                       value={digit}

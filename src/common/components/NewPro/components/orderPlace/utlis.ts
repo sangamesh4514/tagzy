@@ -53,9 +53,8 @@ export const transformOrderPlacePayload = (
     address: address || "",
     location: userLocation,
     status: "NOT_STARTED",
-    dateTime: cartItem.selectedDate && cartItem.selectedTimeSlot
-      ? formatDateTime(cartItem.selectedDate, cartItem.selectedTimeSlot)
-      : undefined,
+    serviceName: cartItem.service.name,
+    dateTime: cartItem.selectedDate && cartItem.selectedTimeSlot ? formatDateTime(cartItem.selectedDate, cartItem.selectedTimeSlot) : currentDateTime,
     proName: cartItem.service.proName,
     clientName: userInfo.name || userInfo.phoneNumber,
     discount: discount || 0,
