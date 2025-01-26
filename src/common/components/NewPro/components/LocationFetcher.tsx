@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { updatedLocationFound, updateText } from "../dataSlice";
 import { MapPinHouse } from "lucide-react";
 import { ILocation } from "src/common/types";
-import { saveLocationToSession } from "src/common/utils/sessionUtlis"
+import { saveLocationToSession } from "src/common/utils/sessionUtlis";
 
 const GoogleLocation: React.FC = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const GoogleLocation: React.FC = () => {
   const [location, setLocation] = useState<{ lat: number; lng: number } | null>(
     null
   );
-  const [address, setAddress] = useState<string | null>(null); 
+  const [address, setAddress] = useState<string | null>(null);
   const [locationMessage, setLocationMessage] = useState<boolean>(false);
   const [isTyping, setIsTyping] = useState(false);
 
@@ -54,11 +54,10 @@ const GoogleLocation: React.FC = () => {
           type: "Point", // Optional type property
         };
 
-        if(userCurrentlocation) {
-          saveLocationToSession(userCurrentlocation)
+        if (userCurrentlocation) {
+          saveLocationToSession(userCurrentlocation);
         }
-      } catch (error) {
-      }
+      } catch (error) {}
     },
     [setValue, clearSuggestions, dispatch]
   );
@@ -112,7 +111,7 @@ const GoogleLocation: React.FC = () => {
               results &&
               results[0]
             ) {
-              const updatedAddress = results[0].formatted_address
+              const updatedAddress = results[0].formatted_address;
               setAddress(updatedAddress); // Set the place name
               dispatch(updateText(updatedAddress));
               setValue("");
@@ -125,10 +124,9 @@ const GoogleLocation: React.FC = () => {
                 type: "Point", // Optional type property
               };
 
-              if(userCurrentlocation) {
-                saveLocationToSession(userCurrentlocation)
+              if (userCurrentlocation) {
+                saveLocationToSession(userCurrentlocation);
               }
-
             } else if (!results) {
               alert("Geocoder returned null results.");
             } else {
@@ -145,8 +143,7 @@ const GoogleLocation: React.FC = () => {
     }
   };
 
-
-  // function to select location via suggestions 
+  // function to select location via suggestions
   // const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
   //   setValue(e.target.value);
   //   setIsTyping(true); // Start typing state
@@ -213,8 +210,10 @@ const GoogleLocation: React.FC = () => {
         <div className="InvalidLocation">
           <table>
             <tr>
-              <td style={{minWidth: '250px', fontSize: '1.25rem'}}>Selected Location :</td>
-              <td style={{fontSize: '1rem', width:'100%'}}>{address}</td>
+              <td style={{ minWidth: "250px", fontSize: "1.25rem" }}>
+                Selected Location :
+              </td>
+              <td style={{ fontSize: "1rem", width: "100%" }}>{address}</td>
             </tr>
           </table>
           {/* <h2>Selected Location: {address}</h2> */}

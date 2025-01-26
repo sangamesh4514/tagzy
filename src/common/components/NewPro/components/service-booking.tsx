@@ -5,7 +5,7 @@ import { useLoadScript } from "@react-google-maps/api";
 
 import "../styles/service-booking.css";
 import { Button } from "../../ui/button";
-import { loadCartFromStorage, useCart } from "../context/CartContext";
+import { getCartFromStorage, saveCartToStorage, useCart } from "../context/CartContext";
 import type { IAddon } from "src/common/types";
 import type { Page } from "../types/types";
 import {
@@ -42,10 +42,12 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
     cartItem,
     removeFromCart,
     addAddon,
+    setSelectedDate,
+    setSelectedTimeSlot
   } = useCart();
   const addonsInCart = cartItem?.addons || [];
   const userSessionData = getUserInfo();
-  const cartSessionData = loadCartFromStorage()
+  const cartSessionData = getCartFromStorage()
   const userLocationSessionData = getLocationFromSession()
   const { projectCreation } = useCreatePorject()
 
@@ -177,9 +179,22 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
   const changeLocationHandler = () => {
     dispatch(updatedLocationFound(false));
     const previousLocation = sessionStorage.getItem("userLocation");
+    const cartSessionData = getCartFromStorage()
 
+    // clear location from session
     if (previousLocation) {
       clearLocation();
+    }
+
+    if(cartSessionData) {
+      //null value of date and time from session and context
+      cartSessionData.selectedDate = null;
+      cartSessionData.selectedTimeSlot = null;
+      setSelectedDate("")
+      setSelectedTimeSlot("")
+
+      // save and update cartItem session
+      saveCartToStorage(cartSessionData)
     }
   };
 

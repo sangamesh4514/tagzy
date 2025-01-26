@@ -11,7 +11,7 @@ import { ILocation, IUserProfile } from "../types";
 //   }
 // };
 
-// export const loadCartFromStorage = (): CartItem | null => {
+// export const getCartFromStorage = (): CartItem | null => {
 //   const storedCart = sessionStorage.getItem("cart");
 //   return storedCart ? JSON.parse(storedCart) : null;
 // };

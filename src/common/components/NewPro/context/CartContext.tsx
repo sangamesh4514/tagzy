@@ -18,7 +18,7 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 // Helper functions to work with sessionStorage
-export const loadCartFromStorage = (): CartItem | null => {
+export const getCartFromStorage = (): CartItem | null => {
   const storedCart = sessionStorage.getItem("cart");
   return storedCart ? JSON.parse(storedCart) : null;
 };
@@ -31,9 +31,13 @@ export const saveCartToStorage = (cart: CartItem | null) => {
   }
 };
 
+export const clearCartFromStorage = () => {
+  sessionStorage.removeItem("cart")
+}
+
 // Cart Provider
 export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [cartItem, setCartItem] = useState<CartItem | null>(loadCartFromStorage());
+  const [cartItem, setCartItem] = useState<CartItem | null>(getCartFromStorage());
 
   // Save cart to sessionStorage whenever it changes
   useEffect(() => {

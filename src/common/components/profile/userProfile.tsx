@@ -13,12 +13,17 @@ import Footer from "../Footer";
 import userDataJson from "./data.json";
 import { useAppDispatch } from "src/common/hooks/hook";
 import { setMobileNumber } from "src/common/utils/providerProfile/providerProfileSlice";
+import {
+  clearCartFromStorage,
+  getCartFromStorage,
+} from "../../components/NewPro/context/CartContext";
 
 const ProProfile: React.FC = () => {
   const { userId } = useParams<{ userId: string }>(); // Extract userId from the URL
   const [userData, setUserData] = useState<IUserProfile | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const dispatch = useAppDispatch();
+  const cartSessionData = getCartFromStorage();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -30,18 +35,21 @@ const ProProfile: React.FC = () => {
           throw new Error("Failed to fetch user data");
         }
         const data: IUserProfile = await response.json();
-        setUserData(data || userDataJson);
+        setUserData(data);
         dispatch(setMobileNumber(data.phoneNumber));
+        // clear session
+        if (cartSessionData) {
+          clearCartFromStorage();
+        }
       } catch (error) {
         setUserData(userDataJson);
-
       } finally {
         setLoading(false);
       }
     };
 
     fetchUserData();
-  }, [userId, dispatch]);
+  }, [userId, dispatch, cartSessionData]);
 
 
   if (loading) {
