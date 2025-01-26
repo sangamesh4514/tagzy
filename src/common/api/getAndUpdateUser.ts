@@ -1,5 +1,4 @@
 import axios from "axios";
-import { backendUrl } from "../utils/authentication/adminActions";
 import { useState } from "react";
 import { IUserProfile } from "../types";
 
@@ -19,14 +18,13 @@ export function useUserData() {
       };
 
       const { data } = await axios.get(
-        `${backendUrl}/user/phoneNumber/${phoneNumber}`,
+        `${process.env.REACT_APP_BACKEND_URL}/user/phoneNumber/${phoneNumber}`,
         config
       );
       if (data) {
         setUserDetails(data);
       }
     } catch (err: any) {
-      console.error("===getUser", err);
       setUserDetails(null);
       setError(err?.response?.data?.message || "Failed to fetch user data");
     } finally {
@@ -45,7 +43,7 @@ export function useUserData() {
       };
 
       const { data } = await axios.post(
-        `${backendUrl}/user/update`,
+        `${process.env.REACT_APP_BACKEND_URL}/user/update`,
         inputData,
         config
       );
@@ -53,7 +51,6 @@ export function useUserData() {
         setUserDetails(data);
       }
     } catch (err: any) {
-      console.error("===updateUser", err);
       setError(err?.response?.data?.message || "Failed to update user");
     } finally {
       setLoading(false);

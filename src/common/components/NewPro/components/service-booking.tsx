@@ -1,41 +1,58 @@
-import { Trash2, Plus, Minus, ShoppingCart } from "lucide-react";
+import React, { useState } from "react";
+import { ShoppingCart } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLoadScript } from "@react-google-maps/api";
+
 import "../styles/service-booking.css";
 import { Button } from "../../ui/button";
-import { useCart } from "../context/CartContext";
-import { IAddon } from "src/common/types";
-import { Page } from "../types/types";
-import { Dialog, DialogTrigger } from "src/magicUi/ui/dialog";
-import { renderDialogContent } from "../../profile/userProfile";
-import EmptyCart from "src/assets/icons/EmptyCart";
+import { loadCartFromStorage, useCart } from "../context/CartContext";
+import type { IAddon } from "src/common/types";
+import type { Page } from "../types/types";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+} from "src/magicUi/ui/dialog";
 import { WorkingDaysCalendar } from "./WorkingDaysCalendar";
 import GoogleLocation from "./LocationFetcher";
-import { useLoadScript } from "@react-google-maps/api";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/common/store/store";
-import { updateBoolean } from "../dataSlice";
+import type { RootState } from "src/common/store/store";
+import { updatedLocationFound } from "../dataSlice";
 import StickyBar from "./StickyBar";
-import { useState } from "react";
 import LoginPage from "./Login";
+import { clearLocation, getLocationFromSession, getUserInfo } from "src/common/utils/sessionUtlis";
+import { CartItems } from "./CartItems";
+import Loader from "../../Loader";
+import { useCreatePorject } from "src/common/api/createProject";
+import { transformOrderPlacePayload } from "./orderPlace/utlis";
 
 interface ServiceBookingProps {
   setActivePage: (page: Page) => void;
 }
 
-export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
+const MemoizedWorkingDaysCalendar = React.memo(WorkingDaysCalendar);
+const MemoizedGoogleLocation = React.memo(GoogleLocation);
 
+export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [orderPlaceText, setOrderPlaceText] = useState("Login User");
   const dispatch = useDispatch();
-  const { isBoolean, text } = useSelector((state: RootState) => state.data);
+  const { isLocationFound, text } = useSelector((state: RootState) => state.data);
   const {
     cartItem,
     removeFromCart,
-    incrementAddon,
-    decrementAddon,
-    removeAddon,
     addAddon,
   } = useCart();
   const addonsInCart = cartItem?.addons || [];
-  
+  const userSessionData = getUserInfo();
+  const cartSessionData = loadCartFromStorage()
+  const userLocationSessionData = getLocationFromSession()
+  const { projectCreation } = useCreatePorject()
+
+  const projectPlaceHandler = () => {
+    setIsOpen(!isOpen);
+    removeFromCart()
+  }
 
   // Load the Google Maps script and Places library
   const { isLoaded } = useLoadScript({
@@ -43,7 +60,8 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
     libraries: ["places"], // Load the Places library
   });
 
-  if (!isLoaded) return <div>Loading...</div>;
+  if (!isLoaded) return <Loader isLoading={!isLoaded} />;
+  // if (!isLoaded) return <div>Loading...</div>
 
   if (!cartItem) {
     return (
@@ -56,13 +74,113 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
     );
   }
 
-  // button with trigger sidebar
-  const toggleLoginSidebar = () => {
-    setIsOpen(!isOpen)
+  const showLoginDialog = () => {
+    let dialogContent;
+
+  
+    // Check if date and time are not selected first
+    if (!(cartItem?.selectedDate && cartItem?.selectedTimeSlot)) {
+      dialogContent = (
+        <Dialog open={isOpen} onOpenChange={() => setIsOpen(!isOpen)}>
+          <DialogContent className="bg-white" style={{ height: "250px" }}>
+            <DialogHeader>
+              <DialogDescription>
+                Please select Date and Time for Hassle-Free Service
+              </DialogDescription>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
+      );
+    }
+    // If userSessionData is available and date/time are selected
+    else if (userSessionData) {
+      // Update order place text only if necessary
+      if (orderPlaceText !== "Place Order") {
+        setOrderPlaceText("Place Order");
+      }
+  
+      dialogContent = (
+        <Dialog open={isOpen} onOpenChange={projectPlaceHandler}>
+          <DialogContent className="bg-white" style={{ height: "250px" }}>
+            <DialogHeader>
+              <DialogDescription className="text-center font-bold text-lg">Thankyou, your order has been placed.</DialogDescription>
+              <DialogDescription className="text-center font-semibold text-lg">For tracking your order, Please download the App.</DialogDescription>
+              <DialogDescription>
+                <div className="flex flex-row justify-around items-center space-y-3 mt-8">
+                  <div>
+                    <a
+                      href="https://apps.apple.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img
+                        src="/assets/appstore.jpeg"
+                        alt="Download on the App Store"
+                        className="h-10"
+                        width="140px"
+                      />
+                    </a>
+                  </div>
+                  <div>
+                    <a
+                      href="https://play.google.com/store/apps/details?id=com.tagzy.hire_pro"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img
+                        src="/assets/playStore.jpeg"
+                        alt="Get it on Google Play"
+                        className="h-10 mb-2.5"
+                        width="140px"
+                      />
+                    </a>
+                  </div>
+                </div>
+              </DialogDescription>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
+      );
+    }
+    // Otherwise, show the login page
+    else {
+      dialogContent = (
+        <LoginPage
+          isOpen={isOpen}
+          onClose={() => setIsOpen(!isOpen)}
+          setActivePage={setActivePage}
+        />
+      );
+    }
+  
+    return dialogContent;
+  };
+  
+
+  const ToggleLoginSidebar = async() => {
+    setIsOpen(!isOpen);
+    if(userSessionData && cartSessionData && userLocationSessionData){
+      const orderPlacePayload = transformOrderPlacePayload(
+        cartSessionData,
+        userSessionData,
+        userLocationSessionData
+      )
+
+      await projectCreation(orderPlacePayload)
+    }
   };
 
   const handleAddonToggle = (addon: IAddon) => {
     addAddon(addon);
+  };
+
+  const changeLocationHandler = () => {
+    dispatch(updatedLocationFound(false));
+    const previousLocation = sessionStorage.getItem("userLocation");
+
+    if (previousLocation) {
+      clearLocation();
+    }
   };
 
   const getTotal = () => {
@@ -74,175 +192,111 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
       )
     );
   };
-
-  const total = getTotal();
-
   return (
     <div className="service-booking">
       <main>
         <section className="service-section">
-          <div className="flex flex-row justify-between mb-2">
-            <div>
-              <div className="text-lg sm:text-xl font-bold sm:font-normal">Service:-</div>
+          {cartItem ? (
+            <CartItems cartItem={cartItem} removeFromCart={removeFromCart} />
+          ) : (
+            <div className="cart">
+              <h1 className="cart-header">
+                Cart <ShoppingCart />
+              </h1>
+              <h2 style={{ fontSize: "20px" }}>Your Cart is Empty</h2>
             </div>
-            <div className="">
-              <button 
-                className="header-button border-solid border-2"
-                onClick={removeFromCart}
-              >
-                <span>Clear Cart</span> <EmptyCart className="w-6 h-6 inline mb-1.5 text-colorB" />
-              </button>
-            </div>
-          </div>
-
-          {/* Service Information */}
-          <div className="service-info">
-            <div className="service-card-cart">
-              <div>
-                <img
-                  src={cartItem.service.image[0]}
-                  alt="service-image"
-                  className="h-14 w-16 sm:h-16"
-                />
-              </div>
-              <div className="text-md sm:text-lg">{cartItem.service.name}</div>
-              <div className="ml-auto text-xl sm:text-3xl text-colorA font-bold
-              sm:font-bold">₹{cartItem.service.cost}</div>
-            </div>
-          </div>
-
-          {/* Addons Section */}
-          {addonsInCart.length > 0 && (
-            <section>
-              <div className="text-lg sm:text-xl font-bold sm:font-normal my-2">
-                Addons :-
-              </div>
-              <div className="addonsSectionCart">
-                {cartItem.addons.map(({ addon, quantity }) => (
-                  <div key={addon._id} className="addon-card">
-                    <img
-                      src={addon.imageUrl}
-                      alt={addon.name}
-                      className="h-14 w-16 sm:h-16"
-                    />
-                    <div className="addon-info">
-                      <h4 style={{ fontSize: "1rem" }}>{addon.name}</h4>
-                      <p style={{ fontSize: "1rem", marginBottom: "0" }}>
-                        ₹{addon.cost} x {quantity}
-                      </p>
-                    </div>
-                    <div className="quantity-controls">
-                      <button
-                        onClick={() => decrementAddon(addon._id)}
-                        className="decrementAddon"
-                      >
-                        <Minus className="w-4 h-4" />
-                      </button>
-                      <span>{quantity}</span>
-                      <button
-                        onClick={() => incrementAddon(addon._id)}
-                        className="incrementAddon"
-                      >
-                        <Plus className="w-4 h-4" />
-                      </button>
-                    </div>
-                    <button
-                      className="delete-button"
-                      onClick={() => removeAddon(addon._id)}
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                    <span className="price">₹{addon.cost * quantity}</span>
-                  </div>
-                ))}
-              </div>
-            </section>
           )}
 
           {/* Total Price */}
-          <div className="total">
-            <span className="text-base sm:text-lg text-colorA">Total:</span>
-            <span className="text-base sm:text-lg text-colorA">₹{total}</span>
-          </div>
+          {cartItem && (
+            <div className="total">
+              <span className="text-base sm:text-lg text-colorA">Total:</span>
+              <span className="text-base sm:text-lg text-colorA">
+                ₹{getTotal()}
+              </span>
+            </div>
+          )}
 
-          {!isBoolean ? (
-            <div className="userEnteraddress">
+          {!isLocationFound ? (
+            <div className="userEnteraddress mx-4 sm:mx-8">
               <div className="text-lg sm:text-xl font-bold sm:font-normal mb-2">
                 Select Location:-
               </div>
-              <GoogleLocation />
+              <MemoizedGoogleLocation />
             </div>
           ) : (
             <>
               {/* Related Addons */}
-              {cartItem.addons.length !== cartItem.service.addOns.length && (
-                <section className="related-addons">
-                  <div className="text-base sm:text-lg font-bold sm:font-normal mb-2">
-                    Add Addons Related to this Service :-
-                  </div>
-                  <div className="related-addons-grid">
-                    {cartItem.service.addOns.map(
-                      (addon) =>
-                        !addonsInCart.find(
-                          (item) => item.addon._id === addon._id
-                        ) && (
-                          <div key={addon._id} className="related-addon-card">
-                            <div className="flex flex-row justify-between">
-                              <div>
-                                <img
-                                  src={addon.imageUrl}
-                                  alt={addon.name}
-                                  className="h-14 w-16 sm:h-16"
-                                />
-                              </div>
-                              <div 
-                                className="addon-info flex flex-row sm:flex-col justify-between  items-center sm:items-start ml-4">
-                                <div className="text-md sm:text-lg font-bold sm:font-normal pr-4 sm:pr-0">
-                                  {addon.name}
+              {cartItem &&
+                cartItem.addons.length !== cartItem.service.addOns.length && (
+                  <section className="related-addons">
+                    <div className="text-base sm:text-lg font-bold sm:font-normal mb-2">
+                      Add Addons Related to this Service :-
+                    </div>
+                    <div className="related-addons-grid">
+                      {cartItem.service.addOns.map(
+                        (addon) =>
+                          !addonsInCart.find(
+                            (item) => item.addon._id === addon._id
+                          ) && (
+                            <div key={addon._id} className="related-addon-card">
+                              <div className="flex flex-row justify-between">
+                                <div>
+                                  <img
+                                    src={addon.imageUrl || "/placeholder.svg"}
+                                    alt={addon.name}
+                                    className="h-14 w-16 sm:h-16"
+                                  />
                                 </div>
-                                <div 
-                                  className="text-xl sm:text-2xl text-colorA font-bold sm:font-bold">
-                                  ₹{addon.cost}
+                                <div className="addon-info flex flex-row sm:flex-col justify-between  items-center sm:items-start ml-4">
+                                  <div className="text-md sm:text-lg font-bold sm:font-normal pr-4 sm:pr-0">
+                                    {addon.name}
+                                  </div>
+                                  <div className="text-xl sm:text-2xl text-colorA font-bold sm:font-bold">
+                                    ₹{addon.cost}
+                                  </div>
                                 </div>
                               </div>
+                              <Button
+                                variant="outline"
+                                onClick={() => handleAddonToggle(addon)}
+                                disabled={
+                                  !!addonsInCart.find(
+                                    (item) => item.addon._id === addon._id
+                                  )
+                                }
+                                className="addon-button-cart ml-auto"
+                              >
+                                Add
+                              </Button>
                             </div>
-                            <Button
-                              variant="outline"
-                              onClick={() => handleAddonToggle(addon)}
-                              disabled={
-                                !!addonsInCart.find(
-                                  (item) => item.addon._id === addon._id
-                                )
-                              }
-                              className="addon-button-cart ml-auto"
-                            >
-                              Add
-                            </Button>
-                          </div>
-                        )
-                    )}
-                  </div>
-                </section>
-              )}
+                          )
+                      )}
+                    </div>
+                  </section>
+                )}
 
               {/* User Time & Address */}
               <div className="timeAndAddress">
-                {cartItem.service.workingDays.length > 0 && (
+                {cartItem && cartItem.service.workingDays.length > 0 && (
                   <div className="userSelectTime">
                     <div className="text-lg sm:text-xl font-bold sm:font-normal mb-2">
-                      Select a Date {cartItem.service.timeSlots.length > 0 && '& Time'} :-
+                      Select a Date{" "}
+                      {cartItem.service.timeSlots.length > 0 && "& Time"} :-
                     </div>
-                    <WorkingDaysCalendar
+                    <MemoizedWorkingDaysCalendar
                       workingDays={cartItem.service.workingDays}
                       timeSlots={cartItem.service.timeSlots}
                     />
                   </div>
                 )}
                 <div className="useraddress">
-                  <div className="text-lg sm:text-xl font-bold sm:font-normal">Selected Location :-</div>
+                  <div className="text-lg sm:text-xl font-bold sm:font-normal">
+                    Selected Location :-
+                  </div>
                   <span>{text}</span>
                   <button
-                    onClick={() => dispatch(updateBoolean(false))}
+                    onClick={changeLocationHandler}
                     className="bg-colorA hover:bg-colorB text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                   >
                     Change Location
@@ -269,49 +323,14 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
         </section>
       </main>
 
-      {/* Footer */}
-      {isBoolean && (
-        <footer>
-          <div>
-            {!(cartItem.selectedDate || cartItem.selectedTimeSlot) ? (
-              <div className="sticky-bar flex">
-                <div className="sticky-bar-content">
-                  <div>
-                    <div className="item-title">Almost There</div>
-                    <div className="item-price">Login or Signup to place your order</div>
-                  </div>
-                  <div className="mt-4">
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <div className="mb-1">
-                          <button className="cart-button">Proceed</button>
-                        </div>
-                      </DialogTrigger>
-                      {renderDialogContent()}
-                    </Dialog>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div>
-
-                <StickyBar
-                  setActivePage={setActivePage}
-                  toggleSidebar={toggleLoginSidebar}
-                  test="Basket-stickyBar"
-                  buttonName={"Proceed"}
-                />
-                <div className={`sidebar ${isOpen ? "open" : "notOpen"}`}>
-                  <button onClick={toggleLoginSidebar} className="close-btn">
-                    &times;
-                  </button>
-                  <LoginPage isOpen={isOpen} onClose={() => setIsOpen(false)} setActivePage={setActivePage} />
-                </div>
-              </div>
-            )}
-          </div>
-        </footer>
+      {isLocationFound && cartItem && (
+        <StickyBar
+          toggleSidebar={ToggleLoginSidebar}
+          elementId={"circle-profile-image"}
+          buttonName={orderPlaceText}
+        />
       )}
+      {showLoginDialog()}
     </div>
   );
 }

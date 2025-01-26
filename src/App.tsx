@@ -11,6 +11,7 @@ import Provider from './common/routes/Provider'
 import TermsAndConditions from './common/routes/TermsAndConditions'
 
 const App = () => {
+
   return (
     <>
       <BrowserRouter>

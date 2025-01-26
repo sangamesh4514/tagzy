@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useState } from 'react';
-import { CartItem, IAddon, Service } from 'src/common/types';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { CartItem, IAddon, Service } from "src/common/types";
 
 // Cart context type
 interface CartContextType {
@@ -17,57 +17,82 @@ interface CartContextType {
 // Cart Context
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
+// Helper functions to work with sessionStorage
+export const loadCartFromStorage = (): CartItem | null => {
+  const storedCart = sessionStorage.getItem("cart");
+  return storedCart ? JSON.parse(storedCart) : null;
+};
+
+export const saveCartToStorage = (cart: CartItem | null) => {
+  if (cart) {
+    sessionStorage.setItem("cart", JSON.stringify(cart));
+  } else {
+    sessionStorage.removeItem("cart");
+  }
+};
+
 // Cart Provider
 export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [cartItem, setCartItem] = useState<CartItem | null>(null);
+  const [cartItem, setCartItem] = useState<CartItem | null>(loadCartFromStorage());
 
-  // add service to cart fun.
+  // Save cart to sessionStorage whenever it changes
+  useEffect(() => {
+    saveCartToStorage(cartItem);
+  }, [cartItem]);
+
+  // Add service to cart
   const addToCart = (service: Service) => {
-    setCartItem(prevCartItem => ({
+    setCartItem({
       service,
       addons: [],
       selectedDate: null,
-      selectedTimeSlot: null
-    }));
+      selectedTimeSlot: null,
+    });
   };
 
-  // remove service from cart
+  // Remove service from cart
   const removeFromCart = () => {
     setCartItem(null);
   };
 
-  // add add-on with service
+  // Add add-on with service
   const addAddon = (addon: IAddon) => {
-    setCartItem(prevCartItem => ({
+    setCartItem((prevCartItem) => ({
       ...prevCartItem!,
-      addons: [...prevCartItem!.addons, { addon, quantity: 1 }]
+      addons: [...prevCartItem!.addons, { addon, quantity: 1 }],
     }));
   };
 
-  // remove add-on
+  // Remove add-on
   const removeAddon = (addonId: string) => {
-    setCartItem(prevCartItem => ({
+    setCartItem((prevCartItem) => ({
       ...prevCartItem!,
-      addons: prevCartItem!.addons.filter(item => item.addon._id !== addonId)
+      addons: prevCartItem!.addons.filter((item) => item.addon._id !== addonId),
     }));
   };
 
-  // update add quantity in service
+  // Update add-on quantity
   const updateAddonQuantity = (addonId: string, change: number) => {
-    setCartItem(prevCartItem => ({
+    setCartItem((prevCartItem) => ({
       ...prevCartItem!,
-      addons: prevCartItem!.addons.map(item =>
-        item.addon._id === addonId ? { ...item, quantity: item.quantity + change } : item
-      )
-    }));
-  };  
+      addons: prevCartItem!.addons.map((item) => {
+        const newQuantity =
+          item.addon._id === addonId ? item.quantity + change : item.quantity;
 
-  // increment add-on with service
+        return {
+          ...item,
+          quantity: newQuantity < 1 ? 1 : newQuantity,
+        };
+      }),
+    }));
+  };
+
+  // Increment add-on quantity
   const incrementAddon = (addonId: string) => {
     updateAddonQuantity(addonId, 1);
   };
 
-  // decrement add-on 
+  // Decrement add-on quantity
   const decrementAddon = (addonId: string) => {
     updateAddonQuantity(addonId, -1);
   };
@@ -80,11 +105,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }));
   };
 
-  // user booking time slot
+  // Set selected time slot
   const setSelectedTimeSlot = (timeSlot: string) => {
-    setCartItem(prevCartItem => ({
+    setCartItem((prevCartItem) => ({
       ...prevCartItem!,
-      selectedTimeSlot: timeSlot
+      selectedTimeSlot: timeSlot,
     }));
   };
 
@@ -99,7 +124,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         incrementAddon,
         decrementAddon,
         setSelectedDate,
-        setSelectedTimeSlot
+        setSelectedTimeSlot,
       }}
     >
       {children}
@@ -107,10 +132,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
+// Custom hook to use the Cart Context
 export function useCart() {
   const context = useContext(CartContext);
   if (!context) {
-    throw new Error('useCart must be used within a CartProvider');
+    throw new Error("useCart must be used within a CartProvider");
   }
   return context;
 }

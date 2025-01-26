@@ -5,7 +5,7 @@ const StickyIcons: React.FC = () => {
   const handleWhatsAppClick = () => {
     const phoneNumber = "916361401928";
     const message = "Hi i want to know about TagZy";
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://dub.sh/TagZy_whatsapp`;
     window.open(whatsappUrl, '_blank');
   };
 

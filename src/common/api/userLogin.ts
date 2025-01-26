@@ -1,8 +1,8 @@
 import axios from "axios";
-import { backendUrl } from "../utils/authentication/adminActions";
 import { useState } from "react";
 import { IUserProfile } from "../types";
 
+// login data type
 interface LoginData {
     phoneNumber: string
     otp: any
@@ -23,13 +23,11 @@ export function useUserLogin () {
             },
           };
     
-          const { data } = await axios.get(
-            `${backendUrl}/otp/generate/${mobileNumber}`,
+          await axios.get(
+            `${process.env.REACT_APP_BACKEND_URL}/otp/generate/${mobileNumber}`,
             config
           );
-          console.log('###data',data);
         } catch (err: any) {
-          console.error("===getUser", err);
           setError(err?.response?.data?.message || "User has not found, Please Signup");
         } finally {
           setLoading(false);
@@ -47,15 +45,15 @@ export function useUserLogin () {
           };
     
           const { data } = await axios.post(
-            `${backendUrl}/otp/verify`,
+            `${process.env.REACT_APP_BACKEND_URL}/otp/verify`,
             loginData,
             config
           );
+          
           if (data) {
             setLoginInfo(data);
           }
         } catch (err: any) {
-          console.error("===getUser", err);
           setLoginInfo(null);
           setError(err?.response?.data?.message || "Failed to fetch user data");
         } finally {
