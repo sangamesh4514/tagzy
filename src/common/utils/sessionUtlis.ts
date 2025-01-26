@@ -1,4 +1,4 @@
-import { CartItem, ILocation, IUserProfile } from "../types";
+import { ILocation, IUserProfile } from "../types";
 
 // Helper functions for sessionStorage management
 

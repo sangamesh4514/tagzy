@@ -41,7 +41,7 @@ const ProProfile: React.FC = () => {
     };
 
     fetchUserData();
-  }, [userId]);
+  }, [userId, dispatch]);
 
 
   if (loading) {

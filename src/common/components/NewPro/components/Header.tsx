@@ -32,7 +32,7 @@ export function Header({
     profilePicture,
     accountCreated,
     location,
-    categoryType,
+    // categoryType,
     experience,
   } = userProfile;
   const subscribers = 3487;
