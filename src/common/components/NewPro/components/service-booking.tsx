@@ -4,7 +4,14 @@ import { Button } from "../../ui/button";
 import { useCart } from "../context/CartContext";
 import { IAddon } from "src/common/types";
 import { Page } from "../types/types";
-import { Dialog, DialogTrigger } from "src/magicUi/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "src/magicUi/ui/dialog";
 import { renderDialogContent } from "../../profile/userProfile";
 import EmptyCart from "src/assets/icons/EmptyCart";
 import { WorkingDaysCalendar } from "./WorkingDaysCalendar";
@@ -23,7 +30,6 @@ interface ServiceBookingProps {
 }
 
 export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
-
   const [isOpen, setIsOpen] = useState(false);
   const [orderPlaceText, setOrderPlaceText] = useState("Login User");
   const dispatch = useDispatch();
@@ -40,19 +46,50 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
   const userInfo = getUserInfo();
 
   const showLoginDialog = () => {
-    if(userInfo) {
-      setOrderPlaceText("Place Order")
+    if (userInfo) {
+      setOrderPlaceText("Place Order");
+      <Dialog open={isOpen} onOpenChange={() => setIsOpen(!isOpen)}>
+        <DialogContent className="bg-white" style={{ height: "250px" }}>
+          <DialogHeader>
+            <DialogDescription>your order placed</DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>;
     } else {
       return (
-        <div className={`sidebar ${isOpen ? "open" : "notOpen"}`}>
-          <button onClick={toggleLoginSidebar} className="close-btn">
-            &times;
-          </button>
-          <LoginPage isOpen={isOpen} onClose={() => setIsOpen(!isOpen)} setActivePage={setActivePage} />
-        </div>
-      )
+        <>
+          {!(cartItem?.selectedDate || cartItem?.selectedTimeSlot) ? (
+            <Dialog open={isOpen} onOpenChange={() => setIsOpen(!isOpen)}>
+              <DialogContent className="bg-white" style={{ height: "250px" }}>
+                <DialogHeader>
+                  <DialogDescription>
+                    Please select Date and Time for Hassel Free Service
+                  </DialogDescription>
+                </DialogHeader>
+              </DialogContent>
+            </Dialog>
+          ) : (
+            <LoginPage
+              isOpen={isOpen}
+              onClose={() => setIsOpen(!isOpen)}
+              setActivePage={setActivePage}
+            />
+          )}
+        </>
+
+        // <div className={`sidebar ${isOpen ? "open" : "notOpen"}`}>
+        //   <button onClick={toggleLoginSidebar} className="close-btn">
+        //     &times;
+        //   </button>
+        //   <LoginPage
+        //     isOpen={isOpen}
+        //     onClose={() => setIsOpen(!isOpen)}
+        //     setActivePage={setActivePage}
+        //   />
+        // </div>
+      );
     }
-  }
+  };
   // Load the Google Maps script and Places library
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_KEY || "",
@@ -74,7 +111,7 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
 
   // button with trigger sidebar
   const toggleLoginSidebar = () => {
-    setIsOpen(!isOpen)
+    setIsOpen(!isOpen);
   };
 
   const handleAddonToggle = (addon: IAddon) => {
@@ -82,15 +119,15 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
   };
 
   const changeLocationHandler = () => {
-    dispatch(updateBoolean(false))
+    dispatch(updateBoolean(false));
 
     // clear previous location from session
-    const previousLocation = sessionStorage.getItem("userLocation")
-    if(previousLocation) {
-      clearLocation()
+    const previousLocation = sessionStorage.getItem("userLocation");
+    if (previousLocation) {
+      clearLocation();
     }
 
-    const cartItem = JSON.parse(sessionStorage.getItem("cart")as any) 
+    const cartItem = JSON.parse(sessionStorage.getItem("cart") as any);
     // Check if cartItem exists, then update its properties
     if (cartItem) {
       cartItem.selectedDate = null; // Reset selectedDate
@@ -99,7 +136,7 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
       // Save the updated cartItem back to sessionStorage
       sessionStorage.setItem("cart", JSON.stringify(cartItem));
     }
-  }
+  };
 
   const getTotal = () => {
     return (
@@ -119,14 +156,17 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
         <section className="service-section">
           <div className="flex flex-row justify-between mb-2">
             <div>
-              <div className="text-lg sm:text-xl font-bold sm:font-normal">Service:-</div>
+              <div className="text-lg sm:text-xl font-bold sm:font-normal">
+                Service:-
+              </div>
             </div>
             <div className="">
-              <button 
+              <button
                 className="header-button border-solid border-2"
                 onClick={removeFromCart}
               >
-                <span>Clear Cart</span> <EmptyCart className="w-6 h-6 inline mb-1.5 text-colorB" />
+                <span>Clear Cart</span>{" "}
+                <EmptyCart className="w-6 h-6 inline mb-1.5 text-colorB" />
               </button>
             </div>
           </div>
@@ -142,8 +182,12 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
                 />
               </div>
               <div className="text-md sm:text-lg">{cartItem.service.name}</div>
-              <div className="ml-auto text-xl sm:text-3xl text-colorA font-bold
-              sm:font-bold">₹{cartItem.service.cost}</div>
+              <div
+                className="ml-auto text-xl sm:text-3xl text-colorA font-bold
+              sm:font-bold"
+              >
+                ₹{cartItem.service.cost}
+              </div>
             </div>
           </div>
 
@@ -232,13 +276,11 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
                                   className="h-14 w-16 sm:h-16"
                                 />
                               </div>
-                              <div 
-                                className="addon-info flex flex-row sm:flex-col justify-between  items-center sm:items-start ml-4">
+                              <div className="addon-info flex flex-row sm:flex-col justify-between  items-center sm:items-start ml-4">
                                 <div className="text-md sm:text-lg font-bold sm:font-normal pr-4 sm:pr-0">
                                   {addon.name}
                                 </div>
-                                <div 
-                                  className="text-xl sm:text-2xl text-colorA font-bold sm:font-bold">
+                                <div className="text-xl sm:text-2xl text-colorA font-bold sm:font-bold">
                                   ₹{addon.cost}
                                 </div>
                               </div>
@@ -267,7 +309,8 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
                 {cartItem.service.workingDays.length > 0 && (
                   <div className="userSelectTime">
                     <div className="text-lg sm:text-xl font-bold sm:font-normal mb-2">
-                      Select a Date {cartItem.service.timeSlots.length > 0 && '& Time'} :-
+                      Select a Date{" "}
+                      {cartItem.service.timeSlots.length > 0 && "& Time"} :-
                     </div>
                     <WorkingDaysCalendar
                       workingDays={cartItem.service.workingDays}
@@ -276,7 +319,9 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
                   </div>
                 )}
                 <div className="useraddress">
-                  <div className="text-lg sm:text-xl font-bold sm:font-normal">Selected Location :-</div>
+                  <div className="text-lg sm:text-xl font-bold sm:font-normal">
+                    Selected Location :-
+                  </div>
                   <span>{text}</span>
                   <button
                     onClick={changeLocationHandler}
@@ -307,7 +352,7 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
       </main>
 
       {/* Footer */}
-      {isBoolean && (
+      {/* {isBoolean && (
         <footer>
           <div>
             {!(cartItem.selectedDate || cartItem.selectedTimeSlot) ? (
@@ -315,7 +360,9 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
                 <div className="sticky-bar-content">
                   <div>
                     <div className="item-title">Almost There</div>
-                    <div className="item-price">Login or Signup to place your order</div>
+                    <div className="item-price">
+                      Login or Signup to place your order
+                    </div>
                   </div>
                   <div className="mt-4">
                     <Dialog>
@@ -330,19 +377,20 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
                 </div>
               </div>
             ) : (
-              <div>
-                <StickyBar
-                  setActivePage={setActivePage}
-                  toggleSidebar={toggleLoginSidebar}
-                  test="Basket-stickyBar"
-                  buttonName={orderPlaceText}
-                />
-                {showLoginDialog()}
-              </div>
+              <></>
             )}
           </div>
         </footer>
+      )} */}
+      {isBoolean && (
+        <StickyBar
+          // setActivePage={setActivePage}
+          toggleSidebar={toggleLoginSidebar}
+          elementId={"circle-profile-image"}
+          buttonName={orderPlaceText}
+        />
       )}
+      {showLoginDialog()}
     </div>
   );
 }

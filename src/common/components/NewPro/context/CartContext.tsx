@@ -10,6 +10,7 @@ interface CartContextType {
   removeAddon: (addonId: string) => void;
   incrementAddon: (addonId: string) => void;
   decrementAddon: (addonId: string) => void;
+  setSelectedDate: (date: string) => void;
   setSelectedTimeSlot: (timeSlot: string) => void;
 }
 
@@ -96,6 +97,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     updateAddonQuantity(addonId, -1);
   };
 
+  // user booking date selection
+  const setSelectedDate = (date: string) => {
+    setCartItem(prevCartItem => ({
+      ...prevCartItem!,
+      selectedDate: date
+    }));
+  };
+
   // Set selected time slot
   const setSelectedTimeSlot = (timeSlot: string) => {
     setCartItem((prevCartItem) => ({
@@ -114,6 +123,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         removeAddon,
         incrementAddon,
         decrementAddon,
+        setSelectedDate,
         setSelectedTimeSlot,
       }}
     >

@@ -1,57 +1,45 @@
-import React, { useState } from "react";
-import { addDays, format, isSameDay, startOfDay } from "date-fns";
-import "../styles/WorkingDaysCalendar.css";
-import { Calendar } from "src/magicUi/ui/calendar";
-import { generateTimeSlots, isTimeSlotDisabled } from "../utils";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "src/magicUi/ui/select";
-import { useCart } from "../context/CartContext";
+import type React from "react"
+import { addDays, format, isSameDay, startOfDay, parse } from "date-fns"
+import "../styles/WorkingDaysCalendar.css"
+import { Calendar } from "src/magicUi/ui/calendar"
+import { generateTimeSlots, isTimeSlotDisabled } from "../utils"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "src/magicUi/ui/select"
+import { useCart } from "../context/CartContext"
 
 interface WorkingDaysCalendarProps {
-  workingDays: string[];
+  workingDays: string[]
   timeSlots: {
-    start: string;
-    end: string;
-    _id: string;
-  }[];
+    start: string
+    end: string
+    _id: string
+  }[]
 }
 
-export const WorkingDaysCalendar: React.FC<WorkingDaysCalendarProps> = ({
-  workingDays,
-  timeSlots,
-}) => {
-  const [selectedDay, setSelectedDay] = useState<Date | undefined>(undefined);
-  // const [selectedTimeSlot, setSelectedTimeSlot] = useState<string | undefined>(undefined)
-  const { cartItem, setSelectedTimeSlot } = useCart();
-  const today = startOfDay(new Date());
-  const twentyDaysLater = addDays(today, 20);
+export const WorkingDaysCalendar: React.FC<WorkingDaysCalendarProps> = ({ workingDays, timeSlots }) => {
+  const { cartItem, setSelectedTimeSlot, setSelectedDate } = useCart()
+  const today = startOfDay(new Date())
+  const twentyDaysLater = addDays(today, 20)
 
   const isWorkingDay = (date: Date) => {
-    const dayName = format(date, "EEEE");
-    return workingDays.includes(dayName);
-  };
+    const dayName = format(date, "EEEE")
+    return workingDays.includes(dayName)
+  }
 
   const isSelectableDay = (date: Date) => {
-    return date >= today && date <= twentyDaysLater && isWorkingDay(date);
-  };
+    return date >= today && date <= twentyDaysLater && isWorkingDay(date)
+  }
 
   const handleDaySelect = (date: Date | undefined) => {
-    setSelectedDay(date);
-    setSelectedTimeSlot("");
-  };
+    setSelectedDate(date ? format(date, "yyyy-MM-dd") : '')
+    setSelectedTimeSlot('')
+  }
 
-  const availableTimeSlots =
-    timeSlots.length > 0
-      ? generateTimeSlots(timeSlots[0].start, timeSlots[0].end)
-      : [];
+  const availableTimeSlots = timeSlots.length > 0 ? generateTimeSlots(timeSlots[0].start, timeSlots[0].end) : []
+
+  const selectedDay = cartItem?.selectedDate ? parse(cartItem.selectedDate, "yyyy-MM-dd", new Date()) : undefined
 
   return (
-    <div className={"calendarWrapper"}>
+    <div className="calendarWrapper">
       <Calendar
         mode="single"
         selected={selectedDay}
@@ -59,8 +47,7 @@ export const WorkingDaysCalendar: React.FC<WorkingDaysCalendarProps> = ({
         disabled={(date) => !isSelectableDay(date)}
         modifiers={{
           workingDay: (date) => isWorkingDay(date),
-          selected: (date) =>
-            selectedDay ? isSameDay(date, selectedDay) : false,
+          selected: (date) => (selectedDay ? isSameDay(date, selectedDay) : false),
         }}
         modifiersClassNames={{
           workingDay: "workingDay",
@@ -69,14 +56,10 @@ export const WorkingDaysCalendar: React.FC<WorkingDaysCalendarProps> = ({
         fromDate={today}
         toDate={twentyDaysLater}
       />
-      {selectedDay && timeSlots.length > 0 && (
-        <div className={"timeSlotSelector"}>
+      {cartItem?.selectedDate && timeSlots.length > 0 && (
+        <div className="timeSlotSelector">
           <h3>Select a time slot:</h3>
-          <Select
-            key={selectedDay ? selectedDay.toISOString() : "no-date"}
-            value={cartItem?.selectedTimeSlot || ""}
-            onValueChange={setSelectedTimeSlot}
-          >
+          <Select value={cartItem.selectedTimeSlot || ""} onValueChange={setSelectedTimeSlot}>
             <SelectTrigger className="selectTrigger">
               <SelectValue placeholder="Choose a time slot" />
             </SelectTrigger>
@@ -95,18 +78,13 @@ export const WorkingDaysCalendar: React.FC<WorkingDaysCalendarProps> = ({
           </Select>
         </div>
       )}
-      {selectedDay && cartItem?.selectedTimeSlot ? (
-        <p className={"selectedDateTime"}>
-          Selected Slot: {format(selectedDay, "MMMM d, yyyy")} at{" "}
-          {cartItem.selectedTimeSlot}
+      {cartItem?.selectedDate && (
+        <p className="selectedDateTime">
+          Selected Slot: {format(selectedDay!, "MMMM d, yyyy")}
+          {cartItem.selectedTimeSlot && ` at ${cartItem.selectedTimeSlot}`}
         </p>
-      ) : (
-        selectedDay && (
-          <p className={"selectedDateTime"}>
-            Selected Slot: {format(selectedDay, "MMMM d, yyyy")}
-          </p>
-        )
       )}
     </div>
-  );
-};
+  )
+}
+

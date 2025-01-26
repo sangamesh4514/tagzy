@@ -5,22 +5,22 @@ import { useCart } from "../context/CartContext";
 import { Page } from "../types/types";
 
 interface StickyBarProps {
-  setActivePage: (page: Page) => void;
-  test: string;
+  // setActivePage: (page: Page) => void;
+  elementId: string;
   toggleSidebar: () => void;
   buttonName: String;
 }
 
-const StickyBar: React.FC<StickyBarProps> = ({ setActivePage,test, toggleSidebar, buttonName }) => {
+const StickyBar: React.FC<StickyBarProps> = ({ elementId, toggleSidebar, buttonName }) => {
   
   const [isInView, setIsInView] = useState(false); 
   const { cartItem } = useCart();
 
   useEffect(() => {
-    const targetElement = document.getElementById(test);
+    const targetElement = document.getElementById(elementId);
 
     if (!targetElement) {
-      console.warn("No element with id 'circle-profile-image' found.");
+      console.warn("==No element with id 'circle-profile-image' found.");
       return;
     }
 

@@ -79,7 +79,7 @@ const GoogleLocation: React.FC = () => {
       setLocationMessage(serviceDistance);
       setTimeout(() => {
         dispatch(updateBoolean(serviceDistance));
-      }, 2000);
+      }, 500);
     }
   }, [cartItem, dispatch, location, providerServiceLocation]);
 

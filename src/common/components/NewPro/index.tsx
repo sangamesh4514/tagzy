@@ -18,7 +18,7 @@ interface IProps {
 
 export default function NewPro({ userProfile }: IProps) {
   const [activePage, setActivePage] = useState<Page>("services");
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => {
     setActivePage('basket')
@@ -105,7 +105,8 @@ export default function NewPro({ userProfile }: IProps) {
             activePage === "basket" ? "main-content-cart" : ""
           }`}
         >
-          <div className={`content-area ${isOpen ? "addOverflow" : ""}`}>
+          <div className={`content-area`}>
+          {/* ${isOpen ? "addOverflow" : ""} */}
             {activePage === "services" &&
               (services?.length ? (
                 <>
@@ -116,9 +117,9 @@ export default function NewPro({ userProfile }: IProps) {
                       ))}
                   </div>
                   <StickyBar
-                    setActivePage={setActivePage}
+                    // setActivePage={setActivePage}
                     toggleSidebar={toggleSidebar}
-                    test={"circle-profile-image"}
+                    elementId={"circle-profile-image"}
                     buttonName={"Go to Cart"}
                   />
                 </>
