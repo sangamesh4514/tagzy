@@ -18,7 +18,7 @@ export function useUserData() {
       };
 
       const { data } = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/user/phoneNumber/${phoneNumber}`,
+        `https://web-production-ff56.up.railway.app/user/phoneNumber/${phoneNumber}`,
         config
       );
       if (data) {
@@ -43,7 +43,7 @@ export function useUserData() {
       };
 
       const { data } = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/user/update`,
+        `https://web-production-ff56.up.railway.app/user/update`,
         inputData,
         config
       );

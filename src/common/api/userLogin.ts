@@ -24,7 +24,7 @@ export function useUserLogin () {
           };
     
           await axios.get(
-            `${process.env.REACT_APP_BACKEND_URL}/otp/generate/${mobileNumber}`,
+            `https://web-production-ff56.up.railway.app/otp/generate/${mobileNumber}`,
             config
           );
         } catch (err: any) {
@@ -45,7 +45,7 @@ export function useUserLogin () {
           };
     
           const { data } = await axios.post(
-            `${process.env.REACT_APP_BACKEND_URL}/otp/verify`,
+            `https://web-production-ff56.up.railway.app/otp/verify`,
             loginData,
             config
           );
