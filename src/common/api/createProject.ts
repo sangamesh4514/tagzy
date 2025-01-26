@@ -18,7 +18,7 @@ export function useCreatePorject () {
           };
     
           const { data } = await axios.post(
-            `${process.env.REACT_APP_BACKEND_URL}/project/create`,
+            `https://web-production-ff56.up.railway.app/project/create`,
             payload,
             config
           );

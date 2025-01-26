@@ -17,7 +17,7 @@ export const adminLogin = createAsyncThunk(
                 }
             }
             
-            const { data } = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/admin/login`, 
+            const { data } = await axios.post(`https://web-production-ff56.up.railway.app/admin/login`, 
                 {
                     "phoneNumber": userId,
                     "password": password

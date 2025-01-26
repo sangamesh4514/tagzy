@@ -20,7 +20,7 @@ export const useProviderProfile = () => {
         };
 
         const { data } = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/user/Id/${userId}`,
+          `https://web-production-ff56.up.railway.app/user/Id/${userId}`,
           config
         )
 

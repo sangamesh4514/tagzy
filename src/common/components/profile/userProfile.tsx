@@ -24,7 +24,7 @@ const ProProfile: React.FC = () => {
     const fetchUserData = async () => {
       try {
         const response = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/user/id/${userId}`
+          `https://web-production-ff56.up.railway.app/user/id/${userId}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch user data");
