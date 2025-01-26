@@ -79,7 +79,7 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
 
   
     // Check if date and time are not selected first
-    if (!(cartItem?.selectedDate || cartItem?.selectedTimeSlot)) {
+    if (!(cartItem?.selectedDate && ( cartItem.service.timeSlots.length > 0 ?cartItem?.selectedTimeSlot : true))) {
       dialogContent = (
         <Dialog open={isOpen} onOpenChange={() => setIsOpen(!isOpen)}>
           <DialogContent className="bg-white" style={{ height: "250px" }}>
@@ -148,7 +148,6 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
         <LoginPage
           isOpen={isOpen}
           onClose={() => setIsOpen(!isOpen)}
-          setActivePage={setActivePage}
         />
       );
     }
@@ -159,7 +158,7 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
 
   const ToggleLoginSidebar = async() => {
     setIsOpen(!isOpen);
-    if(userSessionData && cartSessionData && userLocationSessionData){
+    if(userSessionData && cartSessionData && userLocationSessionData && cartSessionData.selectedDate && ( cartItem.service.timeSlots.length > 0 ?cartItem?.selectedTimeSlot : true)){
       const orderPlacePayload = transformOrderPlacePayload(
         cartSessionData,
         userSessionData,

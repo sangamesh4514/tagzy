@@ -93,8 +93,9 @@ export interface IProcedure {
 export interface Booking {
   proPhoneNumber: string;
   clientPhoneNumber: string;
+  serviceName: string;
   address: string;
-  location: ILocation; // Or replace with a specific type if you know the structure of 'location'
+  location: ILocation; 
   status: string;
   dateTime?: string; // Can be a Date object if parsed later
   proName: string;
