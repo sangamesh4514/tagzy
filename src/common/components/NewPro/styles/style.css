@@ -122,3 +122,9 @@
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
 }
+
+/* @media (min-width: 768px) {
+  .pro-page {
+    overflow: hidden;
+  }
+} */
