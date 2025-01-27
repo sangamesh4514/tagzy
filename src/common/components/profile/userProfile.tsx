@@ -13,7 +13,7 @@ import Footer from "../Footer";
 import userDataJson from "./data.json";
 import { useAppDispatch } from "src/common/hooks/hook";
 import { setMobileNumber } from "src/common/utils/providerProfile/providerProfileSlice";
-import { clearCart, getCartFromStorage } from "src/common/utils/sessionUtlis";
+import { clearCart, clearLocation, getCartFromStorage, getLocationFromSession } from "src/common/utils/sessionUtlis";
 
 const ProProfile: React.FC = () => {
   const { userId } = useParams<{ userId: string }>(); // Extract userId from the URL
@@ -21,6 +21,7 @@ const ProProfile: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const dispatch = useAppDispatch();
   const cartSessionData = getCartFromStorage();
+  const userLocationSessionData = getLocationFromSession();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -36,8 +37,9 @@ const ProProfile: React.FC = () => {
         dispatch(setMobileNumber(data.phoneNumber));
 
         // clear cart from session if provider profile changes
-        if (cartSessionData) {
+        if (cartSessionData && userLocationSessionData) {
           clearCart();
+          clearLocation();
         }
       } catch (error) {
         setUserData(userDataJson);
@@ -47,7 +49,7 @@ const ProProfile: React.FC = () => {
     };
 
     fetchUserData();
-  }, [userId, dispatch, cartSessionData]);
+  }, [userId, dispatch, cartSessionData, userLocationSessionData]);
 
   if (loading) {
     return (
