@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { getCartFromStorage, saveCartToStorage } from "src/common/utils/sessionUtlis";
 import { CartItem, IAddon, Service } from "src/common/types";
 
 // Cart context type
@@ -17,23 +18,9 @@ interface CartContextType {
 // Cart Context
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-// Helper functions to work with sessionStorage
-export const loadCartFromStorage = (): CartItem | null => {
-  const storedCart = sessionStorage.getItem("cart");
-  return storedCart ? JSON.parse(storedCart) : null;
-};
-
-export const saveCartToStorage = (cart: CartItem | null) => {
-  if (cart) {
-    sessionStorage.setItem("cart", JSON.stringify(cart));
-  } else {
-    sessionStorage.removeItem("cart");
-  }
-};
-
 // Cart Provider
 export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [cartItem, setCartItem] = useState<CartItem | null>(loadCartFromStorage());
+  const [cartItem, setCartItem] = useState<CartItem | null>(getCartFromStorage());
 
   // Save cart to sessionStorage whenever it changes
   useEffect(() => {
