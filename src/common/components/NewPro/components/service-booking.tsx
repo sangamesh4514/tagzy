@@ -5,7 +5,7 @@ import { useLoadScript } from "@react-google-maps/api";
 
 import "../styles/service-booking.css";
 import { Button } from "../../ui/button";
-import { loadCartFromStorage, useCart } from "../context/CartContext";
+import { useCart } from "../context/CartContext";
 import type { IAddon } from "src/common/types";
 import type { Page } from "../types/types";
 import {
@@ -20,7 +20,12 @@ import type { RootState } from "src/common/store/store";
 import { updatedLocationFound } from "../dataSlice";
 import StickyBar from "./StickyBar";
 import LoginPage from "./Login";
-import { clearLocation, getLocationFromSession, getUserInfo } from "src/common/utils/sessionUtlis";
+import { 
+  getCartFromStorage,
+  getUserInfo,
+  clearLocation, 
+  getLocationFromSession, 
+} from "src/common/utils/sessionUtlis";
 import { CartItems } from "./CartItems";
 import Loader from "../../Loader";
 import { useCreatePorject } from "src/common/api/createProject";
@@ -41,13 +46,13 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
   const {
     cartItem,
     removeFromCart,
-    addAddon,
+    addAddon
   } = useCart();
   const addonsInCart = cartItem?.addons || [];
   const userSessionData = getUserInfo();
-  const cartSessionData = loadCartFromStorage()
-  const userLocationSessionData = getLocationFromSession()
-  const { projectCreation } = useCreatePorject()
+  const cartSessionData = getCartFromStorage();
+  const userLocationSessionData = getLocationFromSession();
+  const { projectCreation } = useCreatePorject();
 
   const projectPlaceHandler = () => {
     setIsOpen(!isOpen);
@@ -175,8 +180,9 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
 
   const changeLocationHandler = () => {
     dispatch(updatedLocationFound(false));
-    const previousLocation = sessionStorage.getItem("userLocation");
+    const previousLocation = getLocationFromSession()
 
+    // clear location to save new location
     if (previousLocation) {
       clearLocation();
     }

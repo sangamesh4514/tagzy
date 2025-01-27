@@ -1,20 +1,26 @@
 import { ILocation, IUserProfile } from "../types";
+import { CartItem } from "src/common/types";
+
 
 // Helper functions for sessionStorage management
 
 // cartItem
-// export const saveCartToStorage = (cart: CartItem | null) => {
-//   if (cart) {
-//     sessionStorage.setItem("cart", JSON.stringify(cart));
-//   } else {
-//     sessionStorage.removeItem("cart");
-//   }
-// };
+export const saveCartToStorage = (cart: CartItem | null) => {
+  if (cart) {
+    sessionStorage.setItem("cart", JSON.stringify(cart));
+  } else {
+    sessionStorage.removeItem("cart");
+  }
+};
 
-// export const loadCartFromStorage = (): CartItem | null => {
-//   const storedCart = sessionStorage.getItem("cart");
-//   return storedCart ? JSON.parse(storedCart) : null;
-// };
+export const getCartFromStorage = (): CartItem | null => {
+  const storedCart = sessionStorage.getItem("cart");
+  return storedCart ? JSON.parse(storedCart) : null;
+};
+
+export const clearCart = () => {
+  sessionStorage.removeItem("cart")
+}
 
 
 // userInfo
@@ -32,7 +38,6 @@ export const clearUserInfo = () => {
 };
 
 // User location
-
 export const saveLocationToSession = (location: ILocation) => { 
   const locationData = {
     coordinates: location.coordinates,
