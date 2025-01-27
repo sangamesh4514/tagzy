@@ -31,7 +31,7 @@ export default function OrderSummary({ setActivePage }: OrderPageProps){
     );
 
   return (
-    <div className="summary-container">
+    <div className="summary-container" style={{ background: 'white', minHeight: '600px', overflow: 'auto' }}>
       <button className="back-button"
       onClick={() => setActivePage("basket")}
       >
