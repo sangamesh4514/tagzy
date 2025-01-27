@@ -21,9 +21,9 @@
   flex: 1;
   position: relative;
 }
-.addOverflow{
+/* .addOverflow{
   overflow: hidden;
-}
+} */
 
 .services-grid {
   display: grid;

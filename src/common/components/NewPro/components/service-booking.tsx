@@ -212,144 +212,148 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
     );
   };
   return (
-    <div className="service-booking">
-      <main>
-        <section className="service-section">
-          {cartItem ? (
-            <CartItems cartItem={cartItem} removeFromCart={removeFromCart} />
-          ) : (
-            <div className="cart">
-              <h1 className="cart-header">
-                Cart <ShoppingCart />
-              </h1>
-              <h2 style={{ fontSize: "20px" }}>Your Cart is Empty</h2>
-            </div>
-          )}
-
-          {/* Total Price */}
-          {cartItem && (
-            <div className="total">
-              <span className="text-base sm:text-lg text-colorA">Total:</span>
-              <span className="text-base sm:text-lg text-colorA">
-                ₹{getTotal()}
-              </span>
-            </div>
-          )}
-
-          {!isLocationFound ? (
-            <div className="userEnteraddress mx-4 sm:mx-8">
-              <div className="text-lg sm:text-xl font-bold sm:font-normal mb-2">
-                Select Location:-
+    <div>
+      <div className="service-booking">
+        <main>
+          <section className="service-section">
+            {cartItem ? (
+              <CartItems cartItem={cartItem} removeFromCart={removeFromCart} />
+            ) : (
+              <div className="cart">
+                <h1 className="cart-header">
+                  Cart <ShoppingCart />
+                </h1>
+                <h2 style={{ fontSize: "20px" }}>Your Cart is Empty</h2>
               </div>
-              <MemoizedGoogleLocation />
-            </div>
-          ) : (
-            <>
-              {/* Related Addons */}
-              {cartItem &&
-                cartItem.addons.length !== cartItem.service.addOns.length && (
-                  <section className="related-addons">
-                    <div className="text-base sm:text-lg font-bold sm:font-normal mb-2">
-                      Add Addons Related to this Service :-
-                    </div>
-                    <div className="related-addons-grid">
-                      {cartItem.service.addOns.map(
-                        (addon) =>
-                          !addonsInCart.find(
-                            (item) => item.addon._id === addon._id
-                          ) && (
-                            <div key={addon._id} className="related-addon-card">
-                              <div className="flex flex-row justify-between">
-                                <div>
-                                  <img
-                                    src={addon.imageUrl || "/placeholder.svg"}
-                                    alt={addon.name}
-                                    className="h-14 w-16 sm:h-16"
-                                  />
-                                </div>
-                                <div className="addon-info flex flex-row sm:flex-col justify-between  items-center sm:items-start ml-4">
-                                  <div className="text-md sm:text-lg font-bold sm:font-normal pr-4 sm:pr-0">
-                                    {addon.name}
-                                  </div>
-                                  <div className="text-xl sm:text-2xl text-colorA font-bold sm:font-bold">
-                                    ₹{addon.cost}
-                                  </div>
-                                </div>
-                              </div>
-                              <Button
-                                variant="outline"
-                                onClick={() => handleAddonToggle(addon)}
-                                disabled={
-                                  !!addonsInCart.find(
-                                    (item) => item.addon._id === addon._id
-                                  )
-                                }
-                                className="addon-button-cart ml-auto"
-                              >
-                                Add
-                              </Button>
-                            </div>
-                          )
-                      )}
-                    </div>
-                  </section>
-                )}
+            )}
 
-              {/* User Time & Address */}
-              <div className="timeAndAddress">
-                {cartItem && cartItem.service.workingDays.length > 0 && (
-                  <div className="userSelectTime">
-                    <div className="text-lg sm:text-xl font-bold sm:font-normal mb-2">
-                      Select a Date{" "}
-                      {cartItem.service.timeSlots.length > 0 && "& Time"} :-
-                    </div>
-                    <MemoizedWorkingDaysCalendar
-                      workingDays={cartItem.service.workingDays}
-                      timeSlots={cartItem.service.timeSlots}
-                    />
-                  </div>
-                )}
-                <div className="useraddress">
-                  <div className="text-lg sm:text-xl font-bold sm:font-normal">
-                    Selected Location :-
-                  </div>
-                  <span>{text}</span>
-                  <button
-                    onClick={changeLocationHandler}
-                    className="bg-colorA hover:bg-colorB text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                  >
-                    Change Location
-                    <svg
-                      className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 14 10"
-                    >
-                      <path
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M1 5h12m0 0L9 1m4 4L9 9"
-                      />
-                    </svg>
-                  </button>
+            {/* Total Price */}
+            {cartItem && (
+              <div className="total">
+                <span>Total:</span>
+                <span>
+                  ₹{getTotal()}
+                </span>
+              </div>
+            )}
+
+            {!isLocationFound ? (
+              <div className="userEnteraddress mx-4 sm:mx-8">
+                <div className="text-lg sm:text-xl font-bold sm:font-normal mb-2">
+                  Select Location:-
                 </div>
+                <MemoizedGoogleLocation />
               </div>
-            </>
-          )}
-        </section>
-      </main>
+            ) : (
+              <>
+                {/* Related Addons */}
+                {cartItem &&
+                  cartItem.addons.length !== cartItem.service.addOns.length && (
+                    <section className="related-addons">
+                      <div className="text-base sm:text-lg font-bold sm:font-normal mb-2">
+                        Add Addons Related to this Service :-
+                      </div>
+                      <div className="related-addons-grid">
+                        {cartItem.service.addOns.map(
+                          (addon) =>
+                            !addonsInCart.find(
+                              (item) => item.addon._id === addon._id
+                            ) && (
+                              <div key={addon._id} className="related-addon-card">
+                                <div className="flex flex-row justify-between">
+                                  <div>
+                                    <img
+                                      src={addon.imageUrl || "/placeholder.svg"}
+                                      alt={addon.name}
+                                      className="h-14 w-16 sm:h-16"
+                                    />
+                                  </div>
+                                  <div className="addon-info flex flex-row sm:flex-col justify-between  items-center sm:items-start ml-4">
+                                    <div className="text-md sm:text-lg font-bold sm:font-normal pr-4 sm:pr-0">
+                                      {addon.name}
+                                    </div>
+                                    <div className="text-xl sm:text-2xl text-colorA font-bold sm:font-bold">
+                                      ₹{addon.cost}
+                                    </div>
+                                  </div>
+                                </div>
+                                <Button
+                                  variant="outline"
+                                  onClick={() => handleAddonToggle(addon)}
+                                  disabled={
+                                    !!addonsInCart.find(
+                                      (item) => item.addon._id === addon._id
+                                    )
+                                  }
+                                  className="addon-button-cart ml-auto"
+                                >
+                                  Add
+                                </Button>
+                              </div>
+                            )
+                        )}
+                      </div>
+                    </section>
+                  )}
 
-      {isLocationFound && cartItem && (
-        <StickyBar
-          toggleSidebar={ToggleLoginSidebar}
-          elementId={"circle-profile-image"}
-          buttonName={orderPlaceText}
-        />
-      )}
-      {showLoginDialog()}
+                {/* User Time & Address */}
+                <div className="timeAndAddress">
+                  {cartItem && cartItem.service.workingDays.length > 0 && (
+                    <div className="userSelectTime">
+                      <div className="text-lg sm:text-xl font-bold sm:font-normal mb-2">
+                        Select a Date{" "}
+                        {cartItem.service.timeSlots.length > 0 && "& Time"} :-
+                      </div>
+                      <MemoizedWorkingDaysCalendar
+                        workingDays={cartItem.service.workingDays}
+                        timeSlots={cartItem.service.timeSlots}
+                      />
+                    </div>
+                  )}
+                  <div className="useraddress">
+                    <div className="text-lg sm:text-xl font-bold sm:font-normal">
+                      Selected Location :-
+                    </div>
+                    <span>{text}</span>
+                    <button
+                      onClick={changeLocationHandler}
+                      className="bg-colorA hover:bg-colorB text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    >
+                      Change Location
+                      <svg
+                        className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 14 10"
+                      >
+                        <path
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M1 5h12m0 0L9 1m4 4L9 9"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </>
+            )}
+          </section>
+        </main>
+
+      </div>
+      <div className="sticky-bar">
+        {isLocationFound && cartItem && (
+          <StickyBar
+            toggleSidebar={ToggleLoginSidebar}
+            elementId={"circle-profile-image"}
+            buttonName={orderPlaceText}
+          />
+        )}
+        {showLoginDialog()}
+      </div>
     </div>
   );
 }
