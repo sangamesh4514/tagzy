@@ -22,7 +22,6 @@ import StickyBar from "./StickyBar";
 import LoginPage from "./Login";
 import { 
   getCartFromStorage,
-  saveCartToStorage,
   getUserInfo,
   clearLocation, 
   getLocationFromSession, 
@@ -47,9 +46,7 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
   const {
     cartItem,
     removeFromCart,
-    addAddon,
-    setSelectedDate,
-    setSelectedTimeSlot
+    addAddon
   } = useCart();
   const addonsInCart = cartItem?.addons || [];
   const userSessionData = getUserInfo();
@@ -188,17 +185,6 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
     // clear location to save new location
     if (previousLocation) {
       clearLocation();
-    }
-
-    if(cartSessionData) {
-      //null value of date and time from session and context
-      cartSessionData.selectedDate = null;
-      cartSessionData.selectedTimeSlot = null;
-      setSelectedDate("")
-      setSelectedTimeSlot("")
-
-      // save and update cartItem session
-      saveCartToStorage(cartSessionData)
     }
   };
 
