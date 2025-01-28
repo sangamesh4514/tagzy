@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState, MouseEvent } from "react";
 import {
   Dialog,
   DialogContent,
@@ -94,6 +94,12 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
     index: number,
     e: React.KeyboardEvent<HTMLInputElement>
   ) => {
+
+    if (e.key === "Enter") {
+      e.preventDefault(); // Prevent form submission on Enter key
+      return;
+    }
+
     if (e.key === "Backspace" && !otp[index] && index > 0) {
       const prevInput = document.querySelector<HTMLInputElement>(
         `input[name='otp-${index - 1}']`
@@ -102,12 +108,20 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
     }
   };
 
-  const handleReset = () => {
+  const handleReset = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
     setMobileNumber("");
     setShowOTP(false);
     setOTP(["", "", "", ""]);
     setError(null);
   };
+
+  const mobileInputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const value = e.target.value.replace(/\D/g, "");
+    if (value.length <= 10) setMobileNumber(value);
+  }
 
   //!! PRINCE
 
@@ -149,11 +163,10 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
               <Input
                 type="tel"
                 value={mobileNumber}
-                onChange={(e) => {
-                  const value = e.target.value.replace(/\D/g, "");
-                  if (value.length <= 10) setMobileNumber(value);
+                onChange={ mobileInputChangeHandler }
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") e.preventDefault(); // Prevent form submission
                 }}
-                // onKeyUp={handleKeyPress}
                 placeholder="Enter mobile number"
                 maxLength={10}
                 disabled={showOTP || loading}
