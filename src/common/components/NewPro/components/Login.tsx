@@ -64,15 +64,22 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
 
   const handleOTPVerify = async (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     const otpValue = otp.join("");
     if (otpValue.length !== 4) {
       window.alert("Enter a valid 4-digit OTP");
       return;
     }
-
-    await verifyOtp({ phoneNumber: mobileNumber, otp: otpValue });
+  
+    try {
+      await verifyOtp({ phoneNumber: mobileNumber, otp: otpValue });
+      // If OTP verification is successful, close the dialog
+      onClose(); // Trigger the parent callback to close the popup
+    } catch (error) {
+      console.log('===verify otp error', error);
+    }
   };
+  
 
   const handleOTPChange = (index: number, value: string) => {
     if (value.length > 1) value = value[value.length - 1];

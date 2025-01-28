@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ShoppingCart } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLoadScript } from "@react-google-maps/api";
@@ -20,11 +20,11 @@ import type { RootState } from "src/common/store/store";
 import { updatedLocationFound } from "../dataSlice";
 import StickyBar from "./StickyBar";
 import LoginPage from "./Login";
-import { 
+import {
   getCartFromStorage,
   getUserInfo,
-  clearLocation, 
-  getLocationFromSession, 
+  clearLocation,
+  getLocationFromSession,
 } from "src/common/utils/sessionUtlis";
 import { CartItems } from "./CartItems";
 import Loader from "../../Loader";
@@ -42,22 +42,27 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [orderPlaceText, setOrderPlaceText] = useState("Login User");
   const dispatch = useDispatch();
-  const { isLocationFound, text } = useSelector((state: RootState) => state.data);
-  const {
-    cartItem,
-    removeFromCart,
-    addAddon
-  } = useCart();
+  const { isLocationFound, text } = useSelector(
+    (state: RootState) => state.data
+  );
+  const { cartItem, removeFromCart, addAddon } = useCart();
   const addonsInCart = cartItem?.addons || [];
   const userSessionData = getUserInfo();
   const cartSessionData = getCartFromStorage();
   const userLocationSessionData = getLocationFromSession();
-  const { projectCreation } = useCreatePorject();
+  const { projectCreation, loading } = useCreatePorject();
 
   const projectPlaceHandler = () => {
     setIsOpen(!isOpen);
-    removeFromCart()
-  }
+    removeFromCart();
+  };
+
+  useEffect(() => {
+    if (userSessionData && orderPlaceText !== "Place Order") {
+      setOrderPlaceText("Place Order");
+    }
+  }, [userSessionData, orderPlaceText]);
+  
 
   // Load the Google Maps script and Places library
   const { isLoaded } = useLoadScript({
@@ -66,7 +71,6 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
   });
 
   if (!isLoaded) return <Loader isLoading={!isLoaded} />;
-  // if (!isLoaded) return <div>Loading...</div>
 
   if (!cartItem) {
     return (
@@ -80,11 +84,21 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
   }
 
   const showLoginDialog = () => {
+    // Do not render any dialog content while loading
+    if (loading) {
+      return <Loader isLoading={loading} />; // Or return a loader component if needed
+    }
     let dialogContent;
 
-  
     // Check if date and time are not selected first
-    if (!(cartItem?.selectedDate && ( cartItem.service.timeSlots.length > 0 ?cartItem?.selectedTimeSlot : true))) {
+    if (
+        !(
+          cartItem?.selectedDate &&
+          (cartItem.service.timeSlots.length > 0
+            ? cartItem?.selectedTimeSlot
+            : true)
+        )
+    ) {
       dialogContent = (
         <Dialog open={isOpen} onOpenChange={() => setIsOpen(!isOpen)}>
           <DialogContent className="bg-white" style={{ height: "250px" }}>
@@ -99,17 +113,16 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
     }
     // If userSessionData is available and date/time are selected
     else if (userSessionData) {
-      // Update order place text only if necessary
-      if (orderPlaceText !== "Place Order") {
-        setOrderPlaceText("Place Order");
-      }
-  
       dialogContent = (
         <Dialog open={isOpen} onOpenChange={projectPlaceHandler}>
           <DialogContent className="bg-white" style={{ height: "250px" }}>
             <DialogHeader>
-              <DialogDescription className="text-center font-bold text-lg">Thankyou, your order has been placed.</DialogDescription>
-              <DialogDescription className="text-center font-semibold text-lg">For tracking your order, Please download the App.</DialogDescription>
+              <DialogDescription className="text-center font-bold text-lg">
+                Thankyou, your order has been placed.
+              </DialogDescription>
+              <DialogDescription className="text-center font-semibold text-lg">
+                For tracking your order, Please download the App.
+              </DialogDescription>
               <DialogDescription>
                 <div className="flex flex-row justify-around items-center space-y-3 mt-8">
                   <div>
@@ -150,27 +163,40 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
     // Otherwise, show the login page
     else {
       dialogContent = (
-        <LoginPage
-          isOpen={isOpen}
-          onClose={() => setIsOpen(!isOpen)}
-        />
+        <LoginPage isOpen={isOpen} onClose={() => setIsOpen(false)} />
       );
     }
-  
+
     return dialogContent;
   };
-  
 
-  const ToggleLoginSidebar = async() => {
-    setIsOpen(!isOpen);
-    if(userSessionData && cartSessionData && userLocationSessionData && cartSessionData.selectedDate && ( cartItem.service.timeSlots.length > 0 ?cartItem?.selectedTimeSlot : true)){
-      const orderPlacePayload = transformOrderPlacePayload(
-        cartSessionData,
-        userSessionData,
-        userLocationSessionData
-      )
+  const ToggleLoginSidebar = async () => {
+    try {
+      // Toggle the sidebar's open/close state
+      setIsOpen(!isOpen);
 
-      await projectCreation(orderPlacePayload)
+      // Check all required conditions before proceeding with order placement
+      if (
+        userSessionData &&
+        cartSessionData &&
+        userLocationSessionData &&
+        cartSessionData.selectedDate &&
+        (cartItem.service.timeSlots.length > 0
+          ? cartItem?.selectedTimeSlot
+          : true)
+      ) {
+        // Transform the payload for order placement
+        const orderPlacePayload = transformOrderPlacePayload(
+          cartSessionData,
+          userSessionData,
+          userLocationSessionData
+        );
+
+        // Perform the asynchronous project creation
+        await projectCreation(orderPlacePayload);
+      }
+    } catch (error) {
+      console.log("===project creation error", error);
     }
   };
 
@@ -180,7 +206,7 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
 
   const changeLocationHandler = () => {
     dispatch(updatedLocationFound(false));
-    const previousLocation = getLocationFromSession()
+    const previousLocation = getLocationFromSession();
 
     // clear location to save new location
     if (previousLocation) {
@@ -217,9 +243,7 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
             {cartItem && (
               <div className="total">
                 <span>Total:</span>
-                <span>
-                  ₹{getTotal()}
-                </span>
+                <span>₹{getTotal()}</span>
               </div>
             )}
 
@@ -245,7 +269,10 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
                             !addonsInCart.find(
                               (item) => item.addon._id === addon._id
                             ) && (
-                              <div key={addon._id} className="related-addon-card">
+                              <div
+                                key={addon._id}
+                                className="related-addon-card"
+                              >
                                 <div className="flex flex-row justify-between">
                                   <div>
                                     <img
@@ -328,7 +355,6 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
             )}
           </section>
         </main>
-
       </div>
       <div className="sticky-bar">
         {isLocationFound && cartItem && (
