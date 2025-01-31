@@ -22,7 +22,6 @@ import StickyBar from "./StickyBar";
 import LoginPage from "./Login";
 import {
   getCartFromStorage,
-  getUserInfo,
   clearLocation,
   getLocationFromSession,
 } from "src/common/utils/sessionUtlis";
@@ -39,15 +38,17 @@ const MemoizedWorkingDaysCalendar = React.memo(WorkingDaysCalendar);
 const MemoizedGoogleLocation = React.memo(GoogleLocation);
 
 export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
+  const [orderPlaceText, setOrderPlaceText] = useState(
+    sessionStorage.getItem("userInfo") ? "Place Order" : "Login User"
+  );
   const [isOpen, setIsOpen] = useState(false);
-  const [orderPlaceText, setOrderPlaceText] = useState("Login User");
   const dispatch = useDispatch();
   const { isLocationFound, text } = useSelector(
     (state: RootState) => state.data
   );
   const { cartItem, removeFromCart, addAddon } = useCart();
   const addonsInCart = cartItem?.addons || [];
-  const userSessionData = getUserInfo();
+  const userSessionData: any = sessionStorage.getItem("userInfo")
   const cartSessionData = getCartFromStorage();
   const userLocationSessionData = getLocationFromSession();
   const { projectCreation, loading } = useCreatePorject();
@@ -58,10 +59,18 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
   };
 
   useEffect(() => {
-    if (userSessionData && orderPlaceText !== "Place Order") {
-      setOrderPlaceText("Place Order");
-    }
-  }, [userSessionData, orderPlaceText]);
+    const handleUserChange = () => {
+      const userSessionData = sessionStorage.getItem("userInfo");
+      setOrderPlaceText(userSessionData ? "Place Order" : "Login User");
+    };
+  
+    window.addEventListener("storage", handleUserChange);
+    return () => window.removeEventListener("storage", handleUserChange);
+  }, []);
+  
+  useEffect(() => {
+    setOrderPlaceText(userSessionData ? "Place Order" : "Login User")
+  }, [userSessionData]);
   
 
   // Load the Google Maps script and Places library

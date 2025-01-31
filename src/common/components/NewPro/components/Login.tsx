@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -11,7 +11,6 @@ import { Button } from "src/magicUi/ui/button";
 import { useUserLogin } from "src/common/api/userLogin";
 import "../styles/login.css";
 import { useAppSelector } from "src/common/hooks/hook";
-import { saveUserInfo } from "src/common/utils/sessionUtlis";
 import { RefreshCw } from "lucide-react";
 
 interface LoginDialogProps {
@@ -24,7 +23,7 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
   const [showOTP, setShowOTP] = useState<boolean>(false);
   const [otp, setOTP] = useState<string[]>(["", "", "", ""]);
 
-  const { getOtp, verifyOtp, loginInfo, loading, error, setError } =
+  const { getOtp, verifyOtp, loginInfo, loadingLogin, error, setError } =
     useUserLogin();
   const providerNumber = useAppSelector(
     (state) => state.providerNumber.mobileNumber
@@ -32,7 +31,7 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
 
   useEffect(() => {
     if (loginInfo) {
-      saveUserInfo(loginInfo);
+      sessionStorage.setItem("userInfo", loginInfo as any)
     }
 
     return () => {
@@ -75,8 +74,8 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
       await verifyOtp({ phoneNumber: mobileNumber, otp: otpValue });
       // If OTP verification is successful, close the dialog
       onClose(); // Trigger the parent callback to close the popup
-    } catch (error) {
-      console.log('===verify otp error', error);
+    } catch (err) {
+      console.log('===verify otp error', err);
     }
   };
   
@@ -101,6 +100,11 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
     index: number,
     e: React.KeyboardEvent<HTMLInputElement>
   ) => {
+    if (e.key === "Enter") {
+      e.preventDefault(); // Prevent form submission on Enter key
+      return;
+    }
+  
     if (e.key === "Backspace" && !otp[index] && index > 0) {
       const prevInput = document.querySelector<HTMLInputElement>(
         `input[name='otp-${index - 1}']`
@@ -108,6 +112,7 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
       prevInput?.focus();
     }
   };
+  
 
   const handleReset = () => {
     setMobileNumber("");
@@ -115,6 +120,12 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
     setOTP(["", "", "", ""]);
     setError(null);
   };
+
+  // mobileNumber input chage handler
+  const mobileNumberChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, "");
+    if (value.length <= 10) setMobileNumber(value);
+  }
 
   //!! PRINCE
 
@@ -156,19 +167,18 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
               <Input
                 type="tel"
                 value={mobileNumber}
-                onChange={(e) => {
-                  const value = e.target.value.replace(/\D/g, "");
-                  if (value.length <= 10) setMobileNumber(value);
+                onChange={mobileNumberChangeHandler}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") e.preventDefault(); // Prevent form submission
                 }}
-                // onKeyUp={handleKeyPress}
                 placeholder="Enter mobile number"
                 maxLength={10}
-                disabled={showOTP || loading}
+                disabled={showOTP || loadingLogin}
                 required
               />
               <button
                 style={{ display: `${showOTP ? "" : "none"}` }}
-                disabled={loading}
+                disabled={loadingLogin}
                 onClick={handleReset}
               >
                 <RefreshCw color="#096c6c" />
@@ -203,7 +213,7 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
                     type="button"
                     className="resend-button text-colorA ml-2"
                     onClick={() => getOtp(mobileNumber)}
-                    disabled={loading}
+                    disabled={loadingLogin}
                   >
                     Resend OTP
                   </button>
@@ -215,9 +225,9 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
             <Button
               type="submit"
               className="submit-button bg-colorA hover:bg-colorB"
-              disabled={loading}
+              disabled={loadingLogin}
             >
-              {loading ? "Please wait..." : showOTP ? "Verify OTP" : "Send OTP"}
+              {loadingLogin ? "Please wait..." : showOTP ? "Verify OTP" : "Send OTP"}
             </Button>
           </form>
         </div>

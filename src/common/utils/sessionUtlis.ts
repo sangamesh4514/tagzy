@@ -1,4 +1,4 @@
-import { ILocation, IUserProfile } from "../types";
+import { ILocation } from "../types";
 import { CartItem } from "src/common/types";
 
 
@@ -24,18 +24,19 @@ export const clearCart = () => {
 
 
 // userInfo
-export const saveUserInfo = (userInfo: IUserProfile) => {
-  sessionStorage.setItem("userInfo", JSON.stringify(userInfo));
-};
+// export const saveUserInfo = (userInfo: IUserProfile) => {
+//   sessionStorage.setItem("userInfo", JSON.stringify(userInfo));
+// };
 
-export const getUserInfo = (): IUserProfile | null => {
-  const storedUserInfo = sessionStorage.getItem("userInfo");
-  return storedUserInfo ? JSON.parse(storedUserInfo) : null;
-};
+// export const getUserInfo = (): IUserProfile | null => {
+//   const storedUserInfo = sessionStorage.getItem("userInfo");
+//   console.log('===userInfo', storedUserInfo);
+//   return storedUserInfo ? JSON.parse(storedUserInfo) : null;
+// };
 
-export const clearUserInfo = () => {
-  sessionStorage.removeItem("userInfo");
-};
+// export const clearUserInfo = () => {
+//   sessionStorage.removeItem("userInfo");
+// };
 
 // User location
 export const saveLocationToSession = (location: ILocation) => { 

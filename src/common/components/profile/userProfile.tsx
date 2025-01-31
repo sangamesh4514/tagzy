@@ -20,8 +20,6 @@ const ProProfile: React.FC = () => {
   const [userData, setUserData] = useState<IUserProfile | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const dispatch = useAppDispatch();
-  const cartSessionData = getCartFromStorage();
-  const userLocationSessionData = getLocationFromSession();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -36,8 +34,12 @@ const ProProfile: React.FC = () => {
         setUserData(data);
         dispatch(setMobileNumber(data.phoneNumber));
 
+        // Re-fetch cart and location session data to ensure they're current
+        const currentCartSessionData = getCartFromStorage();
+        const currentUserLocationSessionData = getLocationFromSession();
+
         // clear cart from session if provider profile changes
-        if (cartSessionData && userLocationSessionData) {
+        if (currentCartSessionData && currentUserLocationSessionData) {
           clearCart();
           clearLocation();
         }
@@ -49,7 +51,7 @@ const ProProfile: React.FC = () => {
     };
 
     fetchUserData();
-  }, [userId, dispatch, cartSessionData, userLocationSessionData]);
+  }, [userId, dispatch]);
 
   if (loading) {
     return (
