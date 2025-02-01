@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IUserProfile } from "../types";
 
 interface LoginData {
@@ -8,12 +8,27 @@ interface LoginData {
 }
 
 export function useUserLogin() {
-  const [loginInfo, setLoginInfo] = useState<IUserProfile | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
+
+  // this should sync the session Storage and VerifyOTP
+  const [loginInfo, setLoginInfo] = useState<IUserProfile | null>(() => {
+    const saveUserInfoToSession = sessionStorage.getItem("userInfo");
+    return saveUserInfoToSession ? JSON.parse(saveUserInfoToSession) : null;
+  });
+  const [loadingLogin, setLoadingLogin] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const userSessionData = sessionStorage.getItem("userInfo");
+      setLoginInfo(userSessionData ? JSON.parse(userSessionData) : null)
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange)
+  }, [])
+
   const getOtp = async (mobileNumber: string) => {
-    setLoading(true);
+    setLoadingLogin(true);
     setError(null);
     try {
       const config = {
@@ -31,12 +46,12 @@ export function useUserLogin() {
         err?.response?.data?.message || "User has not found, Please Signup"
       );
     } finally {
-      setLoading(false);
+      setLoadingLogin(false);
     }
   };
 
   const verifyOtp = async (loginData: LoginData) => {
-    setLoading(true);
+    setLoadingLogin(true);
     setError(null);
     try {
       const config = {
@@ -52,17 +67,19 @@ export function useUserLogin() {
       );
 
       if (!data.isUserPro) {
-        setLoginInfo(data);
+        sessionStorage.setItem("userInfo", JSON.stringify(data))
+        setLoginInfo({...data});
       } else {
         setError(
           `This number ${data.phoneNumber} is register as Provider in TagZy. As per the TagZy policy provider can't book the service`
         );
       }
     } catch (err: any) {
+      sessionStorage.removeItem("userInfo")
       setLoginInfo(null);
       setError(err?.response?.data?.message || "Failed to fetch user data");
     } finally {
-      setLoading(false);
+      setLoadingLogin(false);
     }
   };
 
@@ -70,8 +87,9 @@ export function useUserLogin() {
     getOtp,
     verifyOtp,
     loginInfo,
-    loading,
+    loadingLogin,
     error,
+    // key,
     setError,
   };
 }
