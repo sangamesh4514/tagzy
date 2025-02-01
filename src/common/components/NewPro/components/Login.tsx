@@ -78,11 +78,9 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
     }
   
     try {
-      if ('key' in e && e.key === "Enter") {
-        await verifyOtp({ phoneNumber: mobileNumber, otp: otpValue });
-        // If OTP verification is successful, close the dialog
-        onClose(); // Trigger the parent callback to close the popup
-      }
+      await verifyOtp({ phoneNumber: mobileNumber, otp: otpValue });
+      // If OTP verification is successful, close the dialog
+      onClose(); // Trigger the parent callback to close the popup
     } catch (err) {
       console.log('===verify otp error', err);
     }
@@ -111,7 +109,6 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
   ) => {
     if (e.key === "Enter") {
       e.preventDefault(); // Prevent form submission on Enter key
-      return;
     }
 
     if (e.key === "Backspace" && !otp[index] && index > 0) {

@@ -42,6 +42,7 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
     sessionStorage.getItem("userInfo") ? "Place Order" : "Login User"
   );
   const [isOpen, setIsOpen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const dispatch = useDispatch();
   const { isLocationFound, text } = useSelector(
     (state: RootState) => state.data
@@ -221,6 +222,7 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
     if (previousLocation) {
       clearLocation();
     }
+    setIsExpanded(false); // Collapse when changing location
   };
 
   const getTotal = () => {
@@ -234,7 +236,7 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
   };
   return (
     <div>
-      <div className="service-booking">
+      <div className={`service-booking ${isExpanded ? "expanded" : ""}`}>
         <main>
           <section className="service-section">
             {cartItem ? (
@@ -261,7 +263,7 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
                 <div className="text-lg sm:text-xl font-bold sm:font-normal mb-2">
                   Select Location:-
                 </div>
-                <MemoizedGoogleLocation />
+                <MemoizedGoogleLocation setIsExpanded={setIsExpanded}/>
               </div>
             ) : (
               <>
@@ -351,9 +353,9 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
                       >
                         <path
                           stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
                           d="M1 5h12m0 0L9 1m4 4L9 9"
                         />
                       </svg>
