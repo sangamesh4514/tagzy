@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState, MouseEvent, FormEvent, KeyboardEvent } from "react";
+import React, { ChangeEvent, useEffect, useState, MouseEvent } from "react";
 import {
   Dialog,
   DialogContent,
@@ -62,21 +62,16 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
     setShowOTP(true);
   };
 
-  const handleOTPVerify = async (e: FormEvent<HTMLFormElement> | KeyboardEvent<HTMLInputElement>) => {
+  const handleOTPVerify = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    
     const otpValue = otp.join("");
     if (otpValue.length !== 4) {
       window.alert("Enter a valid 4-digit OTP");
       return;
     }
-    
-    // Only trigger verification if the user presses 'Enter'
-    if('key' in e && e.key === 'Enter') {
-      await verifyOtp({ phoneNumber: mobileNumber, otp: otpValue });
-    }
 
+    await verifyOtp({ phoneNumber: mobileNumber, otp: otpValue });
   };
 
   const handleOTPChange = (index: number, value: string) => {
@@ -128,6 +123,18 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
     if (value.length <= 10) setMobileNumber(value);
   }
 
+  //!! PRINCE
+
+  // const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  //   if (e.key === "Enter") {
+  //     if (showOTP) {
+  //       handleOTPVerify(e);
+  //     } else {
+  //       handleMobileSubmit(e);
+  //     }
+  //   }
+  // };
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="bg-white">
@@ -158,10 +165,7 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
                 value={mobileNumber}
                 onChange={ mobileInputChangeHandler }
                 onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    e.preventDefault(); // Prevent form submission
-                    handleMobileSubmit(e as unknown as FormEvent<HTMLFormElement>)
-                  }
+                  if (e.key === "Enter") e.preventDefault(); // Prevent form submission
                 }}
                 placeholder="Enter mobile number"
                 maxLength={10}
@@ -192,13 +196,7 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
                       name={`otp-${index}`}
                       value={digit}
                       onChange={(e) => handleOTPChange(index, e.target.value)}
-                      onKeyDown={(e) => {
-                          if (e.key === "Enter") {
-                            e.preventDefault(); // Prevent default form submission
-                            handleOTPVerify(e); // Call OTP verification
-                            handleKeyDown(index, e)
-                          }
-                        }}
+                      onKeyDown={(e) => handleKeyDown(index, e)}
                       maxLength={1}
                       className="otp-input"
                       autoComplete="off"
