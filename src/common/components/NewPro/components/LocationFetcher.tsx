@@ -11,7 +11,10 @@ import { MapPinHouse } from "lucide-react";
 import { ILocation } from "src/common/types";
 import { saveLocationToSession } from "src/common/utils/sessionUtlis"
 
-const GoogleLocation: React.FC = () => {
+// interface GoogleLocationProps {
+//   isExpanded: Boolean;
+// }
+const GoogleLocation = ({ setIsExpanded }: { setIsExpanded: (value: boolean) => void }) => {
   const dispatch = useDispatch();
   const { cartItem } = useCart();
   const [location, setLocation] = useState<{ lat: number; lng: number } | null>(
@@ -56,11 +59,12 @@ const GoogleLocation: React.FC = () => {
 
         if(userCurrentlocation) {
           saveLocationToSession(userCurrentlocation)
+          setIsExpanded(true); // Expand when location is selected
         }
       } catch (error) {
       }
     },
-    [setValue, clearSuggestions, dispatch]
+    [setValue, clearSuggestions, dispatch, setIsExpanded]
   );
 
   // Memoize provider location coordinates from cart item
@@ -118,6 +122,7 @@ const GoogleLocation: React.FC = () => {
               setValue("");
               setIsTyping(false); // Stop typing state
               // Save the location to sessionStorage
+              setIsExpanded(true); // Expand when current location is used
 
               const userCurrentlocation: ILocation = {
                 coordinates: [latitude, longitude],
