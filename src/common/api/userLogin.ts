@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { IUserProfile } from "../types";
+import { clearCart, clearLocation } from "../utils/sessionUtlis";
 
 interface LoginData {
   phoneNumber: string;
@@ -83,13 +84,20 @@ export function useUserLogin() {
     }
   };
 
+  const userLogout = () => {
+    sessionStorage.removeItem('userInfo');
+    clearLocation();
+    clearCart();
+    window.location.reload();
+  }
+
   return {
     getOtp,
     verifyOtp,
+    userLogout,
     loginInfo,
     loadingLogin,
     error,
-    // key,
     setError,
   };
 }
