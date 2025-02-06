@@ -2,6 +2,8 @@
   background: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 10;
+  padding: 0 4rem;
+  padding-right: 2.8rem;
 }
 
 .profile-location {
@@ -20,7 +22,7 @@
   height: 320px;
   overflow: hidden;
   position: relative;
-  margin: 2rem;
+  margin: 0.5rem 2rem;
   border-radius: 25px;
 }
 
@@ -32,13 +34,13 @@
 
 .profile-section {
   flex-direction: column;
-  max-width: 1200px;
-  margin: 0 auto;
+  justify-content: space-between;
+  max-width: 100%;
+  margin: 0 24px;
   padding: 0 2rem;
   display: flex;
   align-items: flex-start;
-  /* gap: 2rem; */
-  margin-top: -120px;
+  margin-top: -100px;
   position: relative;
   z-index: 10;
 }
@@ -96,7 +98,7 @@
   display: flex;
   gap: 1rem;
   border-top: 1px solid #096c6c38;
-  margin-top: 1rem;
+  margin-top: 14px;
 }
 
 /* Mobile View */
@@ -127,6 +129,10 @@
 
 /* Mobile View Buttons */
 @media (max-width: 768px) {
+  .pro-header{
+    padding: 0;
+
+  }
   .nav-button {
     font-size: 0.9rem;
     font-weight: bold;
@@ -137,12 +143,12 @@
 
 .stats-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   background-color: #ffffff;
   padding: 20px;
   border-radius: 12px;
   max-width: 600px;
-  margin: 14px;
+  margin: 14px 4px;
   box-shadow: 0 0 4px 4px #096c6c1c;
   @media (max-width: 768px) {
     flex-direction: column;
