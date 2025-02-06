@@ -34,7 +34,7 @@ const Header = () => {
       </div>
       {userLoggedIn ? (
         <div className="navbarItem">
-          <ProfilePopup user={userLoggedIn}/>
+          <ProfilePopup user={userLoggedIn} />
         </div>
       ) : (
         <div className="contact-form">

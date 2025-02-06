@@ -18,8 +18,6 @@
     }
   }
 
-  
-
   @media screen and (max-width: 767px) {
     padding-left: 5px;
     padding-right: 32px;
@@ -37,13 +35,13 @@
   }
 }
 
-.user-profile-avatar{
+.user-profile-avatar {
   border: 3px solid #204a4c; /* Light border */
   border-radius: 50%;
 }
 
-.user-profile-avatar img{
-  width: 48px !important;  /* Reduced size */
+.user-profile-avatar img {
+  width: 48px !important; /* Reduced size */
   height: 48px !important; /* Reduced size */
   padding: 2px;
   border-radius: 50%;
@@ -72,13 +70,13 @@
   border: 1px solid #e5e5e5; /* Light border */
 }
 
-.user-card-inner{
+.user-card-inner {
   border-radius: 50%;
   border: 3px solid #204a4c; /* Light border */
 }
 
 .user-avatar {
-  width: 28px !important;  /* Reduced size */
+  width: 28px !important; /* Reduced size */
   height: 28px !important; /* Reduced size */
   border-radius: 50%;
   padding: 1px;
@@ -98,13 +96,13 @@
   cursor: pointer;
 }
 
-.user-option-text{
+.user-option-text {
   align-content: center;
   margin-left: 8px;
   font-weight: 700;
 }
 
-.user-option-text-dialog{
+.user-option-text-dialog {
   margin-top: 1px;
   margin-left: 8px;
   font-size: smaller;
