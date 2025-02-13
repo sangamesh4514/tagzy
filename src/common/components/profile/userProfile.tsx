@@ -13,7 +13,6 @@ import Footer from "../Footer";
 import userDataJson from "./data.json";
 import { useAppDispatch } from "src/common/hooks/hook";
 import { setMobileNumber } from "src/common/utils/providerProfile/providerProfileSlice";
-import { clearCart, clearLocation, getCartFromStorage, getLocationFromSession } from "src/common/utils/sessionUtlis";
 
 const ProProfile: React.FC = () => {
   const { userId } = useParams<{ userId: string }>(); // Extract userId from the URL
@@ -35,13 +34,13 @@ const ProProfile: React.FC = () => {
         dispatch(setMobileNumber(data.phoneNumber));
 
         // Re-fetch cart and location session data to ensure they're current
-        const currentCartSessionData = getCartFromStorage();
-        const currentUserLocationSessionData = getLocationFromSession();
+        const currentCartSessionData = sessionStorage.getItem('cartInfo');
+        const currentUserLocationSessionData = sessionStorage.getItem('userLocation');
 
         // clear cart from session if provider profile changes
         if (currentCartSessionData && currentUserLocationSessionData) {
-          clearCart();
-          clearLocation();
+          sessionStorage.removeItem('cartInfo');
+          sessionStorage.removeItem('userLocation');
         }
       } catch (error) {
         setUserData(userDataJson);

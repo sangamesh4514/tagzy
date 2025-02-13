@@ -133,6 +133,29 @@
   text-align: center;
 }
 
+.order-dialog{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.order-dialog-text{
+  font-size: large;
+  font-weight: 700;
+}
+
+.order-dialog-btn{
+  background-color: #096c6c;
+  color: #ffffff;
+  margin-top: 25px;
+  margin-bottom: 15px;
+}
+
+.order-dialog-btn :hover{
+  background-color: #064747;
+  color: #ffffff;
+}
+
 @media (max-width: 640px) {
   .login-card {
     padding: 1.5rem;

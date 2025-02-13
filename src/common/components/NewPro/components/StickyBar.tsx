@@ -8,7 +8,7 @@ interface StickyBarProps {
   // setActivePage: (page: Page) => void;
   elementId: string;
   toggleSidebar: () => void;
-  buttonName: String | undefined;
+  buttonName: String | React.ReactNode;
 }
 
 const StickyBar: React.FC<StickyBarProps> = ({ elementId, toggleSidebar, buttonName }) => {

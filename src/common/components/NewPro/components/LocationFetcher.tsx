@@ -9,7 +9,6 @@ import { useDispatch } from "react-redux";
 import { updatedLocationFound, updateText } from "../dataSlice";
 import { MapPinHouse } from "lucide-react";
 import { ILocation } from "src/common/types";
-import { saveLocationToSession } from "src/common/utils/sessionUtlis"
 
 // interface GoogleLocationProps {
 //   isExpanded: Boolean;
@@ -58,7 +57,7 @@ const GoogleLocation = ({ setIsExpanded }: { setIsExpanded: (value: boolean) => 
         };
 
         if(userCurrentlocation) {
-          saveLocationToSession(userCurrentlocation)
+          sessionStorage.setItem('userLocationInfo', JSON.stringify(userCurrentlocation));
           setIsExpanded(true); // Expand when location is selected
         }
       } catch (error) {
@@ -131,7 +130,7 @@ const GoogleLocation = ({ setIsExpanded }: { setIsExpanded: (value: boolean) => 
               };
 
               if(userCurrentlocation) {
-                saveLocationToSession(userCurrentlocation)
+                sessionStorage.setItem('userLocationInfo', JSON.stringify(userCurrentlocation));
               }
 
             } else if (!results) {

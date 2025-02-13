@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { IUserProfile } from "../types";
-import { clearCart, clearLocation } from "../utils/sessionUtlis";
+// import { clearCart, sessionStorage.removeItem 'userLocation'} from "../utils/sessionUtlis";
 
 interface LoginData {
   phoneNumber: string;
@@ -54,6 +54,10 @@ export function useUserLogin() {
   const verifyOtp = async (loginData: LoginData) => {
     setLoadingLogin(true);
     setError(null);
+    // setError(
+    //   `This number is register as Provider in TagZy. As per the TagZy policy provider can't book the service`
+    // );
+
     try {
       const config = {
         headers: {
@@ -86,8 +90,9 @@ export function useUserLogin() {
 
   const userLogout = () => {
     sessionStorage.removeItem('userInfo');
-    clearLocation();
-    clearCart();
+    sessionStorage.removeItem('userLocation');
+    sessionStorage.removeItem('cartInfo');
+    sessionStorage.removeItem('projectInfo')
     window.location.reload();
   }
 
