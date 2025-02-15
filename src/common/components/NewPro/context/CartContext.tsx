@@ -19,15 +19,27 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 // Cart Provider
 export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [cartItem, setCartItem] = useState<CartItem | null>(null);
+  const [cartItem, setCartItem] = useState<CartItem | null>(
+    sessionStorage.getItem('cartInfo') ? JSON.parse(sessionStorage.getItem('cartInfo') as string) : null
+  );
+
+  useEffect(() => {
+    const handleCartChange = () => {
+      const currentCartSessionData: CartItem | null = sessionStorage.getItem('cartInfo') ? JSON.parse(sessionStorage.getItem('cartInfo') as string) : null;
+      setCartItem(currentCartSessionData);
+    }
+    //Listen for changes in storage
+    window.addEventListener('storage', handleCartChange);
+    return () => {
+      window.removeEventListener('storage', handleCartChange);
+    }
+  }, [])
 
   // Save cart to sessionStorage whenever it changes
   useEffect(() => {
     if(cartItem) {
       sessionStorage.setItem("cartInfo",JSON.stringify(cartItem));
-    } else {
-      sessionStorage.removeItem("cartInfo")
-    }
+    } 
   }, [cartItem]);
 
   // Add service to cart
@@ -43,6 +55,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   // Remove service from cart
   const removeFromCart = () => {
     setCartItem(null);
+    // sessionStorage.removeItem('cartInfo')
   };
 
   // Add add-on with service

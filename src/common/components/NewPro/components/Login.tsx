@@ -22,7 +22,6 @@ import { useAppSelector } from "src/common/hooks/hook";
 import { RefreshCw } from "lucide-react";
 import { transformOrderPlacePayload } from "./orderPlace/utlis";
 import { useCreatePorject } from "src/common/api/createProject";
-import { useCart } from "../context/CartContext";
 import Loader from "../../Loader";
 import { CartItem, ILocation, IUserProfile } from "src/common/types";
 
@@ -47,32 +46,32 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
   const { getOtp, verifyOtp, loginInfo, loadingLogin, error, setError } =
     useUserLogin();
   const { projectCreation, loading } = useCreatePorject();
-  const { removeFromCart } = useCart();
-
-  //get session data
-  const cartSessionData: CartItem | null = sessionStorage.getItem("cartInfo")
-    ? JSON.parse(sessionStorage.getItem("cartInfo") as string)
-    : null;
-
-  const userLocationSessionData: ILocation | null = sessionStorage.getItem(
-    "userLocationInfo"
-  )
-    ? JSON.parse(sessionStorage.getItem("userLocationInfo") as string)
-    : null;
 
   useEffect(() => {
-    const userInfoSessionData: IUserProfile | null = sessionStorage.getItem(
+    //get session data
+    const currentCartSessionData: CartItem | null = sessionStorage.getItem("cartInfo")
+      ? JSON.parse(sessionStorage.getItem("cartInfo") as string)
+    : null;
+    const currentUserSessionData: IUserProfile | null = sessionStorage.getItem(
       "userInfo"
     )
       ? JSON.parse(sessionStorage.getItem("userInfo") as string)
       : null;
+    
+    const currentuserLocationSessionData: ILocation | null = sessionStorage.getItem(
+      "userLocationInfo"
+    )
+      ? JSON.parse(sessionStorage.getItem("userLocationInfo") as string)
+    : null;
 
-    if (userInfoSessionData && cartSessionData && userLocationSessionData) {
+    console.log('===currentuserLocationSessionData in from Login', currentuserLocationSessionData);
+
+    if (currentUserSessionData && currentCartSessionData && currentuserLocationSessionData) {
       try {
         const orderPlacePayload = transformOrderPlacePayload(
-          cartSessionData,
-          userInfoSessionData,
-          userLocationSessionData
+          currentCartSessionData,
+          currentUserSessionData,
+          currentuserLocationSessionData
         );
 
         // Reset timer
@@ -105,14 +104,12 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
     }
 
     if (error) {
-      console.log("=== inside error");
       setMobileNumber("");
       setShowOTP(false);
       setOTP(["", "", "", ""]);
-      setError(null);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loginInfo, error, setError]);
+  }, [loginInfo, error, setError, ]);
 
 
   const handleMobileSubmit = async (e: React.FormEvent) => {
@@ -206,24 +203,25 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
 
   const projectPlaceHandler = () => {
     onClose();
-    removeFromCart();
+    sessionStorage.removeItem('cartInfo');
     sessionStorage.removeItem('userLocationInfo');
+    window.location.reload()
   };
 
   // thankyou dailog
   if (!loading && showDialog) {
     return (
       <Dialog open={isOpen} onOpenChange={projectPlaceHandler}>
-        <DialogContent className="bg-white" style={{ height: "250px" }}>
+        <DialogContent className="h-fit bg-white">
           <DialogHeader>
-            <DialogDescription className="text-center font-bold text-lg">
+            <DialogDescription className="text-center font-bold text-md sm:text-lg mt-2.5">
               Thankyou, your order has been placed.
             </DialogDescription>
-            <DialogDescription className="text-center font-semibold text-lg">
+            <DialogDescription className="text-center font-semibold sm:font-normal text-md sm:text-lg">
               For tracking your order, Please download the App.
             </DialogDescription>
             <DialogDescription>
-              <div className="flex flex-row justify-around items-center space-y-3 mt-8">
+              <div className="flex flex-row justify-around items-center space-y-3 mt-4">
                 <div>
                   <a
                     href="https://apps.apple.com"
@@ -262,7 +260,10 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
 
   return (
     <>
-      <Dialog open={isOpen} onOpenChange={onClose}>
+      <Dialog open={isOpen} onOpenChange={() => {
+        onClose();
+        setError(null)
+      }}>
         {loginInfo === null ? (
           <DialogContent className="bg-white">
             <DialogHeader>
@@ -421,7 +422,8 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
                   </div>
                 </div>
               </DialogContent>
-            )}
+            )
+          }
       </Dialog>
     </>
   );

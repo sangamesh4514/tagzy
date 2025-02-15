@@ -13,6 +13,7 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
+  DialogTitle,
 } from "src/magicUi/ui/dialog";
 import { WorkingDaysCalendar } from "./WorkingDaysCalendar";
 import GoogleLocation from "./LocationFetcher";
@@ -57,13 +58,14 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
 
   const userSessionData: IUserProfile | null = sessionStorage.getItem("userInfo") ? JSON.parse(sessionStorage.getItem('userLocationInfo') as string) 
   : null;
-  
+
+  console.log('===projectInfo outside',projectInfo);
+
   useEffect(() => {
     const handleUserChange = () => {
       const userSessionData = sessionStorage.getItem("userInfo");
       setOrderPlaceText(userSessionData ? "Place Order" : "Login User");
-    };
-    
+    };    
     window.addEventListener("storage", handleUserChange);
     return () => window.removeEventListener("storage", handleUserChange);
   }, []);
@@ -74,8 +76,9 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
   
   const projectPlaceHandler = () => {
     setIsOpen(!isOpen);
-    removeFromCart();
+    sessionStorage.removeItem('cartInfo');
     sessionStorage.removeItem('userLocationInfo');
+    window.location.reload();
   };
 
   // Load the Google Maps script and Places library
@@ -115,7 +118,7 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
     ) {
       dialogContent = (
         <Dialog open={isOpen} onOpenChange={() => setIsOpen(!isOpen)}>
-          <DialogContent className="bg-white" style={{ height: "250px" }}>
+          <DialogContent className="h-fit bg-white error-message">
             <DialogHeader>
               <DialogDescription>
                 Please select Date and Time for Hassle-Free Service
@@ -129,16 +132,16 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
     else if (projectInfo) {
       dialogContent = (
         <Dialog open={isOpen} onOpenChange={projectPlaceHandler}>
-          <DialogContent className="bg-white" style={{ height: "250px" }}>
+          <DialogContent className="h-fit bg-white">
             <DialogHeader>
-              <DialogDescription className="text-center font-bold text-lg">
+              <DialogDescription className="text-center font-bold text-md sm:text-lg mt-2.5">
                 Thankyou, your order has been placed.
               </DialogDescription>
-              <DialogDescription className="text-center font-semibold text-lg">
+              <DialogDescription className="text-center font-semibold sm:font-normal text-md sm:text-lg">
                 For tracking your order, Please download the App.
               </DialogDescription>
               <DialogDescription>
-                <div className="flex flex-row justify-around items-center space-y-3 mt-8">
+                <div className="flex flex-row justify-around items-center space-y-3 mt-4">
                   <div>
                     <a
                       href="https://apps.apple.com"
@@ -374,12 +377,31 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
         </main>
       </div>
         <div className="sticky-bar">
-          {isLocationFound && cartItem && (
-            <StickyBar
-              toggleSidebar={ToggleLoginSidebar}
-              elementId={"circle-profile-image"}
-              buttonName={loading ? <Loader isLoading={loading} /> :orderPlaceText}
-            />
+          {loading ? (
+            <Dialog open={isOpen} onOpenChange={() => setIsOpen(!isOpen)}>
+              <DialogContent className="bg-white">
+              <DialogHeader>
+                <DialogTitle>
+                  <div>
+                    <img
+                      className="logo mx-auto mb-2"
+                      src="/logo.png"
+                      alt="logo"
+                    />
+                  </div>
+                </DialogTitle>
+              </DialogHeader>
+              <Loader isLoading={loading} />
+            </DialogContent>
+            </Dialog>
+          ) : (
+            (isLocationFound && cartItem && (
+              <StickyBar
+                toggleSidebar={ToggleLoginSidebar}
+                elementId={"circle-profile-image"}
+                buttonName={orderPlaceText}
+              />
+            ))
           )}
           {showLoginDialog()}
         </div>

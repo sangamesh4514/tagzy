@@ -40,6 +40,11 @@
   }
 }
 
+.error-message {
+  color: #dc2626;
+  font-size: 0.875rem;
+}
+
 .cart {
   min-height: 600px;
   background: white;
