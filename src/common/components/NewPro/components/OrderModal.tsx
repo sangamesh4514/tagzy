@@ -79,7 +79,7 @@ export function OrderModal({ isOpen, onClose, onSubmit }: OrderModalProps) {
 
   const handleClickForOtpGeneration = async(phoneNumber: string) => {
     // await getOtp(phoneNumber)
-    await projectCreation(test)
+    await projectCreation(test as any)
   }
 
   const handleClickForVerify = async({phoneNumber, otp}: VerifyOtpType) => {

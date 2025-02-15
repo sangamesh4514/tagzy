@@ -9,15 +9,19 @@ import { useDispatch } from "react-redux";
 import { updatedLocationFound, updateText } from "../dataSlice";
 import { MapPinHouse } from "lucide-react";
 import { ILocation } from "src/common/types";
-import { saveLocationToSession } from "src/common/utils/sessionUtlis"
 
 // interface GoogleLocationProps {
 //   isExpanded: Boolean;
 // }
+
+interface LocationProps {
+  lat: number;
+  lng: number;
+}
 const GoogleLocation = ({ setIsExpanded }: { setIsExpanded: (value: boolean) => void }) => {
   const dispatch = useDispatch();
   const { cartItem } = useCart();
-  const [location, setLocation] = useState<{ lat: number; lng: number } | null>(
+  const [location, setLocation] = useState<LocationProps | null>(
     null
   );
   const [address, setAddress] = useState<string | null>(null); 
@@ -36,7 +40,29 @@ const GoogleLocation = ({ setIsExpanded }: { setIsExpanded: (value: boolean) => 
       radius: 200 * 1000, // 200km radius for results
     },
   });
+  
+  useEffect(() => {
+    const handleLocationChange = () => {
+      const currentuserLocationSessionData: ILocation | null = sessionStorage.getItem('userLocationInfo') ? JSON.parse(sessionStorage.getItem('userLocationInfo') as string) : null
 
+      if(currentuserLocationSessionData) {
+        console.log('===currentuserLocationSessionData inside LocationFetcher', currentuserLocationSessionData);
+        setLocation({
+          lat: currentuserLocationSessionData?.coordinates[1],
+          lng: currentuserLocationSessionData?.coordinates[0]
+        });
+        setAddress(currentuserLocationSessionData?.name);
+      } else {
+        setLocation(null);
+        setAddress(null)
+      }
+    };
+    // Listen for changes in storage
+    window.addEventListener('storage', handleLocationChange);
+    return () => {
+      window.removeEventListener('storage', handleLocationChange)
+    }
+  }, [setAddress, setLocation])
   const handleSelect = useCallback(
     async (address: string) => {
       setValue("", false);
@@ -58,7 +84,7 @@ const GoogleLocation = ({ setIsExpanded }: { setIsExpanded: (value: boolean) => 
         };
 
         if(userCurrentlocation) {
-          saveLocationToSession(userCurrentlocation)
+          sessionStorage.setItem('userLocationInfo', JSON.stringify(userCurrentlocation));
           setIsExpanded(true); // Expand when location is selected
         }
       } catch (error) {
@@ -75,7 +101,7 @@ const GoogleLocation = ({ setIsExpanded }: { setIsExpanded: (value: boolean) => 
     }),
     [cartItem]
   );
-
+  
   // Effect to calculate distance only when location and provider service location are available
   useEffect(() => {
     if (
@@ -131,7 +157,7 @@ const GoogleLocation = ({ setIsExpanded }: { setIsExpanded: (value: boolean) => 
               };
 
               if(userCurrentlocation) {
-                saveLocationToSession(userCurrentlocation)
+                sessionStorage.setItem('userLocationInfo', JSON.stringify(userCurrentlocation));
               }
 
             } else if (!results) {

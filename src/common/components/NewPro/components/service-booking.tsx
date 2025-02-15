@@ -6,13 +6,14 @@ import { useLoadScript } from "@react-google-maps/api";
 import "../styles/service-booking.css";
 import { Button } from "../../ui/button";
 import { useCart } from "../context/CartContext";
-import type { IAddon } from "src/common/types";
+import type { CartItem, IAddon, ILocation, IUserProfile } from "src/common/types";
 import type { Page } from "../types/types";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
+  DialogTitle,
 } from "src/magicUi/ui/dialog";
 import { WorkingDaysCalendar } from "./WorkingDaysCalendar";
 import GoogleLocation from "./LocationFetcher";
@@ -20,11 +21,6 @@ import type { RootState } from "src/common/store/store";
 import { updatedLocationFound } from "../dataSlice";
 import StickyBar from "./StickyBar";
 import LoginPage from "./Login";
-import {
-  getCartFromStorage,
-  clearLocation,
-  getLocationFromSession,
-} from "src/common/utils/sessionUtlis";
 import { CartItems } from "./CartItems";
 import Loader from "../../Loader";
 import { useCreatePorject } from "src/common/api/createProject";
@@ -38,33 +34,38 @@ const MemoizedWorkingDaysCalendar = React.memo(WorkingDaysCalendar);
 const MemoizedGoogleLocation = React.memo(GoogleLocation);
 
 export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [orderPlaceText, setOrderPlaceText] = useState(
     sessionStorage.getItem("userInfo") ? "Place Order" : "Login User"
   );
-  const [isOpen, setIsOpen] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
+
   const dispatch = useDispatch();
+  const { cartItem, removeFromCart, addAddon } = useCart();
+  const { projectCreation, loading, projectInfo } = useCreatePorject();
+  const addonsInCart = cartItem?.addons || [];
   const { isLocationFound, text } = useSelector(
     (state: RootState) => state.data
   );
-  const { cartItem, removeFromCart, addAddon } = useCart();
-  const addonsInCart = cartItem?.addons || [];
-  const userSessionData: any = sessionStorage.getItem("userInfo")
-  const cartSessionData = getCartFromStorage();
-  const userLocationSessionData = getLocationFromSession();
-  const { projectCreation, loading } = useCreatePorject();
 
-  const projectPlaceHandler = () => {
-    setIsOpen(!isOpen);
-    removeFromCart();
-  };
+  //get data from session
+  const cartSessionData: CartItem | null = sessionStorage.getItem('cartInfo') ?
+  JSON.parse(sessionStorage.getItem('cartInfo') as string)
+  : null;
+
+  const userLocationSessionData: ILocation | null = sessionStorage.getItem     ('userLocationInfo') ? JSON.parse(sessionStorage.getItem('userLocationInfo') as string) 
+  : null;
+
+  const userSessionData: IUserProfile | null = sessionStorage.getItem("userInfo") ? JSON.parse(sessionStorage.getItem('userLocationInfo') as string) 
+  : null;
+
+  console.log('===projectInfo outside',projectInfo);
 
   useEffect(() => {
     const handleUserChange = () => {
       const userSessionData = sessionStorage.getItem("userInfo");
       setOrderPlaceText(userSessionData ? "Place Order" : "Login User");
-    };
-  
+    };    
     window.addEventListener("storage", handleUserChange);
     return () => window.removeEventListener("storage", handleUserChange);
   }, []);
@@ -73,6 +74,12 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
     setOrderPlaceText(userSessionData ? "Place Order" : "Login User")
   }, [userSessionData]);
   
+  const projectPlaceHandler = () => {
+    setIsOpen(!isOpen);
+    sessionStorage.removeItem('cartInfo');
+    sessionStorage.removeItem('userLocationInfo');
+    window.location.reload();
+  };
 
   // Load the Google Maps script and Places library
   const { isLoaded } = useLoadScript({
@@ -111,7 +118,7 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
     ) {
       dialogContent = (
         <Dialog open={isOpen} onOpenChange={() => setIsOpen(!isOpen)}>
-          <DialogContent className="bg-white" style={{ height: "250px" }}>
+          <DialogContent className="h-fit bg-white error-message">
             <DialogHeader>
               <DialogDescription>
                 Please select Date and Time for Hassle-Free Service
@@ -122,19 +129,19 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
       );
     }
     // If userSessionData is available and date/time are selected
-    else if (userSessionData) {
+    else if (projectInfo) {
       dialogContent = (
         <Dialog open={isOpen} onOpenChange={projectPlaceHandler}>
-          <DialogContent className="bg-white" style={{ height: "250px" }}>
+          <DialogContent className="h-fit bg-white">
             <DialogHeader>
-              <DialogDescription className="text-center font-bold text-lg">
+              <DialogDescription className="text-center font-bold text-md sm:text-lg mt-2.5">
                 Thankyou, your order has been placed.
               </DialogDescription>
-              <DialogDescription className="text-center font-semibold text-lg">
+              <DialogDescription className="text-center font-semibold sm:font-normal text-md sm:text-lg">
                 For tracking your order, Please download the App.
               </DialogDescription>
               <DialogDescription>
-                <div className="flex flex-row justify-around items-center space-y-3 mt-8">
+                <div className="flex flex-row justify-around items-center space-y-3 mt-4">
                   <div>
                     <a
                       href="https://apps.apple.com"
@@ -204,6 +211,7 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
 
         // Perform the asynchronous project creation
         await projectCreation(orderPlacePayload);
+
       }
     } catch (error) {
       console.log("===project creation error", error);
@@ -216,11 +224,12 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
 
   const changeLocationHandler = () => {
     dispatch(updatedLocationFound(false));
-    const previousLocation = getLocationFromSession();
+    const previousLocation: ILocation | null = sessionStorage.getItem           ('userLocationInfo') ? JSON.parse(sessionStorage.getItem('userLocationInfo') as string) 
+    : null;
 
     // clear location to save new location
     if (previousLocation) {
-      clearLocation();
+      sessionStorage.removeItem('userLocationInfo');
     }
     setIsExpanded(false); // Collapse when changing location
   };
@@ -367,16 +376,35 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
           </section>
         </main>
       </div>
-      <div className="sticky-bar">
-        {isLocationFound && cartItem && (
-          <StickyBar
-            toggleSidebar={ToggleLoginSidebar}
-            elementId={"circle-profile-image"}
-            buttonName={orderPlaceText}
-          />
-        )}
-        {showLoginDialog()}
-      </div>
+        <div className="sticky-bar">
+          {loading ? (
+            <Dialog open={isOpen} onOpenChange={() => setIsOpen(!isOpen)}>
+              <DialogContent className="bg-white">
+              <DialogHeader>
+                <DialogTitle>
+                  <div>
+                    <img
+                      className="logo mx-auto mb-2"
+                      src="/logo.png"
+                      alt="logo"
+                    />
+                  </div>
+                </DialogTitle>
+              </DialogHeader>
+              <Loader isLoading={loading} />
+            </DialogContent>
+            </Dialog>
+          ) : (
+            (isLocationFound && cartItem && (
+              <StickyBar
+                toggleSidebar={ToggleLoginSidebar}
+                elementId={"circle-profile-image"}
+                buttonName={orderPlaceText}
+              />
+            ))
+          )}
+          {showLoginDialog()}
+        </div>
     </div>
   );
 }

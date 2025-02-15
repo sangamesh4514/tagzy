@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { IUserProfile } from "../types";
-import { clearCart, clearLocation } from "../utils/sessionUtlis";
 
 interface LoginData {
   phoneNumber: string;
@@ -54,6 +53,7 @@ export function useUserLogin() {
   const verifyOtp = async (loginData: LoginData) => {
     setLoadingLogin(true);
     setError(null);
+
     try {
       const config = {
         headers: {
@@ -86,8 +86,9 @@ export function useUserLogin() {
 
   const userLogout = () => {
     sessionStorage.removeItem('userInfo');
-    clearLocation();
-    clearCart();
+    sessionStorage.removeItem('userLocation');
+    sessionStorage.removeItem('cartInfo');
+    sessionStorage.removeItem('projectInfo')
     window.location.reload();
   }
 

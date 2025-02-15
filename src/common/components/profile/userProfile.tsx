@@ -6,14 +6,13 @@ import {
 } from "src/magicUi/ui/dialog";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { IUserProfile } from "src/common/types";
+import { CartItem, IUserProfile } from "src/common/types";
 import NewPro from "../NewPro";
 import Header from "../Header";
 import Footer from "../Footer";
 import userDataJson from "./data.json";
 import { useAppDispatch } from "src/common/hooks/hook";
 import { setMobileNumber } from "src/common/utils/providerProfile/providerProfileSlice";
-import { clearCart, clearLocation, getCartFromStorage, getLocationFromSession } from "src/common/utils/sessionUtlis";
 
 const ProProfile: React.FC = () => {
   const { userId } = useParams<{ userId: string }>(); // Extract userId from the URL
@@ -31,27 +30,37 @@ const ProProfile: React.FC = () => {
           throw new Error("Failed to fetch user data");
         }
         const data: IUserProfile = await response.json();
-        setUserData(data);
-        dispatch(setMobileNumber(data.phoneNumber));
-
-        // Re-fetch cart and location session data to ensure they're current
-        const currentCartSessionData = getCartFromStorage();
-        const currentUserLocationSessionData = getLocationFromSession();
-
-        // clear cart from session if provider profile changes
-        if (currentCartSessionData && currentUserLocationSessionData) {
-          clearCart();
-          clearLocation();
+  
+        if (data) {
+          setUserData(data);
+          dispatch(setMobileNumber(data.phoneNumber));
+        }
+  
+        // ** Fetch the latest cart session data ** (instead of using stale state)
+        const currentCartSessionData: CartItem | null = sessionStorage.getItem("cartInfo")
+          ? JSON.parse(sessionStorage.getItem("cartInfo") as string)
+          : null;
+  
+        // ** Fix: Compare the latest cart data, not the stale one **
+        if (
+          currentCartSessionData &&
+          data._id === currentCartSessionData.service?.proId
+        ) {
+          sessionStorage.removeItem("userLocationInfo");
+        } else {
+          sessionStorage.removeItem("cartInfo");
+          sessionStorage.removeItem("userLocationInfo");
         }
       } catch (error) {
+        console.error("Error fetching user data:", error);
         setUserData(userDataJson);
       } finally {
         setLoading(false);
       }
     };
-
+  
     fetchUserData();
-  }, [userId, dispatch]);
+  }, [userId, dispatch]); // **No cartSessionData in dependencies to avoid stale data**
 
   if (loading) {
     return (

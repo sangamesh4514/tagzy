@@ -1,7 +1,9 @@
-import { getLocationFromSession } from 'src/common/utils/sessionUtlis';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ILocation } from 'src/common/types';
 
-const savedLocation = getLocationFromSession()
+const savedLocation: ILocation | null = sessionStorage.getItem            ('userLocationInfo') ? JSON.parse(sessionStorage.getItem('userLocationInfo') as string) 
+: null;
+
 interface DataState {
   isLocationFound: boolean;
   text: string;

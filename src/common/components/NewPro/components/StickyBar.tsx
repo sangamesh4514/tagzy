@@ -2,13 +2,12 @@
 import React, { useEffect, useState } from "react";
 import "../styles/StickyBar.css";
 import { useCart } from "../context/CartContext";
-// import { Page } from "../types/types";
 
 interface StickyBarProps {
   // setActivePage: (page: Page) => void;
   elementId: string;
   toggleSidebar: () => void;
-  buttonName: String | undefined;
+  buttonName: String | React.ReactNode;
 }
 
 const StickyBar: React.FC<StickyBarProps> = ({ elementId, toggleSidebar, buttonName }) => {
@@ -75,7 +74,7 @@ const StickyBar: React.FC<StickyBarProps> = ({ elementId, toggleSidebar, buttonN
           </p>
           <p className="item-price">Total: ₹{totalAmount}</p>
         </div>
-
+        
         <div className="mt-2.5">
           <button className="cart-button" onClick={() => toggleSidebar()}>
             {buttonName}
