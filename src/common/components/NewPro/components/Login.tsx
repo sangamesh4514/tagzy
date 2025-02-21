@@ -38,7 +38,7 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
   const [showDialog, setShowDialog] = useState<boolean>(false);
   const countDownRef = useRef<NodeJS.Timeout | null>(null);
   const autoConfirmRef = useRef<NodeJS.Timeout | null>(null);
-  const dialogOpenRef = useRef<NodeJS.Timeout | null>(null)
+  const dialogOpenRef = useRef<NodeJS.Timeout | null>(null);
 
   const providerNumber = useAppSelector(
     (state) => state.providerNumber.mobileNumber
@@ -49,24 +49,32 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
 
   useEffect(() => {
     //get session data
-    const currentCartSessionData: CartItem | null = sessionStorage.getItem("cartInfo")
+    const currentCartSessionData: CartItem | null = sessionStorage.getItem(
+      "cartInfo"
+    )
       ? JSON.parse(sessionStorage.getItem("cartInfo") as string)
-    : null;
+      : null;
     const currentUserSessionData: IUserProfile | null = sessionStorage.getItem(
       "userInfo"
     )
       ? JSON.parse(sessionStorage.getItem("userInfo") as string)
       : null;
-    
-    const currentuserLocationSessionData: ILocation | null = sessionStorage.getItem(
-      "userLocationInfo"
-    )
-      ? JSON.parse(sessionStorage.getItem("userLocationInfo") as string)
-    : null;
 
-    console.log('===currentuserLocationSessionData in from Login', currentuserLocationSessionData);
+    const currentuserLocationSessionData: ILocation | null =
+      sessionStorage.getItem("userLocationInfo")
+        ? JSON.parse(sessionStorage.getItem("userLocationInfo") as string)
+        : null;
 
-    if (currentUserSessionData && currentCartSessionData && currentuserLocationSessionData) {
+    console.log(
+      "===currentuserLocationSessionData in from Login",
+      currentuserLocationSessionData
+    );
+
+    if (
+      currentUserSessionData &&
+      currentCartSessionData &&
+      currentuserLocationSessionData
+    ) {
       try {
         const orderPlacePayload = transformOrderPlacePayload(
           currentCartSessionData,
@@ -86,7 +94,7 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
         autoConfirmRef.current = setTimeout(async () => {
           await projectCreation(orderPlacePayload);
         }, 4000);
-        
+
         // Thank-you dialog open after 3.5 seconds
         dialogOpenRef.current = setTimeout(() => {
           setShowDialog(true);
@@ -109,8 +117,7 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
       setOTP(["", "", "", ""]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loginInfo, error, setError, ]);
-
+  }, [loginInfo, error, setError]);
 
   const handleMobileSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -203,9 +210,9 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
 
   const projectPlaceHandler = () => {
     onClose();
-    sessionStorage.removeItem('cartInfo');
-    sessionStorage.removeItem('userLocationInfo');
-    window.location.reload()
+    sessionStorage.removeItem("cartInfo");
+    sessionStorage.removeItem("userLocationInfo");
+    window.location.reload();
   };
 
   // thankyou dailog
@@ -260,10 +267,13 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
 
   return (
     <>
-      <Dialog open={isOpen} onOpenChange={() => {
-        onClose();
-        setError(null)
-      }}>
+      <Dialog
+        open={isOpen}
+        onOpenChange={() => {
+          onClose();
+          setError(null);
+        }}
+      >
         {loginInfo === null ? (
           <DialogContent className="bg-white">
             <DialogHeader>
@@ -377,53 +387,52 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
             </div>
           </DialogContent>
         ) : loading ? (
-              //loader
-              <DialogContent className="bg-white">
-                <DialogHeader>
-                  <DialogTitle>
-                    <div>
-                      <img
-                        className="logo mx-auto mb-2"
-                        src="/logo.png"
-                        alt="logo"
-                      />
-                    </div>
-                  </DialogTitle>
-                </DialogHeader>
-                <Loader isLoading={loading} />
-              </DialogContent>
-            ) : (
-              //cancel order dialog
-              <DialogContent className="bg-white">
-                <DialogHeader>
-                  <DialogTitle>
-                    <div>
-                      <img
-                        className="logo mx-auto mb-2"
-                        src="/logo.png"
-                        alt="logo"
-                      />
-                    </div>
-                  </DialogTitle>
-                </DialogHeader>
-                <div className="order-dialog">
-                  <div className="order-dialog-text">
-                    Your service will booked in{" "}
-                    <span className="text-red-700">{timer}</span> seconds.
-                  </div>
-                  <div>
-                    <Button
-                      className="order-dialog-btn"
-                      onClick={cancelOrderHandler}
-                      variant={"outline"}
-                    >
-                      Cancel Order
-                    </Button>
-                  </div>
+          //loader
+          <DialogContent className="bg-white">
+            <DialogHeader>
+              <DialogTitle>
+                <div>
+                  <img
+                    className="logo mx-auto mb-2"
+                    src="/logo.png"
+                    alt="logo"
+                  />
                 </div>
-              </DialogContent>
-            )
-          }
+              </DialogTitle>
+            </DialogHeader>
+            <Loader isLoading={loading} />
+          </DialogContent>
+        ) : (
+          //cancel order dialog
+          <DialogContent className="bg-white">
+            <DialogHeader>
+              <DialogTitle>
+                <div>
+                  <img
+                    className="logo mx-auto mb-2"
+                    src="/logo.png"
+                    alt="logo"
+                  />
+                </div>
+              </DialogTitle>
+            </DialogHeader>
+            <div className="order-dialog">
+              <div className="order-dialog-text">
+                Your service will booked in{" "}
+                <span className="text-red-700">{timer}</span> seconds.
+              </div>
+              <div>
+                <Button
+                  className="order-dialog-btn"
+                  onClick={cancelOrderHandler}
+                  variant={"outline"}
+                >
+                  Cancel Order
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        )}
       </Dialog>
     </>
   );

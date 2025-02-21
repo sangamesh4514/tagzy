@@ -39,6 +39,7 @@ export default function NewPro({ userProfile }: IProps) {
     services,
     phoneNumber,
     address,
+    
   } = userProfile;
 
   const date = new Date(createdAt);

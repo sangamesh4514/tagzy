@@ -55,7 +55,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   // Remove service from cart
   const removeFromCart = () => {
     setCartItem(null);
-    // sessionStorage.removeItem('cartInfo')
+    sessionStorage.removeItem('cartInfo')
   };
 
   // Add add-on with service

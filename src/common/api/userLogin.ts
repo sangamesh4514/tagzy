@@ -85,10 +85,9 @@ export function useUserLogin() {
   };
 
   const userLogout = () => {
-    sessionStorage.removeItem('userInfo');
+    sessionStorage.removeItem('userInfo'); // login 
     sessionStorage.removeItem('userLocation');
     sessionStorage.removeItem('cartInfo');
-    sessionStorage.removeItem('projectInfo')
     window.location.reload();
   }
 

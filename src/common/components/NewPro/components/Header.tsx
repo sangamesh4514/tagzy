@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles/Header.css";
 import { Page } from "../types/types";
-import {  MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
 import CountUp from "react-countup";
 import VerifiedMark from "src/assets/icons/VerifiedMark";
 
@@ -21,6 +21,11 @@ interface HeaderProps {
   setActivePage: (page: Page) => void;
 }
 
+export interface NumberBannerProps {
+  experience: number | undefined;
+  accountCreated: string | undefined;
+}
+
 export function Header({
   activePage,
   setActivePage,
@@ -35,7 +40,7 @@ export function Header({
     // categoryType,
     experience,
   } = userProfile;
-  const subscribers = 3487;
+  // const subscribers = 3487;
 
   return (
     <header className="pro-header">
@@ -57,8 +62,49 @@ export function Header({
               {location}
             </p>
           </div>
-          <div className="stats-container" id="counterContainer">
-            <div className="stat">
+          <NumberBanner
+            experience={experience}
+            accountCreated={accountCreated}
+          />
+        </div>
+      </div>
+
+      <nav className="navigation">
+        <>
+          <button
+            className={`nav-button ${
+              activePage === "services" ? "active" : ""
+            }`}
+            onClick={() => setActivePage("services")}
+          >
+            Services
+          </button>
+          <button
+            className={`nav-button ${activePage === "about" ? "active" : ""}`}
+            onClick={() => setActivePage("about")}
+          >
+            About
+          </button>
+          <button
+            className={`nav-button ${activePage === "basket" ? "active" : ""}`}
+            onClick={() => setActivePage("basket")}
+          >
+            Basket
+          </button>
+        </>
+      </nav>
+    </header>
+  );
+}
+
+export const NumberBanner: React.FC<NumberBannerProps> = ({
+  experience,
+  accountCreated,
+}) => {
+  console.log("=== hdghehd");
+  return (
+    <div className="stats-container" id="counterContainer">
+      {/* <div className="stat">
               <div className="icon-section">
                 <span className="icon">👥</span>
               </div>
@@ -67,77 +113,28 @@ export function Header({
                 <div className="content-section-label">Service Booked</div>
               </div>
             </div>
-            <div className="separator"></div>
+            <div className="separator"></div> */}
 
-            <div className="stat">
-              <div className="icon-section">
-                <span className="icon">💼</span>
-              </div>
-              <div className="content-section">
-                <CountUp className="value" end={experience || 1} duration={2} />
-                <div className="content-section-label">Experience</div>
-              </div>
-            </div>
-            <div className="separator"></div>
-
-            <div className="stat">
-              <div className="icon-section">
-                <span className="icon">
-                🗓️  
-                {/* <Calendar className="h-4 w-4" /> */}
-                </span>
-              </div>
-              <div className="content-section">
-                <span className="account-creation">{accountCreated}</span>
-                <div className="content-section-label">Member Since</div>
-              </div>
-            </div>
-          </div>
+      <div className="stat">
+        <div className="icon-section">
+          <span className="icon">💼</span>
+        </div>
+        <div className="content-section">
+          <CountUp className="value" end={experience || 1} duration={2} />
+          <div className="content-section-label">Experience</div>
         </div>
       </div>
+      <div className="separator"></div>
 
-      <nav className="navigation">
-        {/* {activePage === "login" ? (
-          <span className="nav-button active">Login</span>
-        ) : activePage === "checkout" ? (
-          <span className="nav-button active">Checkout</span>
-        ) : ( */}
-          <>
-            <button
-              className={`nav-button ${
-                activePage === "services" ? "active" : ""
-              }`}
-              onClick={() => setActivePage("services")}
-            >
-              Services
-            </button>
-            <button
-              className={`nav-button ${activePage === "about" ? "active" : ""}`}
-              onClick={() => setActivePage("about")}
-            >
-              About
-            </button>
-            <button
-              className={`nav-button ${activePage === "basket" ? "active" : ""}`}
-              onClick={() => setActivePage("basket")}
-            >
-              Basket
-            </button>
-            {/* <button
-              className={`nav-button ${activePage === "login" ? "active" : ""}`}
-              onClick={() => setActivePage("login")}
-            >
-              login
-            </button> */}
-            {/* <button
-              className={`nav-button ${activePage === "checkout" ? "active" : ""}`}
-              onClick={() => setActivePage("checkout")}
-            >
-              checkout
-            </button> */}
-          </>
-        {/* )} */}
-      </nav>
-    </header>
+      <div className="stat">
+        <div className="icon-section">
+          <span className="icon">🗓️</span>
+        </div>
+        <div className="content-section">
+          <span className="account-creation">{accountCreated}</span>
+          <div className="content-section-label">Member Since</div>
+        </div>
+      </div>
+    </div>
   );
-}
+};
