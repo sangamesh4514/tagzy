@@ -101,7 +101,7 @@ export const NumberBanner: React.FC<NumberBannerProps> = ({
   experience,
   accountCreated,
 }) => {
-  console.log("=== hdghehd");
+  // console.log("=== hdghehd");
   return (
     <div className="stats-container" id="counterContainer">
       {/* <div className="stat">

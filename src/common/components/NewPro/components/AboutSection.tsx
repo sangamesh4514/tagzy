@@ -1,5 +1,4 @@
 import { Mail, Phone } from "lucide-react";
-import { Badge } from "src/magicUi/ui/badge";
 import React from "react";
 import { languageCodeToName } from "src/common/constant";
 import Rating from "./rating-display";
@@ -60,14 +59,9 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
         <td>Languages</td>
         <td>
           {languages?.map((language, index) => (
-            <Badge
-              key={index}
-              variant="outline"
-              className="border-black text-black hover:bg-colorA hover:text-white"
-              style={{ marginRight: "1rem" }}
-            >
+            <div className="language" key={index}>
               {languageCodeToName[+language - 1]}
-            </Badge>
+            </div>
           ))}
         </td>
       </tr>

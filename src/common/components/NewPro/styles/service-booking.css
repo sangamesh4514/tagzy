@@ -5,15 +5,13 @@
   margin: 0 auto;
   z-index: 10;
   gap: 2rem;
-  /* min-height: 100vh; Ensures it takes up at least the full screen initially */
-  max-height: auto; /* Allows it to shrink when there's less content */
-  overflow-y: auto;
+  min-height: auto;
   box-sizing: border-box;
 }
 
 .service-booking.expanded {
-  height: 100vh; /* Full height when extra content is added */
-  overflow-y: auto; /* Enables scrolling */
+  height: auto; /* Full height when extra content is added */
+  /* overflow-y: auto; Enables scrolling */
 }
 
 .service-booking-header {
@@ -66,7 +64,7 @@
 .service-section,
 .addons-section,
 .related-addons {
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
 }
 
 .service-card-cart {
@@ -439,10 +437,6 @@
     gap: 0.5rem;
   }
 
-  .sticky-bar{
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-  }
   .sticky-bar-image img {
     width: 50px;
     height: 50px;

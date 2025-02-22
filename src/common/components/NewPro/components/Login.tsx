@@ -65,11 +65,6 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
         ? JSON.parse(sessionStorage.getItem("userLocationInfo") as string)
         : null;
 
-    console.log(
-      "===currentuserLocationSessionData in from Login",
-      currentuserLocationSessionData
-    );
-
     if (
       currentUserSessionData &&
       currentCartSessionData &&
@@ -109,12 +104,6 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
       } catch (error) {
         console.error("Error parsing session user info:", error);
       }
-    }
-
-    if (error) {
-      setMobileNumber("");
-      setShowOTP(false);
-      setOTP(["", "", "", ""]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginInfo, error, setError]);
@@ -166,6 +155,14 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ isOpen, onClose }) => {
         `input[name='otp-${index + 1}']`
       );
       nextInput?.focus();
+    } 
+
+    //Auto foucs to previous input if value deletes
+    if(value === "" && index > 0) {
+      const prevInput = document.querySelector<HTMLInputElement>(
+        `input[name='otp-${index - 1}']`
+      );
+      prevInput?.focus();
     }
   };
 
