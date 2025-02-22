@@ -3,6 +3,7 @@ import { Trash2, Plus, Minus } from "lucide-react";
 import type { IAddon } from "src/common/types";
 import { useCart } from "../context/CartContext";
 import EmptyCart from "src/assets/icons/EmptyCart";
+import "../styles/CartItem.css"
 
 interface CartItemsProps {
   cartItem: any; // Replace 'any' with the actual type of cartItem
@@ -25,7 +26,7 @@ export const CartItems: React.FC<CartItemsProps> = ({
         </div>
         <div>
           <button
-            className="header-button border-solid border-2 hover:border-red-800 hover:text-red-800"
+            className="header-button"
             onClick={removeFromCart}
           >
             <span>Clear Cart</span>{" "}

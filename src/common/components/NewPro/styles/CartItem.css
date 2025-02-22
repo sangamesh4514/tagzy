@@ -1,0 +1,22 @@
+.header-button {
+    border: 2px solid #096c6c;
+    padding: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: border-color 0.3s, color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+  
+.header-button:hover {
+    border-color: red; /* Tailwind's red-900 */
+    color: red;
+}
+  
+.cart-icon {
+    width: 24px; /* w-6 */
+    height: 24px; /* h-6 */
+    vertical-align: middle;
+}
+  

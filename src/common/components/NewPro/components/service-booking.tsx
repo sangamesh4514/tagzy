@@ -59,8 +59,6 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
   const userSessionData: IUserProfile | null = sessionStorage.getItem("userInfo") ? JSON.parse(sessionStorage.getItem('userLocationInfo') as string) 
   : null;
 
-  console.log('===projectInfo outside',projectInfo);
-
   useEffect(() => {
     const handleUserChange = () => {
       const userSessionData = sessionStorage.getItem("userInfo");
