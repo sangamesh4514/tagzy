@@ -146,9 +146,6 @@
 
 @media (max-width: 640px) {
   .summary-container {
-    /* margin: 1rem auto;
-    min-height: 600px;
-    overflow-y: auto; */
     background: rebeccapurple;
   }
 

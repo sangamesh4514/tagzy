@@ -373,7 +373,7 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
             )}
           </section>
         </main>
-      </div>
+      
         <div className="sticky-bar">
           {loading ? (
             <Dialog open={isOpen} onOpenChange={() => setIsOpen(!isOpen)}>
@@ -403,6 +403,7 @@ export default function ServiceBooking({ setActivePage }: ServiceBookingProps) {
           )}
           {showLoginDialog()}
         </div>
+      </div>
     </div>
   );
 }
