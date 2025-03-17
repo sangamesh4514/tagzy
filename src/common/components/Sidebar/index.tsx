@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AlignJustify } from "lucide-react";
 import UserSearch from "../User Search";
-import Createtags from "../Create Tgas";
+import Createtags from "../Tags";
 import Analytics from "../Analytics";
 import BlankScreen from "../ui/BlankScreen";
 import { useAppDispatch } from "../../hooks/hook";
