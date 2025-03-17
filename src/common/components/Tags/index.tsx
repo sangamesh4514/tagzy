@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import {
   Alert,
@@ -49,11 +49,7 @@ const CreateTags = () => {
     severity: "error" | "warning" | "info" | "success";
   }>({ open: false, message: "", severity: "error" });
 
-  useEffect(() => {
-    fetchTags();
-  }, []);
-
-  const fetchTags = async () => {
+  const fetchTags = useCallback(async () => {
     setLoading(true);
     try {
       const { data } = await axios.get(`${API_URL}/all`);
@@ -61,9 +57,14 @@ const CreateTags = () => {
       setTags(data);
     } catch (error) {
       console.error("Error fetching tags:", error);
+      
     }
     setLoading(false);
-  };
+  }, []); // Empty dependency array for useCallback
+
+  useEffect(() => {
+    fetchTags();
+  }, [fetchTags]);
 
   const handleCreate = async () => {
     
